@@ -40,6 +40,7 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - name: determine-type
         id: determine-type
         env:
@@ -48,7 +49,6 @@ jobs:
           echo "typeIsApko=${{ endsWith(fromJSON(toJSON(matrix)).source, 'image.yaml') }}" >> $GITHUB_OUTPUT
           echo "typeIsDocker=${{ endsWith(fromJSON(toJSON(matrix)).source, 'Dockerfile') }}" >> $GITHUB_OUTPUT
           echo "dockerContext=$(dirname $(realpath $SOURCE))" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - uses: GeoNet/chainguard-dev-actions/setup-melange@c1773c35e73af78f72f606c002e9819cd737984d # main
         if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
@@ -112,7 +112,7 @@ jobs:
         if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' }}
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671 # v4.0.0
         with:
-          push: true
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ fromJSON(toJSON(matrix)).destination }}
           context: ${{ steps.determine-type.outputs.dockerContext }}
           labels: |
@@ -120,6 +120,7 @@ jobs:
             org.opencontainers.image.source=${{ github.repositoryUrl }}
       - name: crane get-digests
         id: get-digests
+        if: ${{ github.ref == 'refs/heads/main' }}
         env:
           DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
         run: |
@@ -130,22 +131,24 @@ jobs:
           ) | column -t
           echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
       - name: cosign sign image with a key
+        if: ${{ github.ref == 'refs/heads/main' }}
         env:
           COSIGN_YES: "true"
         run: |
           cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} -y
       - uses: anchore/sbom-action@4d571ad1038a9cc29d676154ef265ab8f9027042 # v0.14.2
         name: sbom generate
-        if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' }}
+        if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' && github.ref == 'refs/heads/main' }}
         with:
           image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }}
           artifact-name: sbom-spdx.json
           output-file: /tmp/sbom-spdx.json
       - name: cosign download unsigned sbom
-        if: ${{ steps.determine-type.outputs.typeIsDocker != 'true' }}
+        if: ${{ steps.determine-type.outputs.typeIsDocker != 'true' && github.ref == 'refs/heads/main' }}
         run: |
           cosign download sbom ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} > /tmp/sbom-spdx.json
       - name: cosign publish sbom blob as blob
+        if: ${{ github.ref == 'refs/heads/main' }}
         env:
           COSIGN_YES: "true"
         run: |
