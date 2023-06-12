@@ -1,0 +1,115 @@
+# NOTE refs
+# - https://github.blog/changelog/2020-04-15-github-actions-new-workflow-features/#new-fromjson-method-in-expressions
+# - https://stackoverflow.com/questions/59977364/github-actions-how-use-strategy-matrix-with-script
+
+name: sync
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * MON"
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  id-token: write
+  packages: write
+  security-events: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
+      - id: set
+        run: |
+          echo "matrix=$(jq '.sync' -r -c <<< "$(yq e . -o json config.yaml)")" >> $GITHUB_OUTPUT
+      - name: check output
+        run: |
+          jq . <<< '${{ steps.set.outputs.matrix }}'
+  sync:
+    if: ${{ fromJSON(needs.prepare.outputs.matrix) != null }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    outputs:
+      source: ${{ steps.get-digests.outputs.source }}
+      destination: ${{ steps.get-digests.outputs.destination }}
+    strategy:
+      matrix:
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+      - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
+      - uses: sigstore/cosign-installer@dd6b2e2b610a11fd73dd187a43d57cc1394e35f9 # v3.0.5
+      - name: get-digests
+        if: ${{ fromJSON(toJSON(matrix)).always != true }}
+        id: get-digests
+        env:
+          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+        run: |
+          SOURCE_DIGEST="$(crane digest "${SOURCE}" || true)"
+          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
+          (
+            echo "SOURCE-DIGEST DESTINATION-DIGEST"
+            echo "${SOURCE_DIGEST} ${DESTINATION_DIGEST}"
+          ) | column -t
+          echo "source=${SOURCE_DIGEST}" >> $GITHUB_OUTPUT
+          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
+      - name: copy
+        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true }}
+        env:
+          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+        run: |
+          crane cp $SOURCE $DESTINATION
+      - name: add source labels
+        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true }}
+        env:
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+        run: |
+          LABELS=(
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.repositoryUrl }}
+          )
+          for LABEL in "${LABELS[@]}"; do
+            crane mutate $DESTINATION --label "${LABEL}"
+          done
+      - name: get-synced-digests
+        id: get-synced-digests
+        env:
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+        run: |
+          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
+          (
+            echo "${SOURCE_DIGEST} ${DESTINATION_DIGEST}"
+          ) | column -t
+          HAS_SIGNATURES="$(cosign tree ${DESTINATION}@${DESTINATION_DIGEST} 2>&1 | grep -q 'Signatures for an image tag' && echo true || echo false)"
+          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
+          echo "has-signatures=${HAS_SIGNATURES}" >> $GITHUB_OUTPUT
+      - name: Clean signatures
+        if: ${{ fromJSON(toJSON(matrix)).always == true }}
+        run: |
+          cosign clean -f ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }}
+      - name: Sign image with a key
+        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+          COSIGN_YES: "true"
+        run: |
+          cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }} -y
+      - uses: anchore/sbom-action@4d571ad1038a9cc29d676154ef265ab8f9027042 # v0.14.2
+        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
+        with:
+          image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }}
+          artifact-name: sbom-spdx.json
+          output-file: /tmp/sbom-spdx.json
+      - name: publish sbom blob as blob
+        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
+        env:
+          COSIGN_YES: "true"
+        run: |
+          cosign attest --predicate /tmp/sbom-spdx.json ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }} -y
