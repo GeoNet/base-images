@@ -1,0 +1,21 @@
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/v3.17/main
+    - https://dl-cdn.alpinelinux.org/alpine/v3.17/community
+  packages:
+    - alpine-base
+    - busybox
+    - ca-certificates-bundle
+    - texlive
+    - texlive-doc
+    - texlive-luatex
+    - texlive-dvi
+    - xdvik
+    - py3-pygments
+
+entrypoint:
+  command: /bin/sh -c
+
+archs:
+- x86_64
+- aarch64

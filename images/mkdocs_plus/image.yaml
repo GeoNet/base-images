@@ -1,0 +1,53 @@
+# WIP
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/edge/main
+    - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    - https://dl-cdn.alpinelinux.org/alpine/edge/testing
+  packages:
+    - alpine-base
+    - bash
+    - ca-certificates-bundle
+    - python3
+    - py3-pip
+    - mkdocs
+    - mkdocs-material
+    - mkdocs-material-extensions
+    # - draw-io-desktop@local
+    - py3-babel
+    - py3-regex
+    - py3-babeltrace
+    - py3-beautifulsoup4
+    - py3-cairocffi
+    - py3-cairosvg
+    - py3-click
+    - py3-cparser
+    - py3-cssselect2
+    - py3-defusedxml
+    - py3-flask
+    - py3-gitdb2
+    - py3-gitpython
+    - py3-html5lib
+    - py3-jinja2
+    - py3-jupyterlab_pygments
+    - py3-livereload
+    - py3-markdown
+    - py3-markdown
+    - py3-markupsafe
+    - py3-pygments
+    - py3-pyphen
+    - py3-six
+    - py3-smmap2
+    - py3-soupsieve
+    - py3-tinycss2
+    - py3-tornado
+    - py3-tz
+    - py3-tzdata
+    - py3-webencodings
+
+entrypoint:
+  command: /bin/bash -c
+
+archs:
+- x86_64
+- aarch64

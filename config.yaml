@@ -1,0 +1,42 @@
+# TODO use chainguard images
+sync:
+  - source: alpine:3.18@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
+    destination: ghcr.io/geonet/docker-foundry/alpine:3.18 # latest alpine
+  - source: redhat/ubi8-minimal:8.8@sha256:621f5245fb3e8597a626163cdf1229e1f8311e07ab71bb1e9332014b51c59f9c
+    destination: ghcr.io/geonet/docker-foundry/ubi8-minimal:8.8
+  - source: datadog/agent:7@sha256:b9e11fd44fec2dc6f42d7d8eeafb29dc16bc185af37c395b9c3864b1402134d0
+    destination: ghcr.io/geonet/docker-foundry/datadog/agent:7
+  - source: debian:bullseye@sha256:432f545c6ba13b79e2681f4cc4858788b0ab099fc1cca799cc0fae4687c69070
+    destination: ghcr.io/geonet/docker-foundry/debian:bullseye
+  - source: hadolint/hadolint:v2.12.0-alpine@sha256:3c206a451cec6d486367e758645269fd7d696c5ccb6ff59d8b03b0e45268a199
+    destination: ghcr.io/geonet/docker-foundry/hadolint/hadolint:v2.12.0-alpine
+  - source: hashicorp/terraform:1.4@sha256:1ab70aa9b5dcc007d1d908c972405e2623490a51843a500682809013a4d21699
+    destination: ghcr.io/geonet/docker-foundry/hashicorp/terraform:1.4
+  - source: cgr.dev/chainguard/nginx:latest@sha256:8c05680b8a70b49013f9011cba5b50b26683e3360280a6065d30ef0cd8a50524
+    destination: ghcr.io/geonet/docker-foundry/nginx:latest
+  - source: node:16.17.1-alpine@sha256:4d68856f48be7c73cd83ba8af3b6bae98f4679e14d1ff49e164625ae8831533a # older node
+    destination: ghcr.io/geonet/docker-foundry/node:16.17.1-alpine
+  - source: node:20-alpine3.18@sha256:59ac6536ba03469adc3847f23a4f223b0418fba21c90168d703f61bd84125989 # latest node
+    destination: ghcr.io/geonet/docker-foundry/node:20-alpine3.18
+  - source: node:20-bullseye@sha256:14f0471d0478fbb9177d0f9e8c146dc872273dcdcfc7fea93a27ed81fc6b0e96
+    destination: ghcr.io/geonet/docker-foundry/node:bullseye
+  - source: node:stretch@sha256:7e6d5d50f05891e89443f463365e4f60093de12fbbb72c85f6a5fd06533b7fc7
+    destination: ghcr.io/geonet/docker-foundry/node:stretch
+  - source: python:3.11.3-bullseye@sha256:13927a8172d13b6cdc87f50bf0a38ff4eceef05262f83870c9f6474d16117687
+    destination: ghcr.io/geonet/docker-foundry/python:3.11.3-bullseye
+  - source: python:alpine3.16@sha256:9efc6e155f287eb424ede74aeff198be75ae04504b1e42e87ec9f221e7410f2d
+    destination: ghcr.io/geonet/docker-foundry/python:alpine3.16
+  - source: cgr.dev/chainguard/go:latest@sha256:829594acdbc0f50ea5cae9ae208224999c21d1ee3dfe8003b177814056a827f1
+    destination: ghcr.io/geonet/docker-foundry/go-scratch:latest
+
+build:
+  - source: ./images/mkdocs_plus/Dockerfile
+    destination: ghcr.io/geonet/docker-foundry/mkdocs_plus:latest
+    dockerOptions:
+      context: ./images/mkdocs_plus
+    sbom:
+      artifactName: mkdocs_plus
+  - source: ./images/git/image.yaml
+    destination: ghcr.io/geonet/docker-foundry/git:latest
+  - source: ./images/texlive/image.yaml
+    destination: ghcr.io/geonet/docker-foundry/texlive:latest
