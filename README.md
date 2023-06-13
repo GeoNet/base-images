@@ -1,3 +1,26 @@
+<!-- generate TOC using `go run sigs.k8s.io/mdtoc@latest --inplace README.md` -->
+<!-- toc -->
+- [base-images](#base-images)
+- [Purpose](#purpose)
+- [Features](#features)
+- [Layout](#layout)
+- [Usage](#usage)
+  - [Sync an image](#sync-an-image)
+  - [Build with apko](#build-with-apko)
+  - [Build with apko and Melange](#build-with-apko-and-melange)
+  - [Build with Docker](#build-with-docker)
+- [Tips](#tips)
+  - [What is an image ref?](#what-is-an-image-ref)
+  - [Obtaining a digest](#obtaining-a-digest)
+  - [Tagging built images](#tagging-built-images)
+  - [Verifying images](#verifying-images)
+  - [See the tree of attached signatures and SBOMs](#see-the-tree-of-attached-signatures-and-sboms)
+  - [View the SBOM in the attestation](#view-the-sbom-in-the-attestation)
+- [Tooling](#tooling)
+- [Patterns for discussion](#patterns-for-discussion)
+- [Good reads](#good-reads)
+<!-- /toc -->
+
 # base-images
 
 > pipelines to sync, build and scan containers that are vendored or built for GeoNet
