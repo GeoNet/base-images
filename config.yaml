@@ -3,24 +3,26 @@ sync:
   # - use an image with digest for the source (use `crane digest IMAGE_REF` to find it); ensuring the exact image is used and the tag can't be swapped underneath
   - source: docker.io/library/alpine:3.18@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
     destination: ghcr.io/geonet/base-images/alpine:3.18 # latest alpine
+  - source: docker.io/redhat/ubi8:8.8@sha256:a7143118671dfc61aca46e8ab9e488500495a3c4c73a69577ca9386564614c13
+    destination: ghcr.io/geonet/base-images/ubi8:8.8
   - source: docker.io/redhat/ubi8-minimal:8.8@sha256:621f5245fb3e8597a626163cdf1229e1f8311e07ab71bb1e9332014b51c59f9c
     destination: ghcr.io/geonet/base-images/ubi8-minimal:8.8
   - source: docker.io/datadog/agent:7@sha256:b9e11fd44fec2dc6f42d7d8eeafb29dc16bc185af37c395b9c3864b1402134d0
     destination: ghcr.io/geonet/base-images/datadog/agent:7
-  - source: docker.io/library/debian:bullseye@sha256:432f545c6ba13b79e2681f4cc4858788b0ab099fc1cca799cc0fae4687c69070
-    destination: ghcr.io/geonet/base-images/debian:bullseye
+  - source: docker.io/library/debian:bookworm-slim@sha256:d8f9d38c21495b04d1cca99805fbb383856e19794265684019bf193c3b7d67f9
+    destination: ghcr.io/geonet/base-images/debian:bookworm-slim
   - source: docker.io/hadolint/hadolint:v2.12.0-alpine@sha256:3c206a451cec6d486367e758645269fd7d696c5ccb6ff59d8b03b0e45268a199
     destination: ghcr.io/geonet/base-images/hadolint/hadolint:v2.12.0-alpine
-  - source: docker.io/hashicorp/terraform:1.4@sha256:1ab70aa9b5dcc007d1d908c972405e2623490a51843a500682809013a4d21699
-    destination: ghcr.io/geonet/base-images/hashicorp/terraform:1.4
+  - source: docker.io/hashicorp/terraform:1.5.0@sha256:9771ed388877ad208d596b895918b0ea068587e3f72a01ec0215cf972619df75
+    destination: ghcr.io/geonet/base-images/hashicorp/terraform:1.5.0
   - source: docker.io/library/node:16.17.1-alpine@sha256:4d68856f48be7c73cd83ba8af3b6bae98f4679e14d1ff49e164625ae8831533a # older node
     destination: ghcr.io/geonet/base-images/node:16.17.1-alpine
-  - source: docker.io/library/node:20-bullseye@sha256:14f0471d0478fbb9177d0f9e8c146dc872273dcdcfc7fea93a27ed81fc6b0e96
-    destination: ghcr.io/geonet/base-images/node:bullseye
-  - source: docker.io/library/python:3.11.3-bullseye@sha256:13927a8172d13b6cdc87f50bf0a38ff4eceef05262f83870c9f6474d16117687
-    destination: ghcr.io/geonet/base-images/python:3.11.3-bullseye
-  - source: docker.io/library/python:alpine3.16@sha256:9efc6e155f287eb424ede74aeff198be75ae04504b1e42e87ec9f221e7410f2d
-    destination: ghcr.io/geonet/base-images/python:alpine3.16
+  - source: docker.io/library/node:20.3-alpine3.18@sha256:30d5045fa5026abaed7439b62d51f73ac3efd1009496271d4c85fd83bb20144e # latest node
+    destination: ghcr.io/geonet/base-images/node:20.3-alpine3.18
+  - source: docker.io/library/python:3.11.4-bullseye@sha256:e76a365d3f3b37ad4cf4bae474a063883461b01e07e2f51cd7d9597fd455ee38
+    destination: ghcr.io/geonet/base-images/python:3.11.4-bullseye
+  - source: docker.io/library/python:3.11.4-alpine3.18@sha256:995c7fcdf9a10e0e1a4555861dac63436b456822a167f07b6599d4f105de6fa0
+    destination: ghcr.io/geonet/base-images/python:3.11.4-alpine3.18
   - source: cgr.dev/chainguard/go:latest@sha256:829594acdbc0f50ea5cae9ae208224999c21d1ee3dfe8003b177814056a827f1
     destination: ghcr.io/geonet/base-images/go-scratch:latest
   - source: cgr.dev/chainguard/static:latest@sha256:da9822ad6f973e40e24e75133b08ae874900766873ecd03e58f7f630ccea898c
