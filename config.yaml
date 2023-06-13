@@ -17,10 +17,10 @@ sync:
     destination: ghcr.io/geonet/base-images/node:16.17.1-alpine
   - source: docker.io/library/node:20-bullseye@sha256:14f0471d0478fbb9177d0f9e8c146dc872273dcdcfc7fea93a27ed81fc6b0e96
     destination: ghcr.io/geonet/base-images/node:bullseye
-  - source: docker.io/library/python:3.11.3-bullseye@sha256:13927a8172d13b6cdc87f50bf0a38ff4eceef05262f83870c9f6474d16117687
-    destination: ghcr.io/geonet/base-images/python:3.11.3-bullseye
-  - source: docker.io/library/python:alpine3.16@sha256:9efc6e155f287eb424ede74aeff198be75ae04504b1e42e87ec9f221e7410f2d
-    destination: ghcr.io/geonet/base-images/python:alpine3.16
+  - source: docker.io/library/python:3.11.4-bullseye@sha256:e76a365d3f3b37ad4cf4bae474a063883461b01e07e2f51cd7d9597fd455ee38
+    destination: ghcr.io/geonet/base-images/python:3.11.4-bullseye
+  - source: docker.io/library/python:3.11.4-alpine3.18@sha256:995c7fcdf9a10e0e1a4555861dac63436b456822a167f07b6599d4f105de6fa0
+    destination: ghcr.io/geonet/base-images/python:3.11.4-alpine3.18
   - source: cgr.dev/chainguard/go:latest@sha256:829594acdbc0f50ea5cae9ae208224999c21d1ee3dfe8003b177814056a827f1
     destination: ghcr.io/geonet/base-images/go-scratch:latest
   - source: cgr.dev/chainguard/static:latest@sha256:da9822ad6f973e40e24e75133b08ae874900766873ecd03e58f7f630ccea898c
