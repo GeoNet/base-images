@@ -31,6 +31,8 @@ sync:
     destination: ghcr.io/geonet/base-images/node:20
   - source: ghcr.io/geonet/base-images/mkdocs_plus:latest@sha256:d54c497b4ec5cce0c41b84e6afe5e4250c0b6ba499832ee977137f0f5e9c8a77
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
+  - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
+    destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
 
 build:
   # NOTES
