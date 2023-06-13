@@ -29,6 +29,8 @@ sync:
     destination: ghcr.io/geonet/base-images/nginx:latest
   - source: cgr.dev/chainguard/node:20@sha256:38dc35af8d4bd8f59c1d8b88999e7dee9746dcee0f375848fb9701f3b61564e5 # latest node
     destination: ghcr.io/geonet/base-images/node:20
+  - source: ghcr.io/geonet/base-images/mkdocs_plus:latest@ sha256:d54c497b4ec5cce0c41b84e6afe5e4250c0b6ba499832ee977137f0f5e9c8a77
+  - source: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
 
 build:
   # NOTES
