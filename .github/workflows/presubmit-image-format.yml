@@ -1,0 +1,60 @@
+name: presubmit image format
+on:
+  pull_request: {}
+  workflow_dispatch: {}
+jobs:
+  presubmit-image-format:
+    runs-on: ubuntu-latest
+    env:
+      TRUSTED_REGISTRIES: ghcr.io/geonet quay.io/geonet cgr.dev/chainguard docker.io ghcr.io/siderolabs
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
+      - name: validate source image format
+        env:
+          REGEX: ^([0-9a-z_./-]+){2,256}(:[a-z0-9.-]+)@(sha256:[0-9a-z]+)$
+        run: |
+          FAILURES=false
+          for IMAGE in $(jq -r -c '.sync[].source'  <<< "$(yq e . -o json config.yaml)"); do
+            FOUND_REGISTRY=false
+            for REGISTRY in $TRUSTED_REGISTRIES; do
+              if echo "$IMAGE" | grep -q -E "^$REGISTRY"; then
+                FOUND_REGISTRY=true
+              fi
+            done
+            if ! echo "$IMAGE" | grep -q -E "$REGEX"; then
+              echo "WARNING: image not expected format: $IMAGE"
+              FAILURES=true
+            elif [ "$FOUND_REGISTRY" = false ]; then
+              echo "WARNING: image not in trusted registry: $IMAGE"
+              FAILURES=true
+            else
+              echo "check: image '$IMAGE' is valid"
+            fi
+          done
+          if [ "$FAILURES" = true ]; then
+            echo
+            echo "error: image must contain" >/dev/stderr
+            echo "  - FQDN for registry (e.g: $(echo $TRUSTED_REGISTRIES | sed 's/ /, /g'))" >/dev/stderr
+            echo "  - digest (i.e: IMAGE:TAG@sha256:DIGESTHERE)" >/dev/stderr
+            echo "use 'crane digest IMAGE_REF' to get it's digest (sha256:...)"
+          fi
+      - name: validate destination image format
+        env:
+          REGEX: ^([0-9a-z_./-]+){2,256}(:[a-z0-9.-]+).*
+        run: |
+          FAILURES=false
+          for IMAGE in $(jq -r -c '.sync[] | [.source, .destination] | .[]'  <<< "$(yq e . -o json config.yaml)"); do
+            if ! echo "$IMAGE" | grep -q -E "$REGEX"; then
+              echo "WARNING: image not expected format: $IMAGE"
+              FAILURES=true
+            else
+              echo "check: image '$IMAGE' is valid"
+            fi
+          done
+          if [ "$FAILURES" = true ]; then
+            echo
+            echo "error: image must contain" >/dev/stderr
+            echo "  - digest (i.e: IMAGE:TAG or IMAGE:TAG@sha256:DIGESTHERE)" >/dev/stderr
+            echo "use 'crane digest IMAGE_REF' to get it's digest (sha256:...)"
+          fi
