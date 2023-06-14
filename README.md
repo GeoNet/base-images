@@ -236,7 +236,7 @@ cosign tree IMAGE_REF
 
 ## View the SBOM in the attestation
 
-verify the attestation
+verify the attestation (raw base64 encoded JSON)
 ```shell
 cosign verify-attestation \
   --certificate-identity-regexp 'https://github.com/GeoNet/base-images/.github/workflows/(sync|build).yml@refs/heads/.*' \
@@ -246,7 +246,7 @@ cosign verify-attestation \
 
 since SBOMs are the predicate of a signed attestation instead of just uploaded, it requires an extra layer to retrieve their content
 ```shell
-cosign verify-attestation IMAGE_REF --certificate-identity-regexp 'https://github.com/GeoNet/base-images/.github/workflows/(sync|build.yml@refs/heads/.*' \
+cosign verify-attestation IMAGE_REF --certificate-identity-regexp 'https://github.com/GeoNet/base-images/.github/workflows/(sync|build).yml@refs/heads/.*' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com | jq -r .payload | base64 -d | jq -r .predicate.Data
 ```
 
