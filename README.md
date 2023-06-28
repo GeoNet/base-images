@@ -2,6 +2,7 @@
 <!-- toc -->
 - [base-images](#base-images)
 - [Purpose](#purpose)
+- [images](#images)
 - [Features](#features)
 - [Layout](#layout)
 - [Usage](#usage)
@@ -57,6 +58,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/texlive             | a latex image                                                                  |
 | ghcr.io/geonet/base-images/ubi8                | Red Hat Universal Base Image 8                                                 |
 | ghcr.io/geonet/base-images/ubi8-minimal        | Red Hat Universal Base Image 8 minimal                                         |
+| ghcr.io/geonet/base-images/centos              | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
 
 for tags, check [config.yaml](./config.yaml).
 

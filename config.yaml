@@ -35,7 +35,10 @@ sync:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
   - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
-
+  - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e
+    destination: ghcr.io/geonet/base-images/centos:centos7
+  - source: quay.io/centos/centos@sha256:80ffea818a560479195f4da6f862a28bb9f79dc241913ff9c694fc476677165e
+    destination: ghcr.io/geonet/base-images/centos:stream8
 build:
   # NOTES
   # - uses dirname of source as context for build
