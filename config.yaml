@@ -3,6 +3,8 @@ sync:
   # - use an image with digest for the source (use `crane digest IMAGE_REF` to find it); ensuring the exact image is used and the tag can't be swapped underneath
   - source: docker.io/library/alpine:3.18@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
     destination: ghcr.io/geonet/base-images/alpine:3.18 # latest alpine
+  - source: docker.io/library/centos:7@sha256:be65f488b7764ad3638f236b7b515b3678369a5124c47b8d32916d6487418ea4
+    destination: ghcr.io/geonet/base-images/centos:7
   - source: docker.io/redhat/ubi8:8.8@sha256:a7143118671dfc61aca46e8ab9e488500495a3c4c73a69577ca9386564614c13
     destination: ghcr.io/geonet/base-images/ubi8:8.8
   - source: docker.io/redhat/ubi8-minimal:8.8@sha256:621f5245fb3e8597a626163cdf1229e1f8311e07ab71bb1e9332014b51c59f9c

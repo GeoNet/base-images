@@ -55,6 +55,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/siderolabs-conform  | conform policy for pull request commits                     |
 | ghcr.io/geonet/base-images/static              | scratch with timezone and ca-certificate data pre-installed |
 | ghcr.io/geonet/base-images/texlive             | a latex image                                               |
+| ghcr.io/geonet/base-images/centos              | centos:7                                                    |
 | ghcr.io/geonet/base-images/ubi8                | Red Hat Universal Base Image 8                              |
 | ghcr.io/geonet/base-images/ubi8-minimal        | Red Hat Universal Base Image 8 minimal                      |
 
