@@ -25,7 +25,7 @@ jobs:
       - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - id: set
         run: |
-          echo "matrix=$(jq '.sync' -r -c <<< "$(yq e . -o json config.yaml)")" >> $GITHUB_OUTPUT
+          echo "matrix=$(jq '.sync | {"include":.}' -r -c <<< "$(yq e . -o json config.yaml)")" >> $GITHUB_OUTPUT
       - name: check output
         run: |
           jq . <<< '${{ steps.set.outputs.matrix }}'
@@ -37,8 +37,7 @@ jobs:
       source: ${{ steps.get-digests.outputs.source }}
       destination: ${{ steps.get-digests.outputs.destination }}
     strategy:
-      matrix:
-        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
