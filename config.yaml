@@ -52,5 +52,5 @@ build:
     destination: ghcr.io/geonet/base-images/git:latest
   - source: ./images/texlive/image.yaml
     destination: ghcr.io/geonet/base-images/texlive:latest
-  - source: ./images/chart-centos7/Dockerfile
-    destination: ghcr.io/geonet/base-images/chart-centos7:latest
+  - source: ./images/chart-alpine/image.yaml
+    destination: ghcr.io/geonet/base-images/chart-alpine:latest
