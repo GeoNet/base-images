@@ -37,7 +37,7 @@ sync:
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
   - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e
     destination: ghcr.io/geonet/base-images/centos:centos7
-  - source: quay.io/centos/centos@sha256:80ffea818a560479195f4da6f862a28bb9f79dc241913ff9c694fc476677165e
+  - source: quay.io/centos/centos:stream8@sha256:76dcf5724accefc182f93ef58c849a69fdbf937f9e94e7ab2230ab972d066d41
     destination: ghcr.io/geonet/base-images/centos:stream8
 build:
   # NOTES
