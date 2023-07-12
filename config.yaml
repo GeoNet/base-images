@@ -39,6 +39,8 @@ sync:
     destination: ghcr.io/geonet/base-images/centos:centos7
   - source: quay.io/centos/centos@sha256:59460e4360f0657a24ce56339b117f14ac236dd51e1cf33f30ed5725ba1b4429 # stream8 for 2023-07-12
     destination: ghcr.io/geonet/base-images/centos:stream8
+  - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
+    destination: ghcr.io/geonet/base-images/curl:8.1.2
 build:
   # NOTES
   # - uses dirname of source as context for build
