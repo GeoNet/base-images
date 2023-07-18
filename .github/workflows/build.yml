@@ -7,7 +7,7 @@ on:
   push:
     paths:
       - .github/workflows/build.yml
-      - 'images/**'
+      - "images/**"
       - config.yaml
   schedule:
     - cron: "0 0 * * MON"
@@ -67,6 +67,16 @@ jobs:
         if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
         with:
           signing-key-path: ${{ github.workspace }}/melange.rsa
+      - id: apko-options
+        env:
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+          REF: ${{ github.ref }}
+        run: |
+          TAG="$DESTINATION"
+          if [ ! "$REF" = "refs/heads/main" ]; then
+            TAG="${DESTINATION//ghcr.io\/geonet/localhost}"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
       - uses: GeoNet/chainguard-dev-actions/melange-build-pkg@c1773c35e73af78f72f606c002e9819cd737984d # main
         name: melange apk build
         if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
@@ -78,19 +88,36 @@ jobs:
       - uses: GeoNet/chainguard-images-actions/apko-publish@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
         id: build-with-signing-key
         name: apko build-with-signing-key
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref == 'refs/heads/main' }}
         with:
           tag: ${{ fromJSON(toJSON(matrix)).destination }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
           keyring-append: ${{ github.workspace }}/melange.rsa.pub
+      - uses: GeoNet/chainguard-images-actions/apko-build@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
+        id: build-with-signing-key-local
+        name: apko build-with-signing-key local
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref != 'refs/heads/main' }}
+        with:
+          tag: ${{ steps.apko-options.outputs.tag }}
+          config: ${{ fromJSON(toJSON(matrix)).source }}
+          source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
+          keyring-append: ${{ github.workspace }}/melange.rsa.pub
       # TODO fix temp hack to conditionally pass keyring-append to apko
       - uses: GeoNet/chainguard-images-actions/apko-publish@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && steps.determine-type.outputs.typeIsApko == 'true' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref == 'refs/heads/main' }}
         id: build
         name: apko build
         with:
           tag: ${{ fromJSON(toJSON(matrix)).destination }}
+          config: ${{ fromJSON(toJSON(matrix)).source }}
+          source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
+      - uses: GeoNet/chainguard-images-actions/apko-build@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref != 'refs/heads/main' }}
+        id: build-local
+        name: apko build local
+        with:
+          tag: ${{ steps.apko-options.outputs.tag }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
       # docker build
