@@ -40,28 +40,29 @@ The repo is mostly concerned with base images or images used in build processes.
 
 list of vendored base images
 
-| Image                                          | Description                                                                    |
-|------------------------------------------------|--------------------------------------------------------------------------------|
-| ghcr.io/geonet/base-images/alpine              | standard Alpine base image                                                     |
-| ghcr.io/geonet/base-images/datadog/agent       | datadog agent                                                                  |
-| ghcr.io/geonet/base-images/debian              | standard Debian slim image                                                     |
-| ghcr.io/geonet/base-images/git                 | Alpine with git installed                                                      |
-| ghcr.io/geonet/base-images/go                  | a minimal image for building Go applications                                   |
-| ghcr.io/geonet/base-images/hadolint/hadolint   | a Dockerfile linter                                                            |
-| ghcr.io/geonet/base-images/hashicorp/terraform | Terraform image                                                                |
-| ghcr.io/geonet/base-images/mkdocs_plus         | a custom build image for docs                                                  |
-| ghcr.io/geonet/base-images/nginx               | minimal nginx image                                                            |
-| ghcr.io/geonet/base-images/node                | Alpine based node image                                                        |
-| ghcr.io/geonet/base-images/python              | Alpine and Debian base Python images                                           |
-| ghcr.io/geonet/base-images/siderolabs-conform  | conform policy for pull request commits                                        |
-| ghcr.io/geonet/base-images/static              | scratch with timezone and ca-certificate data pre-installed. Great for Go apps |
-| ghcr.io/geonet/base-images/texlive             | a latex image                                                                  |
-| ghcr.io/geonet/base-images/ubi8                | Red Hat Universal Base Image 8                                                 |
-| ghcr.io/geonet/base-images/ubi8-minimal        | Red Hat Universal Base Image 8 minimal                                         |
-| ghcr.io/geonet/base-images/centos              | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
-| ghcr.io/geonet/base-images/chart-centos7       | Centos 7 base image updated to add extract packages needed for the chart app   |
-| ghcr.io/geonet/base-images/curl                | A minimal image only containing curl                                           |
-| ghcr.io/geonet/base-images/owasp/zap2docker-stable | An image to run OWASP's Zed Attack Proxy security web scanner              |
+| Image                                              | Description                                                                    |
+|----------------------------------------------------|--------------------------------------------------------------------------------|
+| ghcr.io/geonet/base-images/alpine                  | standard Alpine base image                                                     |
+| ghcr.io/geonet/base-images/datadog/agent           | datadog agent                                                                  |
+| ghcr.io/geonet/base-images/debian                  | standard Debian slim image                                                     |
+| ghcr.io/geonet/base-images/git                     | Alpine with git installed                                                      |
+| ghcr.io/geonet/base-images/go                      | a minimal image for building Go applications                                   |
+| ghcr.io/geonet/base-images/hadolint/hadolint       | a Dockerfile linter                                                            |
+| ghcr.io/geonet/base-images/hashicorp/terraform     | Terraform image                                                                |
+| ghcr.io/geonet/base-images/mkdocs_plus             | a custom build image for docs                                                  |
+| ghcr.io/geonet/base-images/nginx                   | minimal nginx image                                                            |
+| ghcr.io/geonet/base-images/node                    | Alpine based node image                                                        |
+| ghcr.io/geonet/base-images/python                  | Alpine and Debian base Python images                                           |
+| ghcr.io/geonet/base-images/siderolabs-conform      | conform policy for pull request commits                                        |
+| ghcr.io/geonet/base-images/static                  | scratch with timezone and ca-certificate data pre-installed. Great for Go apps |
+| ghcr.io/geonet/base-images/texlive                 | a latex image                                                                  |
+| ghcr.io/geonet/base-images/ubi8                    | Red Hat Universal Base Image 8                                                 |
+| ghcr.io/geonet/base-images/ubi8-minimal            | Red Hat Universal Base Image 8 minimal                                         |
+| ghcr.io/geonet/base-images/centos                  | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
+| ghcr.io/geonet/base-images/chart-centos7           | Centos 7 base image updated to add extract packages needed for the chart app   |
+| ghcr.io/geonet/base-images/curl                    | A minimal image only containing curl                                           |
+| ghcr.io/geonet/base-images/owasp/zap2docker-stable | An image to run OWASP's Zed Attack Proxy security web scanner                  |
+| ghcr.io/geonet/base-images/alpine-xslt             | Alpine with libxslt for XML parsing                                            |
 
 
 for tags, check [config.yaml](./config.yaml).

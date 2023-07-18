@@ -58,6 +58,8 @@ build:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:latest
   - source: ./images/git/image.yaml
     destination: ghcr.io/geonet/base-images/git:latest
+  - source: ./images/alpine-xslt/image.yaml
+    destination: ghcr.io/geonet/base-images/alpine-xslt:3.18
   - source: ./images/texlive/image.yaml
     destination: ghcr.io/geonet/base-images/texlive:latest
   - source: ./images/chart-centos7/Dockerfile

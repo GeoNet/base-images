@@ -1,0 +1,15 @@
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/v3.18/main
+  packages:
+    - alpine-baselayout-data
+    - ca-certificates-bundle
+    - tzdata
+    - libxslt
+
+entrypoint:
+  command: /bin/sh -c
+
+archs:
+  - x86_64
+  - aarch64
