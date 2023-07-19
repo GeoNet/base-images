@@ -45,6 +45,8 @@ sync:
     destination: ghcr.io/geonet/base-images/centos:stream8
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
     destination: ghcr.io/geonet/base-images/curl:8.1.2
+  - source: docker.io/owasp/zap2docker-stable:2.11.1@sha256:47ba18f36de06f253e655d26ad78945c6dc24404e58f1c0758293a583bb99ce5
+    destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1
 build:
   # NOTES
   # - uses dirname of source as context for build
