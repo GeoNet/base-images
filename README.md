@@ -63,7 +63,8 @@ list of vendored base images
 | ghcr.io/geonet/base-images/curl                    | A minimal image only containing curl                                           |
 | ghcr.io/geonet/base-images/owasp/zap2docker-stable | An image to run OWASP's Zed Attack Proxy security web scanner                  |
 | ghcr.io/geonet/base-images/alpine-xslt             | Alpine with libxslt for XML parsing                                            |
-
+| ghcr.io/geonet/base-images/fedora             | fedora for build tasks                                            |
+| ghcr.io/geonet/base-images/fedora-coreos             | fedora coreos for edge devices                                            |
 
 for tags, check [config.yaml](./config.yaml).
 
@@ -186,6 +187,7 @@ note that the context of the build runs in the folder which the source is in.
 ## What is an image ref?
 
 IMAGE_REF refers to an image reference in the format of either
+
 - ghcr.io/somecoolorg/images/hello:latest (just a tag)
 - ghcr.io/somecoolorg/images/hello@sha256:a61743b19423a01827ba68a1ec81a09d04f84bc69848303905ecbc73824fb88b (just a digest)
 - ghcr.io/somecoolorg/images/hello:latest@sha256:a61743b19423a01827ba68a1ec81a09d04f84bc69848303905ecbc73824fb88b (a tag and a digest)
@@ -203,6 +205,7 @@ to use it, it can be included when an image ref is formatted like the examples a
 ## Tagging built images
 
 determine the digest of the image, for example given the image is `ghcr.io/somecoolorg/images/hello:latest`
+
 ``` shell
 crane digest ghcr.io/somecoolorg/images/hello:latest
 ```
@@ -210,6 +213,7 @@ crane digest ghcr.io/somecoolorg/images/hello:latest
 the digest might be `sha256:a61743b19423a01827ba68a1ec81a09d04f84bc69848303905ecbc73824fb88b`.
 
 add a new sync image to the sync key like
+
 ```yaml
   - source: ghcr.io/somecoolorg/images/hello@sha256:a61743b19423a01827ba68a1ec81a09d04f84bc69848303905ecbc73824fb88b
     destination: ghcr.io/somecoolorg/images/hello:some-cool-tag
@@ -217,7 +221,8 @@ add a new sync image to the sync key like
 
 ## Verifying images
 
-Images are signed using `cosign` with [keyless](https://docs.sigstore.dev/cosign/keyless/), this means that 
+Images are signed using `cosign` with [keyless](https://docs.sigstore.dev/cosign/keyless/), this means that
+
 - signatures depend on the build or key infrastructure
 - there's no worry of key rotation
 
@@ -231,12 +236,14 @@ cosign verify \
 ```
 
 please note: the _certificate identity_ field will vary between
-- https://github.com/GeoNet/base-images/.github/workflows/sync.yml@refs/heads/main
-- https://github.com/GeoNet/base-images/.github/workflows/build.yml@refs/heads/main
+
+- <https://github.com/GeoNet/base-images/.github/workflows/sync.yml@refs/heads/main>
+- <https://github.com/GeoNet/base-images/.github/workflows/build.yml@refs/heads/main>
 
 ## See the tree of attached signatures and SBOMs
 
 produces a nice and readible tree of signatures, attestations and SBOMs related to the IMAGE_REF
+
 ```shell
 cosign tree IMAGE_REF
 ```
@@ -244,6 +251,7 @@ cosign tree IMAGE_REF
 ## View the SBOM in the attestation
 
 verify the attestation (raw base64 encoded JSON)
+
 ```shell
 cosign verify-attestation \
   --certificate-identity-regexp 'https://github.com/GeoNet/base-images/.github/workflows/(sync|build).yml@refs/heads/.*' \
@@ -252,6 +260,7 @@ cosign verify-attestation \
 ```
 
 since SBOMs are the predicate of a signed attestation instead of just uploaded, it requires an extra layer to retrieve their content
+
 ```shell
 cosign verify-attestation IMAGE_REF --certificate-identity-regexp 'https://github.com/GeoNet/base-images/.github/workflows/(sync|build).yml@refs/heads/.*' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com | jq -r .payload | base64 -d | jq -r .predicate.Data
@@ -270,17 +279,17 @@ The following checks were performed on each of these signatures:
   - The signatures were verified against the specified public key
 &{Version:SPDX-2.3 DataLicense:CC0-1.0 ID:SPDXRef-DOCUMENT Name:sbom-sha256:e1097a462313187e2a61ba229179efafa8e62bd6166dc94698c9dcffdff05c9c Namespace:https://spdx.org/spdxdocs/apko/ Creator:{Person: Organization:Chainguard, Inc Tool:[apko (v0.7.3-45-g39b16b5)]} Created:1970-01-01 00:00:00 +0000 UTC LicenseListVersion:3.16 Packages:map[SPDXRef-Package-sha256-63bd196f274790f29c3956c9df4a8525aacec14c1c2ecb684cf7462c53f0471f:0xc000314000] Files:map[] ExternalDocRefs:[]}
 PACKAGE:  <nil>
-               _      
+               _
  ___ _ __   __| |_  __
 / __| '_ \ / _` \ \/ /
-\__ \ |_) | (_| |>  < 
+\__ \ |_) | (_| |>  <
 |___/ .__/ \__,_/_/\_\
-    |_|               
+    |_|
 
  📂 SPDX Document sbom-sha256:e1097a462313187e2a61ba229179efafa8e62bd6166dc94698c9dcffdff05c9c
-  │ 
+  │
   │ 📦 DESCRIBES 1 Packages
-  │ 
+  │
   ├ sha256:63bd196f274790f29c3956c9df4a8525aacec14c1c2ecb684cf7462c53f0471f
   │  │ 🔗 2 Relationships
   │  ├ CONTAINS PACKAGE sha256:e1097a462313187e2a61ba229179efafa8e62bd6166dc94698c9dcffdff05c9c@unknown
@@ -293,10 +302,10 @@ PACKAGE:  <nil>
   │  │  │  ├ CONTAINS FILE /usr/bin/hello (/usr/bin/hello)
   │  │  │  ├ CONTAINS FILE /usr/share/info/hello.info (/usr/share/info/hello.info)
   │  │  │  └ CONTAINS FILE /usr/share/man/man1/hello.1 (/usr/share/man/man1/hello.1)
-  │  │  │ 
-  │  │ 
+  │  │  │
+  │  │
   │  └ GENERATED_FROM PACKAGE github.com/GeoNet/base-images@6d8476f50ccdd7864eb0d46b2036f44516a55336
-  │ 
+  │
   └ 📄 DESCRIBES 0 Files
 ```
 
@@ -304,44 +313,44 @@ PACKAGE:  <nil>
 
 | Name    | Description                                                                   | Links                                                              | Related/Alternatives                     |
 |---------|-------------------------------------------------------------------------------|--------------------------------------------------------------------|------------------------------------------|
-| crane   | an officially supported cli container registry tool from Google               | https://github.com/google/go-containerregistry/tree/main/cmd/crane | skopeo                                   |
-| yq      | a cli YAML parser                                                             | https://github.com/mikefarah/yq                                    | jq                                       |
-| cosign  | a cli container image artifact signing utility by Sigstore (Linux Foundation) | https://github.com/sigstore/cosign                                 | ...                                      |
-| melange | a cli Alpine APK package declarative builder supported by Chainguard          | https://github.com/chainguard-dev/melange                          | ...                                      |
-| apko    | a cli tool for declaratively building Alpine based container images           | https://github.com/chainguard-dev/apko                             | ko (https://ko.build - Linux Foundation) |
-| docker  | a container ecosystem, primarily for development                              | https://docker.io                                                  | podman                                   |
-| trivy   | a container image scanner                                                     | https://github.com/aquasecurity/trivy                              | clair                                    |
-| syft    | a cli tool to generate sboms based on container images and filesystems        | https://github.com/anchore/syft                                    |                                          |
+| crane   | an officially supported cli container registry tool from Google               | <https://github.com/google/go-containerregistry/tree/main/cmd/crane> | skopeo                                   |
+| yq      | a cli YAML parser                                                             | <https://github.com/mikefarah/yq>                                    | jq                                       |
+| cosign  | a cli container image artifact signing utility by Sigstore (Linux Foundation) | <https://github.com/sigstore/cosign>                                 | ...                                      |
+| melange | a cli Alpine APK package declarative builder supported by Chainguard          | <https://github.com/chainguard-dev/melange>                          | ...                                      |
+| apko    | a cli tool for declaratively building Alpine based container images           | <https://github.com/chainguard-dev/apko>                             | ko (<https://ko.build> - Linux Foundation) |
+| docker  | a container ecosystem, primarily for development                              | <https://docker.io>                                                  | podman                                   |
+| trivy   | a container image scanner                                                     | <https://github.com/aquasecurity/trivy>                              | clair                                    |
+| syft    | a cli tool to generate sboms based on container images and filesystems        | <https://github.com/anchore/syft>                                    |                                          |
 
 # Patterns for discussion
 
 > semi-related topics
 
 - require signed container images for use in production
-  - https://docs.sigstore.dev/cosign/sign
-  - https://kyverno.io/policies/other/verify_image
-  - https://docs.sigstore.dev/policy-controller/overview
+  - <https://docs.sigstore.dev/cosign/sign>
+  - <https://kyverno.io/policies/other/verify_image>
+  - <https://docs.sigstore.dev/policy-controller/overview>
 - use distroless container images as base images
   - don't ship package managers into production
-  - https://github.com/chainguard-images
+  - <https://github.com/chainguard-images>
 - run containers as non-root users
   - limit workload privilege
-  - https://github.com/chainguard-dev/apko/blob/main/docs/apko_file.md#accounts-top-level-element
-  - set `pod.spec.containers.securityContext.runAsUser`; https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-  - `docker run --user 10000 ...` https://docs.docker.com/engine/reference/commandline/run
-  - https://docs.aws.amazon.com/config/latest/developerguide/ecs-task-definition-nonroot-user.html
+  - <https://github.com/chainguard-dev/apko/blob/main/docs/apko_file.md#accounts-top-level-element>
+  - set `pod.spec.containers.securityContext.runAsUser`; <https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod>
+  - `docker run --user 10000 ...` <https://docs.docker.com/engine/reference/commandline/run>
+  - <https://docs.aws.amazon.com/config/latest/developerguide/ecs-task-definition-nonroot-user.html>
 - use a static tag with digest instead of latest
   - ensure that you are using the version of the image that you expect
   - don't use e.g: `alpine:latest`, instead use an immutable image reference like `alpine:3.17.3@sha256:b6ca290b6b4cdcca5b3db3ffa338ee0285c11744b4a6abaa9627746ee3291d8d` to ensure an expected version is always used
   - version full digests can be manually resolved for consumption using `crane digest alpine:3.17.3` (for example)
   - when using systems like Knative, these digests are automatically resolved
 - deploy containers with a read-only root filesystem
-  - https://docs.aws.amazon.com/config/latest/developerguide/ecs-containers-readonly-access.html
-  - `docker run --read-only ...`; https://docs.docker.com/engine/reference/commandline/run
-  - set `pod.spec.containers.securityContext.readOnlyRootFilesystem` to `true`; https://kubernetes.io/docs/tasks/configure-pod-container/security-context
+  - <https://docs.aws.amazon.com/config/latest/developerguide/ecs-containers-readonly-access.html>
+  - `docker run --read-only ...`; <https://docs.docker.com/engine/reference/commandline/run>
+  - set `pod.spec.containers.securityContext.readOnlyRootFilesystem` to `true`; <https://kubernetes.io/docs/tasks/configure-pod-container/security-context>
 - build Go apps with [ko](https://ko.build)
-  - https://ko.build/advanced/migrating-from-dockerfile
-  
+  - <https://ko.build/advanced/migrating-from-dockerfile>
+
 # Good reads
 
-- https://docs.sigstore.dev/history
+- <https://docs.sigstore.dev/history>
