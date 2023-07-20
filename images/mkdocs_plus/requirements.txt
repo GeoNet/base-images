@@ -26,7 +26,7 @@ mkdocs-toc-sidebar-plugin==0.1.0
 pep562==1.1
 Pillow==9.3.0
 pycparser==2.21
-Pygments==2.10.0
+Pygments==2.15.0
 pymdown-extensions==9.1
 Pyphen==0.11.0
 pytz==2021.3
