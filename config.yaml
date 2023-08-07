@@ -47,7 +47,7 @@ sync:
     destination: ghcr.io/geonet/base-images/curl:8.1.2
   - source: docker.io/owasp/zap2docker-stable:2.11.1@sha256:47ba18f36de06f253e655d26ad78945c6dc24404e58f1c0758293a583bb99ce5
     destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1
-  - source: quay.io/fedora/fedora@sha256:90afa0d40e87d356ed1c715195fdbbf5bb096339d5800f02b2abbfb462e18c88 # 38 2023-07-20
+  - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013 # 38 2023-08-07
     destination: ghcr.io/geonet/base-images/fedora:38
   - source: quay.io/fedora/fedora-coreos@sha256:30ac3fb30c4fd1094812e37aec84fdbca842ad30eae485e5282b7f958fa4b951 # 38 stable 2023-07-26
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
