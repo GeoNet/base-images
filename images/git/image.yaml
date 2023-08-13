@@ -7,9 +7,6 @@ contents:
     - tzdata
     - git
 
-entrypoint:
-  command: /bin/sh -c
-
 archs:
-- x86_64
-- aarch64
+  - x86_64
+  - aarch64

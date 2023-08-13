@@ -7,9 +7,6 @@ contents:
     - tzdata
     - libxslt
 
-entrypoint:
-  command: /bin/sh -c
-
 archs:
   - x86_64
   - aarch64
