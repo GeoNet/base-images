@@ -1,0 +1,12 @@
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/v3.18/main
+  packages:
+    - alpine-baselayout-data
+    - ca-certificates-bundle
+    - tzdata
+    - iputils
+
+archs:
+  - x86_64
+  - aarch64
