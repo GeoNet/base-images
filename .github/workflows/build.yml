@@ -20,24 +20,25 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set.outputs.matrix }}
+      matrix-docker: ${{ steps.set.outputs.matrix-docker }}
+      matrix-apko: ${{ steps.set.outputs.matrix-apko }}
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - id: set
         run: |
-          echo "matrix=$(jq '.build | {"include":.}' -r -c <<< "$(yq e . -o json config.yaml)")" >> $GITHUB_OUTPUT
+          echo "matrix-docker=$(jq -rMc '.build[] | select(.source | contains("Dockerfile"))' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
+          echo "matrix-apko=$(jq -rMc '.build[] | select(.source | contains("image.yaml"))' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
       - name: check output
         run: |
-          jq . <<< '${{ steps.set.outputs.matrix }}'
-  build:
+          jq . <<< '${{ steps.set.outputs.matrix-docker }}'
+          jq . <<< '${{ steps.set.outputs.matrix-apko }}'
+  build-docker:
     needs: prepare
-    # TODO split to apko and docker build, use if conditional to call each, using matrix values
-    #      currently, this isn't working due to the context inside of if not having access to matrix (from strategy.matrix)
-    if: fromJSON(needs.prepare.outputs.matrix) != null
+    if: fromJSON(needs.prepare.outputs.matrix-docker) != null
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix-docker) }}
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: determine-type
@@ -45,18 +46,81 @@ jobs:
         env:
           SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
         run: |
-          echo "typeIsApko=${{ endsWith(fromJSON(toJSON(matrix)).source, 'image.yaml') }}" >> $GITHUB_OUTPUT
-          echo "typeIsDocker=${{ endsWith(fromJSON(toJSON(matrix)).source, 'Dockerfile') }}" >> $GITHUB_OUTPUT
           echo "dockerContext=$(dirname $(realpath $SOURCE))" >> $GITHUB_OUTPUT
       - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
+      - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
+      - uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 # v3.1.1
+      - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
+      - name: Docker set up QEMU
+        uses: docker/setup-qemu-action@2b82ce82d56a2a04d2637cd93a637ae1b359c0a7 # v2.2.0
+      - name: Docker set up Docker Buildx
+        uses: docker/setup-buildx-action@4c0219f9ac95b02789c1075625400b2acbff50b1 # v2.9.1
+      - name: Docker login to ghcr.io
+        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Docker build and push
+        uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825 # v4.1.1
+        with:
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ fromJSON(toJSON(matrix)).destination }}
+          context: ${{ steps.determine-type.outputs.dockerContext }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=${{ github.repositoryUrl }}
+      - name: crane get-digests
+        id: get-digests
+        if: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+        run: |
+          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
+          (
+            echo "DESTINATION_DIGEST"
+            echo "${DESTINATION_DIGEST}"
+          ) | column -t
+          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
+      - name: cosign sign image with a key
+        if: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          COSIGN_YES: "true"
+        run: |
+          cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} -y
+      - uses: anchore/sbom-action@78fc58e266e87a38d4194b2137a3d4e9bcaf7ca1 # v0.14.3
+        name: sbom generate
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }}
+          artifact-name: sbom-spdx.json
+          output-file: /tmp/sbom-spdx.json
+      - name: cosign download unsigned sbom
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          cosign download sbom ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} > /tmp/sbom-spdx.json
+      - name: cosign publish sbom blob as blob
+        if: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          COSIGN_YES: "true"
+        run: |
+          cosign attest --predicate /tmp/sbom-spdx.json ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} -y
+  build-apko:
+    needs: prepare
+    if: fromJSON(needs.prepare.outputs.matrix-apko) != null
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix-apko) }}
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - uses: GeoNet/chainguard-dev-actions/setup-melange@c1773c35e73af78f72f606c002e9819cd737984d # main
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null }}
       - uses: actions/setup-go@fac708d6674e30b6ba41289acaab6d4b75aa0753 # v4.0.1
       - uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 # v3.1.1
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       # apko + Melange build
       - name: melange generate snapshot date
-        if: ${{ steps.determine-type.outputs.typeIsApko == 'true' }}
         id: snapshot-date
         run: |
           echo name=date::$(date -u +%Y%m%d) >> $GITHUB_OUTPUT
@@ -64,7 +128,7 @@ jobs:
         shell: bash
       - uses: GeoNet/chainguard-dev-actions/melange-keygen@c1773c35e73af78f72f606c002e9819cd737984d # main
         name: melange generate signing keypair
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null }}
         with:
           signing-key-path: ${{ github.workspace }}/melange.rsa
       - id: apko-options
@@ -79,7 +143,7 @@ jobs:
           echo "tag=$TAG" >> $GITHUB_OUTPUT
       - uses: GeoNet/chainguard-dev-actions/melange-build-pkg@c1773c35e73af78f72f606c002e9819cd737984d # main
         name: melange apk build
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null }}
         with:
           multi-config: ${{ join(fromJSON(toJSON(matrix)).melangeConfigs, ',') }}
           signing-key-path: ${{ github.workspace }}/melange.rsa
@@ -88,7 +152,7 @@ jobs:
       - uses: GeoNet/chainguard-images-actions/apko-publish@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
         id: build-with-signing-key
         name: apko build-with-signing-key
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref == 'refs/heads/main' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && github.ref == 'refs/heads/main' }}
         with:
           tag: ${{ fromJSON(toJSON(matrix)).destination }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
@@ -97,7 +161,7 @@ jobs:
       - uses: GeoNet/chainguard-images-actions/apko-build@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
         id: build-with-signing-key-local
         name: apko build-with-signing-key local
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref != 'refs/heads/main' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null && github.ref != 'refs/heads/main' }}
         with:
           tag: ${{ steps.apko-options.outputs.tag }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
@@ -105,7 +169,7 @@ jobs:
           keyring-append: ${{ github.workspace }}/melange.rsa.pub
       # TODO fix temp hack to conditionally pass keyring-append to apko
       - uses: GeoNet/chainguard-images-actions/apko-publish@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref == 'refs/heads/main' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && github.ref == 'refs/heads/main' }}
         id: build
         name: apko build
         with:
@@ -113,37 +177,13 @@ jobs:
           config: ${{ fromJSON(toJSON(matrix)).source }}
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
       - uses: GeoNet/chainguard-images-actions/apko-build@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
-        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && steps.determine-type.outputs.typeIsApko == 'true' && github.ref != 'refs/heads/main' }}
+        if: ${{ fromJSON(toJSON(matrix)).melangeConfigs == null && github.ref != 'refs/heads/main' }}
         id: build-local
         name: apko build local
         with:
           tag: ${{ steps.apko-options.outputs.tag }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
-      # docker build
-      - name: Docker set up QEMU
-        if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' }}
-        uses: docker/setup-qemu-action@2b82ce82d56a2a04d2637cd93a637ae1b359c0a7 # v2.2.0
-      - name: Docker set up Docker Buildx
-        if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' }}
-        uses: docker/setup-buildx-action@4c0219f9ac95b02789c1075625400b2acbff50b1 # v2.9.1
-      - name: Docker login to ghcr.io
-        if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' }}
-        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Docker build and push
-        if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' }}
-        uses: docker/build-push-action@2eb1c1961a95fc15694676618e422e8ba1d63825 # v4.1.1
-        with:
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: ${{ fromJSON(toJSON(matrix)).destination }}
-          context: ${{ steps.determine-type.outputs.dockerContext }}
-          labels: |
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.source=${{ github.repositoryUrl }}
       - name: crane get-digests
         id: get-digests
         if: ${{ github.ref == 'refs/heads/main' }}
