@@ -95,10 +95,6 @@ jobs:
           image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }}
           artifact-name: sbom-spdx.json
           output-file: /tmp/sbom-spdx.json
-      - name: cosign download unsigned sbom
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: |
-          cosign download sbom ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} > /tmp/sbom-spdx.json
       - name: cosign publish sbom blob as blob
         if: ${{ github.ref == 'refs/heads/main' }}
         env:
