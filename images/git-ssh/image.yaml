@@ -1,0 +1,13 @@
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/v3.17/main
+  packages:
+    - alpine-baselayout-data
+    - ca-certificates-bundle
+    - tzdata
+    - git
+    - ssh
+
+archs:
+  - x86_64
+  - aarch64
