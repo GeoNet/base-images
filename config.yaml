@@ -64,6 +64,8 @@ build:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:latest
   - source: ./images/git/image.yaml
     destination: ghcr.io/geonet/base-images/git:latest
+  - source: ./images/git-ssh/image.yaml
+    destination: ghcr.io/geonet/base-images/git-ssh:latest
   - source: ./images/alpine-iputils/image.yaml
     destination: ghcr.io/geonet/base-images/alpine-iputils:3.18
   - source: ./images/alpine-xslt/image.yaml

@@ -46,6 +46,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/datadog/agent           | datadog agent                                                                  |
 | ghcr.io/geonet/base-images/debian                  | standard Debian slim image                                                     |
 | ghcr.io/geonet/base-images/git                     | Alpine with git installed                                                      |
+| ghcr.io/geonet/base-images/git-ssh                 | Alpine with git and ssh installed                                              |
 | ghcr.io/geonet/base-images/go                      | a minimal image for building Go applications                                   |
 | ghcr.io/geonet/base-images/hadolint/hadolint       | a Dockerfile linter                                                            |
 | ghcr.io/geonet/base-images/hashicorp/terraform     | Terraform image                                                                |

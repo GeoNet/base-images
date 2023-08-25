@@ -6,7 +6,7 @@ contents:
     - ca-certificates-bundle
     - tzdata
     - git
-    - ssh
+    - openssh-client
 
 archs:
   - x86_64
