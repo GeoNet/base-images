@@ -49,7 +49,7 @@ jobs:
           echo "dockerContext=$(dirname $(realpath $SOURCE))" >> $GITHUB_OUTPUT
       - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
-      - uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 # v3.1.1
+      - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       - name: Docker set up QEMU
         uses: docker/setup-qemu-action@2b82ce82d56a2a04d2637cd93a637ae1b359c0a7 # v2.2.0
@@ -113,7 +113,7 @@ jobs:
       - uses: GeoNet/chainguard-dev-actions/setup-melange@c1773c35e73af78f72f606c002e9819cd737984d # main
         if: ${{ fromJSON(toJSON(matrix)).melangeConfigs != null }}
       - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
-      - uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 # v3.1.1
+      - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       # apko + Melange build
       - name: melange generate snapshot date
