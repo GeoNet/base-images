@@ -43,7 +43,7 @@ sync:
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
   - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e
     destination: ghcr.io/geonet/base-images/centos:centos7
-  - source: quay.io/centos/centos@sha256:4910630460a12505cd769a6f1408bb9518c1832a9ea0318049501347cd9b7dfa # stream8 for 2023-08-30
+  - source: quay.io/centos/centos@sha256:7b6efe39fa1307fb7590ba8496876fadcbba04f11fddc0d29bdbffb89b50f538 # stream8 for 2023-09-07
     destination: ghcr.io/geonet/base-images/centos:stream8
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
     destination: ghcr.io/geonet/base-images/curl:8.1.2
@@ -51,7 +51,7 @@ sync:
     destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1
   - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013 # 38 2023-08-07
     destination: ghcr.io/geonet/base-images/fedora:38
-  - source: quay.io/fedora/fedora-coreos@sha256:1100ec4cc0ec47e9846750137b43dedf4f20d9b56bafb99f5866ceff152f88d1 # 38 stable 2023-08-25
+  - source: quay.io/fedora/fedora-coreos@sha256:0696dd182d2929d3697c0caa191489b88a47d3e1b3921b361961b2af5e1f7988 # 38 stable 2023-09-07
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
 build:
   # NOTES
