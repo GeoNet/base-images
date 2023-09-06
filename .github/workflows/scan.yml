@@ -12,6 +12,9 @@ on:
 permissions:
   contents: read
   security-events: write
+concurrency:
+  group: ${{ github.run_id }}
+  cancel-in-progress: false
 jobs:
   prepare:
     runs-on: ubuntu-latest

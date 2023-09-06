@@ -16,6 +16,9 @@ permissions:
   id-token: write
   packages: write
   contents: write
+concurrency:
+  group: ${{ github.run_id }}
+  cancel-in-progress: false
 jobs:
   prepare:
     runs-on: ubuntu-latest
