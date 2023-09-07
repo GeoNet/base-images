@@ -68,6 +68,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/fedora                  | fedora for build tasks                                                         |
 | ghcr.io/geonet/base-images/fedora-coreos           | fedora coreos for edge devices                                                 |
 | ghcr.io/geonet/base-images/alpine-iputils          | includes tools like ping                                                       |
+| ghcr.io/geonet/base-images/shellcheck              | shellcheck bash scripts                                                                               |
 
 
 for tags, check [config.yaml](./config.yaml).
