@@ -27,9 +27,9 @@ sync:
     destination: ghcr.io/geonet/base-images/python:3.11.4-alpine3.18
   - source: docker.io/library/golang:1.16-alpine3.15@sha256:5616dca835fa90ef13a843824ba58394dad356b7d56198fb7c93cbe76d7d67fe
     destination: ghcr.io/geonet/base-images/go:1.16 # until ko has been fully adopted and Go 1.16 => 1.20/1.21
-  - source: docker.io/golang:1.20.7-alpine3.18@sha256:03278bc16e1a5b4fb6cdd3462108c060aa1e9c2353ce4d15d744b3c40168677d
+  - source: docker.io/golang:1.20.8-alpine3.18@sha256:c63dbdb3cca37abbee4c50f61e34b1d043c2669d03f34485f9ee6fe5feed4e48
     destination: ghcr.io/geonet/base-images/go:1.20 # until ko has been fully adopted
-  - source: docker.io/golang:1.21.0-alpine3.18@sha256:445f34008a77b0b98bf1821bf7ef5e37bb63cc42d22ee7c21cc17041070d134f
+  - source: docker.io/golang:1.21.1-alpine3.18@sha256:96634e55b363cb93d39f78fb18aa64abc7f96d372c176660d7b8b6118939d97b
     destination: ghcr.io/geonet/base-images/go:1.21 # until ko has been fully adopted
   - source: cgr.dev/chainguard/static:latest@sha256:da9822ad6f973e40e24e75133b08ae874900766873ecd03e58f7f630ccea898c
     destination: ghcr.io/geonet/base-images/static:latest
