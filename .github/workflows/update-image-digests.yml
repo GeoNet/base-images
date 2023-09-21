@@ -16,7 +16,7 @@ jobs:
           gh auth login --with-token < <(echo ${{ secrets.GITHUB_TOKEN }})
           gh auth status
       - name: update select images
-        run: ./hack/update-image-digests.sh
+        run: ./hack/update-sync-image-digests.sh
       - name: determine changes
         id: determine-changes
         run: |
