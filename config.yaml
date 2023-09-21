@@ -43,9 +43,9 @@ sync:
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
   - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e
     destination: ghcr.io/geonet/base-images/centos:centos7
-  - source: quay.io/centos/centos@sha256:3854a4843a6dad367bd484028b727d02e1b62bdaa091b79247c87c3926c51fa5 # stream8 for 2023-09-14
+  - source: quay.io/centos/centos@sha256:039dfede2e3ab9093411ac1054697eeefa6272ab57092f6c804b53cf937b8bb2 # stream8 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:stream8
-  - source: quay.io/centos/centos@sha256:c909f557e56c507d021fa56a338c08b350dcb8b1125e51f31668abeaf43b002f # stream9 for 2023-09-14
+  - source: quay.io/centos/centos@sha256:8479941327a5852c72f17305543f676eb797e8080e470b2f164ad8b581917aa6 # stream9 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:stream9
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
     destination: ghcr.io/geonet/base-images/curl:8.1.2
@@ -53,7 +53,7 @@ sync:
     destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1
   - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013 # 38 2023-08-07
     destination: ghcr.io/geonet/base-images/fedora:38
-  - source: quay.io/fedora/fedora-coreos@sha256:0696dd182d2929d3697c0caa191489b88a47d3e1b3921b361961b2af5e1f7988 # 38 stable 2023-09-14
+  - source: quay.io/fedora/fedora-coreos@sha256:022deff7c7249e75604396e507ba823d61dd3b7e94ad7fb3d8682c0cee1619ae # 38 stable 2023-09-21
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
   - source: docker.io/koalaman/shellcheck-alpine:v0.9.0@sha256:e19ed93c22423970d56568e171b4512c9244fc75dd9114045016b4a0073ac4b7
     destination: ghcr.io/geonet/base-images/shellcheck:v0.9.0
