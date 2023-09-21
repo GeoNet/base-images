@@ -7,6 +7,7 @@
 - [Layout](#layout)
 - [Usage](#usage)
   - [Sync an image](#sync-an-image)
+    - [Mutably tagged images and auto-updating](#mutably-tagged-images-and-auto-updating)
   - [Build with apko](#build-with-apko)
   - [Build with apko and Melange](#build-with-apko-and-melange)
   - [Build with Docker](#build-with-docker)
@@ -108,6 +109,15 @@ sync:
 ```
 
 Images will only be synced if the digest of the source and destination don't match or if the `sync[].always` key is set to `true`
+
+### Mutably tagged images and auto-updating
+
+Some upstream images have mutable tags which eventually cause some images to become unresolveable.
+To mitigate this, a scheduled workflow is created run to automatically produce a PR to fix the resolution.
+
+The workflow also updates an existing branch and PR if one already exists and hasn't been merged.
+
+see: [.github/workflows/update-image-digests.yml](./.github/workflows/update-image-digests.yml)
 
 ## Build with apko
 

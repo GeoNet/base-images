@@ -41,20 +41,24 @@ sync:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
   - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
-  - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e
+  - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013
+    destination: ghcr.io/geonet/base-images/fedora:38
+  - source: quay.io/fedora/fedora-coreos:stable@sha256:022deff7c7249e75604396e507ba823d61dd3b7e94ad7fb3d8682c0cee1619ae # stable for 2023-09-21
+    destination: ghcr.io/geonet/base-images/fedora-coreos:stable
+    auto-update-mutable-tag-digest: true
+  - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:centos7
-  - source: quay.io/centos/centos@sha256:039dfede2e3ab9093411ac1054697eeefa6272ab57092f6c804b53cf937b8bb2 # stream8 for 2023-09-21
+    auto-update-mutable-tag-digest: true
+  - source: quay.io/centos/centos:stream8@sha256:039dfede2e3ab9093411ac1054697eeefa6272ab57092f6c804b53cf937b8bb2 # stream8 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:stream8
-  - source: quay.io/centos/centos@sha256:8479941327a5852c72f17305543f676eb797e8080e470b2f164ad8b581917aa6 # stream9 for 2023-09-21
+    auto-update-mutable-tag-digest: true
+  - source: quay.io/centos/centos:stream9@sha256:8479941327a5852c72f17305543f676eb797e8080e470b2f164ad8b581917aa6 # stream9 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:stream9
+    auto-update-mutable-tag-digest: true
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
     destination: ghcr.io/geonet/base-images/curl:8.1.2
   - source: docker.io/owasp/zap2docker-stable:2.11.1@sha256:47ba18f36de06f253e655d26ad78945c6dc24404e58f1c0758293a583bb99ce5
     destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1
-  - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013 # 38 2023-08-07
-    destination: ghcr.io/geonet/base-images/fedora:38
-  - source: quay.io/fedora/fedora-coreos@sha256:022deff7c7249e75604396e507ba823d61dd3b7e94ad7fb3d8682c0cee1619ae # 38 stable 2023-09-21
-    destination: ghcr.io/geonet/base-images/fedora-coreos:stable
   - source: docker.io/koalaman/shellcheck-alpine:v0.9.0@sha256:e19ed93c22423970d56568e171b4512c9244fc75dd9114045016b4a0073ac4b7
     destination: ghcr.io/geonet/base-images/shellcheck:v0.9.0
 build:
