@@ -18,8 +18,10 @@ sync:
     destination: ghcr.io/geonet/base-images/ubi8:8.8
   - source: docker.io/redhat/ubi8-minimal:8.8@sha256:621f5245fb3e8597a626163cdf1229e1f8311e07ab71bb1e9332014b51c59f9c
     destination: ghcr.io/geonet/base-images/ubi8-minimal:8.8
-  - source: docker.io/datadog/agent:7@sha256:b9e11fd44fec2dc6f42d7d8eeafb29dc16bc185af37c395b9c3864b1402134d0
-    destination: ghcr.io/geonet/base-images/datadog/agent:7
+  - source: docker.io/datadog/agent:7.47.1@sha256:364b90eb9da1925a4b8a1dca501a9a8e8cd5e8455733a16857284c49d4bf8467
+    destination: ghcr.io/geonet/base-images/datadog/agent:7.47.1
+  - source: docker.io/datadog/agent:7.47.1@sha256:364b90eb9da1925a4b8a1dca501a9a8e8cd5e8455733a16857284c49d4bf8467
+    destination: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent:7.47.1
   - source: docker.io/library/debian:bookworm-slim@sha256:d8f9d38c21495b04d1cca99805fbb383856e19794265684019bf193c3b7d67f9
     destination: ghcr.io/geonet/base-images/debian:bookworm-slim
   - source: docker.io/hadolint/hadolint:v2.12.0-alpine@sha256:3c206a451cec6d486367e758645269fd7d696c5ccb6ff59d8b03b0e45268a199
@@ -64,8 +66,9 @@ sync:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
   - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
-  - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013
+  - source: quay.io/fedora/fedora@sha256:d643707ffb780448c26dd5164edba3291aa39dbd790d06fbf779511bbe32cba9 # 1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013 for 2023-10-10
     destination: ghcr.io/geonet/base-images/fedora:38
+    auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora-coreos:stable@sha256:dd761341e1a97542467d8ec43e2b096271ca5a409d420d3e79ddba07940ea1b0 # stable for 2023-10-05
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
@@ -75,7 +78,7 @@ sync:
   - source: quay.io/centos/centos:stream8@sha256:86ba0bf60249e6daee350459e014213742c88341e6e7284695dcf1dfe2c58873 # stream8 for 2023-10-04
     destination: ghcr.io/geonet/base-images/centos:stream8
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:stream9@sha256:2e2a9f4f7171ccda195f3935192f1150155daab4da305f8c273e9fe6134fe7fa # stream9 for 2023-10-03
+  - source: quay.io/centos/centos:stream9@sha256:c5deeca5c7d68819832207602f7eb188f69b4c1e779bfc5debf6b3dedfe258ed # stream9 for 2023-10-10
     destination: ghcr.io/geonet/base-images/centos:stream9
     auto-update-mutable-tag-digest: true
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb

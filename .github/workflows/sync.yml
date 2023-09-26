@@ -46,6 +46,27 @@ jobs:
       - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
+      - id: determine-uses-ecr
+        env:
+          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+        run: |
+          if echo "$DESTINATION" | grep -q -E '[0-9]{12}.dkr.ecr.ap-southeast-2.amazonaws.com/.*'; then
+            echo "ecr="$(echo "$DESTINATION" | cut -d'/' -f1)"" >> $GITHUB_OUTPUT
+          fi
+      - name: Configure AWS Credentials
+        if: ${{ steps.determine-uses-ecr.outputs.ecr != '' }}
+        uses: aws-actions/configure-aws-credentials@8c3f20df09ac63af7b3ae3d7c91f105f857d8497 # v2.0.0
+        with:
+          aws-region: ap-southeast-2
+          role-to-assume: arn:aws:iam::862640294325:role/github-actions-geonet-ecr-push
+          role-duration-seconds: 3600
+          role-session-name: github-actions-GeoNet--base-images
+      - name: login to ECR
+        if: ${{ steps.determine-uses-ecr.outputs.ecr != '' }}
+        env:
+          ECR: ${{ steps.determine-uses-ecr.outputs.ecr }}
+        run: |
+          aws ecr get-login-password --region ap-southeast-2 | crane auth login "$ECR" -u AWS --password-stdin
       - name: get-digests
         if: ${{ fromJSON(toJSON(matrix)).always != true }}
         id: get-digests

@@ -41,40 +41,41 @@ The repo is mostly concerned with base images or images used in build processes.
 
 list of vendored base images
 
-| Image                                              | Description                                                                    |
-|----------------------------------------------------|--------------------------------------------------------------------------------|
-| ghcr.io/geonet/base-images/alpine                  | standard Alpine base image                                                     |
-| ghcr.io/geonet/base-images/datadog/agent           | datadog agent                                                                  |
-| ghcr.io/geonet/base-images/debian                  | standard Debian slim image                                                     |
-| ghcr.io/geonet/base-images/git                     | Alpine with git installed                                                      |
-| ghcr.io/geonet/base-images/git-ssh                 | Alpine with git and ssh installed                                              |
-| ghcr.io/geonet/base-images/go                      | a minimal image for building Go applications                                   |
-| ghcr.io/geonet/base-images/hadolint/hadolint       | a Dockerfile linter                                                            |
-| ghcr.io/geonet/base-images/hashicorp/terraform     | Terraform image                                                                |
-| ghcr.io/geonet/base-images/mkdocs_plus             | a custom build image for docs                                                  |
-| ghcr.io/geonet/base-images/nginx                   | minimal nginx image                                                            |
-| ghcr.io/geonet/base-images/node                    | Alpine based node image                                                        |
-| ghcr.io/geonet/base-images/python                  | Alpine and Debian base Python images                                           |
-| ghcr.io/geonet/base-images/siderolabs-conform      | conform policy for pull request commits                                        |
-| ghcr.io/geonet/base-images/static                  | scratch with timezone and ca-certificate data pre-installed. Great for Go apps |
-| ghcr.io/geonet/base-images/texlive                 | a latex image                                                                  |
-| ghcr.io/geonet/base-images/ubi8                    | Red Hat Universal Base Image 8                                                 |
-| ghcr.io/geonet/base-images/ubi8-minimal            | Red Hat Universal Base Image 8 minimal                                         |
-| ghcr.io/geonet/base-images/centos                  | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
-| ghcr.io/geonet/base-images/chart-centos7           | Centos 7 base image updated to add extract packages needed for the chart app   |
-| ghcr.io/geonet/base-images/curl                    | A minimal image only containing curl                                           |
-| ghcr.io/geonet/base-images/owasp/zap2docker-stable | An image to run OWASP's Zed Attack Proxy security web scanner                  |
-| ghcr.io/geonet/base-images/alpine-xslt             | Alpine with libxslt for XML parsing                                            |
-| ghcr.io/geonet/base-images/alpine-gdal             | Alpine with gdal for raster and vector geospatial data formats                 |
-| ghcr.io/geonet/base-images/fedora                  | fedora for build tasks                                                         |
-| ghcr.io/geonet/base-images/fedora-coreos           | fedora coreos for edge devices                                                 |
-| ghcr.io/geonet/base-images/alpine-iputils          | includes tools like ping                                                       |
-| ghcr.io/geonet/base-images/shellcheck              | shellcheck bash scripts                                                        |
-| ghcr.io/geonet/base-images/rpmbuild-centos7        | image for building RPMs with, based on CentOS 7                                |
-| ghcr.io/geonet/base-images/rpmbuild-centos-stream8 | image for building RPMs with, based on CentOS Stream 8                         |
-| ghcr.io/geonet/base-images/rpmbuild-centos-stream9 | image for building RPMs with, based on CentOS Stream 9                         |
-| ghcr.io/geonet/base-images/yq                      | yq for GitHub actions                                                          |
-| ghcr.io/geonet/base-images/binfmt                  | Cross-platform emulator collection distributed with Docker images              |
+| Image                                                           | Description                                                                    |
+|-----------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ghcr.io/geonet/base-images/alpine                               | standard Alpine base image                                                     |
+| ghcr.io/geonet/base-images/datadog/agent                        | datadog agent                                                                  |
+| ghcr.io/geonet/base-images/debian                               | standard Debian slim image                                                     |
+| ghcr.io/geonet/base-images/git                                  | Alpine with git installed                                                      |
+| ghcr.io/geonet/base-images/git-ssh                              | Alpine with git and ssh installed                                              |
+| ghcr.io/geonet/base-images/go                                   | a minimal image for building Go applications                                   |
+| ghcr.io/geonet/base-images/hadolint/hadolint                    | a Dockerfile linter                                                            |
+| ghcr.io/geonet/base-images/hashicorp/terraform                  | Terraform image                                                                |
+| ghcr.io/geonet/base-images/mkdocs_plus                          | a custom build image for docs                                                  |
+| ghcr.io/geonet/base-images/nginx                                | minimal nginx image                                                            |
+| ghcr.io/geonet/base-images/node                                 | Alpine based node image                                                        |
+| ghcr.io/geonet/base-images/python                               | Alpine and Debian base Python images                                           |
+| ghcr.io/geonet/base-images/siderolabs-conform                   | conform policy for pull request commits                                        |
+| ghcr.io/geonet/base-images/static                               | scratch with timezone and ca-certificate data pre-installed. Great for Go apps |
+| ghcr.io/geonet/base-images/texlive                              | a latex image                                                                  |
+| ghcr.io/geonet/base-images/ubi8                                 | Red Hat Universal Base Image 8                                                 |
+| ghcr.io/geonet/base-images/ubi8-minimal                         | Red Hat Universal Base Image 8 minimal                                         |
+| ghcr.io/geonet/base-images/centos                               | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
+| ghcr.io/geonet/base-images/chart-centos7                        | Centos 7 base image updated to add extract packages needed for the chart app   |
+| ghcr.io/geonet/base-images/curl                                 | A minimal image only containing curl                                           |
+| ghcr.io/geonet/base-images/owasp/zap2docker-stable              | An image to run OWASP's Zed Attack Proxy security web scanner                  |
+| ghcr.io/geonet/base-images/alpine-xslt                          | Alpine with libxslt for XML parsing                                            |
+| ghcr.io/geonet/base-images/alpine-gdal                          | Alpine with gdal for raster and vector geospatial data formats                 |
+| ghcr.io/geonet/base-images/fedora                               | fedora for build tasks                                                         |
+| ghcr.io/geonet/base-images/fedora-coreos                        | fedora coreos for edge devices                                                 |
+| ghcr.io/geonet/base-images/alpine-iputils                       | includes tools like ping                                                       |
+| ghcr.io/geonet/base-images/shellcheck                           | shellcheck bash scripts                                                        |
+| ghcr.io/geonet/base-images/rpmbuild-centos7                     | image for building RPMs with, based on CentOS 7                                |
+| ghcr.io/geonet/base-images/rpmbuild-centos-stream8              | image for building RPMs with, based on CentOS Stream 8                         |
+| ghcr.io/geonet/base-images/rpmbuild-centos-stream9              | image for building RPMs with, based on CentOS Stream 9                         |
+| ghcr.io/geonet/base-images/yq                                   | yq for GitHub actions                                                          |
+| ghcr.io/geonet/base-images/binfmt                               | Cross-platform emulator collection distributed with Docker images              |
+| 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent | datadog agent for use in ECS                                                   |
 
 for tags, check [config.yaml](./config.yaml).
 
