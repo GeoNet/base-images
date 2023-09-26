@@ -69,8 +69,10 @@ list of vendored base images
 | ghcr.io/geonet/base-images/fedora                  | fedora for build tasks                                                         |
 | ghcr.io/geonet/base-images/fedora-coreos           | fedora coreos for edge devices                                                 |
 | ghcr.io/geonet/base-images/alpine-iputils          | includes tools like ping                                                       |
-| ghcr.io/geonet/base-images/shellcheck              | shellcheck bash scripts                                                                               |
-
+| ghcr.io/geonet/base-images/shellcheck              | shellcheck bash scripts                                                        |
+| ghcr.io/geonet/base-images/rpmbuild-centos7        | image for building RPMs with, based on CentOS 7                                |
+| ghcr.io/geonet/base-images/rpmbuild-centos-stream8 | image for building RPMs with, based on CentOS Stream 8                         |
+| ghcr.io/geonet/base-images/rpmbuild-centos-stream9 | image for building RPMs with, based on CentOS Stream 9                         |
 
 for tags, check [config.yaml](./config.yaml).
 
