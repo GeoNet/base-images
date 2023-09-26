@@ -30,7 +30,7 @@ jobs:
       - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - id: set
         run: |
-          echo "matrix-docker=$(jq -rMc '.build[] | select(.source | contains("Dockerfile"))' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
+          echo "matrix-docker=$(jq -rMc '.build[] | select(.source | contains("Dockerfile")) | . as $config | .destination | capture("(?<registry>.*)/(?<imageName>.*):(?<tag>.*)") | . as $imgSplit | $config | .source | capture("(?<context>.*)/Dockerfile") | . as $context | $config + $imgSplit + $context' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
           echo "matrix-apko=$(jq -rMc '.build[] | select(.source | contains("image.yaml"))' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
       - name: check output
         run: |
@@ -39,71 +39,16 @@ jobs:
   build-docker:
     needs: prepare
     if: fromJSON(needs.prepare.outputs.matrix-docker) != null
-    runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix-docker) }}
-    steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-      - name: determine-type
-        id: determine-type
-        env:
-          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
-        run: |
-          echo "dockerContext=$(dirname $(realpath $SOURCE))" >> $GITHUB_OUTPUT
-      - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
-      - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
-      - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
-      - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
-      - name: Docker set up QEMU
-        uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3.0.0
-      - name: Docker set up Docker Buildx
-        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
-      - name: Docker login to ghcr.io
-        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Docker build and push
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
-        with:
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: ${{ fromJSON(toJSON(matrix)).destination }}
-          context: ${{ steps.determine-type.outputs.dockerContext }}
-          labels: |
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.source=${{ github.repositoryUrl }}
-      - name: crane get-digests
-        id: get-digests
-        if: ${{ github.ref == 'refs/heads/main' }}
-        env:
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
-        run: |
-          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
-          (
-            echo "DESTINATION_DIGEST"
-            echo "${DESTINATION_DIGEST}"
-          ) | column -t
-          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
-      - name: cosign sign image with a key
-        if: ${{ github.ref == 'refs/heads/main' }}
-        env:
-          COSIGN_YES: "true"
-        run: |
-          cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} -y
-      - uses: anchore/sbom-action@78fc58e266e87a38d4194b2137a3d4e9bcaf7ca1 # v0.14.3
-        name: sbom generate
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }}
-          artifact-name: sbom-spdx.json
-          output-file: /tmp/sbom-spdx.json
-      - name: cosign publish sbom blob as blob
-        if: ${{ github.ref == 'refs/heads/main' }}
-        env:
-          COSIGN_YES: "true"
-        run: |
-          cosign attest --predicate /tmp/sbom-spdx.json ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} -y
+    uses: GeoNet/Actions/.github/workflows/reusable-docker-build.yml@main
+    with:
+      context: ${{ fromJSON(toJSON(matrix)).context }}
+      dockerfile: ${{ fromJSON(toJSON(matrix)).source }}
+      imageName: ${{ fromJSON(toJSON(matrix)).imageName }}
+      tags: ${{ fromJSON(toJSON(matrix)).tag }}
+      platforms: linux/amd64
+      push: ${{ github.ref == 'refs/heads/main' }}
   build-apko:
     needs: prepare
     if: fromJSON(needs.prepare.outputs.matrix-apko) != null
