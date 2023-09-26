@@ -27,13 +27,13 @@ jobs:
         id: branch
         if: ${{ steps.determine-changes.outputs.changes == 'true' }}
         run: |
+          TIMESTAMP="$(git log -n1 --pretty='format:%cd' --date=format:'%Y-%m-%d-%H-%M')"
           NEW_BRANCH="config-yaml-image-update-for-${TIMESTAMP}"
           EXISTING_BRANCH="$(gh pr list --label image-digest-update --json author,title,headRefName | jq -r '. | select(.[] | .title | contains("update sync config.yaml")) | select(.[] | .author.login | contains("github-actions[bot]")) | .[0].headRefName')"
           if [ -n "$EXISTING_BRANCH" ]; then
             NEW_BRANCH="$EXISTING_BRANCH"
             echo "has-existing=true" >> $GITHUB_OUTPUT
           fi
-          TIMESTAMP="$(git log -n1 --pretty='format:%cd' --date=format:'%Y-%m-%d-%H-%M')"
           echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
           echo "new-branch-name=$NEW_BRANCH" >> $GITHUB_OUTPUT
       - name: commit and push if there are changes
@@ -53,4 +53,4 @@ jobs:
           if [ "$HAS_EXISTING" = true ]; then
             ACTION=edit
           fi
-          gh pr "$ACTION" --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}" --assignee GeoNet/platform-team
+          gh pr "$ACTION" --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}"
