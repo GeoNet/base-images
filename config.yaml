@@ -86,7 +86,10 @@ build:
     destination: ghcr.io/geonet/base-images/chart-centos7:latest
   - source: ./images/rpmbuild-centos7/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-centos7:latest
+    buildOnMainOnly: true
   - source: ./images/rpmbuild-centos-stream8/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-centos-stream8:latest
+    buildOnMainOnly: true
   - source: ./images/rpmbuild-centos-stream9/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-centos-stream9:latest
+    buildOnMainOnly: true
