@@ -40,6 +40,7 @@ jobs:
     needs: prepare
     if: fromJSON(needs.prepare.outputs.matrix-docker) != null
     strategy:
+      fail-fast: false
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix-docker) }}
     uses: GeoNet/Actions/.github/workflows/reusable-docker-build.yml@main
     with:
@@ -54,6 +55,7 @@ jobs:
     if: fromJSON(needs.prepare.outputs.matrix-apko) != null
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix-apko) }}
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0

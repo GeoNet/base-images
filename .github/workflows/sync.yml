@@ -40,6 +40,7 @@ jobs:
       source: ${{ steps.get-digests.outputs.source }}
       destination: ${{ steps.get-digests.outputs.destination }}
     strategy:
+      fail-fast: false
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
