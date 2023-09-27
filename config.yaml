@@ -5,6 +5,13 @@ sync:
   #      yq e .sync[].source ./config.yaml | xargs -n 1 -I{} sh -c 'printf "{} => "; crane digest {}'
   # NOTE find architectures of destination images
   #      < config.yaml yq e '.sync[].destination' | xargs -I{} sh -c 'printf "{} " && crane manifest {} | jq -e ".manifests | length | . > 1" && crane manifest {} | jq .manifests[].platform.architecture | xargs'
+  # NOTE use the following command to check each image for supply chain security related artifacts
+  #      yq e .sync[].source < ./config.yaml | xargs -n 1 -I{} -P 1000 cosign tree {}
+  # NOTE use the following command to determine how an image was signed
+  #      cosign verify -o text --certificate-identity-regexp '.*' --certificate-oidc-issuer-regexp '.*' IMAGE
+  # NOTE use the following command to verify all signed images
+  #      yq -r e '.sync[] | select(.sourceSignature != null) | .source + " " + .sourceSignature.issuerRegExp + " " + .sourceSignature.subjectRegExp' -o json < ./config.yaml \
+  #         | xargs -n 1 -l bash -c 'cosign verify -o text --certificate-identity-regexp "$2" --certificate-oidc-issuer-regexp "$1" "$0"'
   - source: docker.io/library/alpine:3.18@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
     destination: ghcr.io/geonet/base-images/alpine:3.18 # latest alpine
   - source: docker.io/redhat/ubi8:8.8@sha256:a7143118671dfc61aca46e8ab9e488500495a3c4c73a69577ca9386564614c13
@@ -34,12 +41,26 @@ sync:
   - source: docker.io/golang:1.21.1-alpine3.18@sha256:1c9cc949513477766da12bfa80541c4f24957323b0ee00630a6ff4ccf334b75b
     destination: ghcr.io/geonet/base-images/go:1.21 # until ko has been fully adopted
   - source: cgr.dev/chainguard/static:latest@sha256:da9822ad6f973e40e24e75133b08ae874900766873ecd03e58f7f630ccea898c
+    sourceSignature:
+      issuerRegExp: https://token.actions.githubusercontent.com
+      subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
     destination: ghcr.io/geonet/base-images/static:latest
-  - source: cgr.dev/chainguard/nginx:latest@sha256:8c05680b8a70b49013f9011cba5b50b26683e3360280a6065d30ef0cd8a50524 # use for Go base images
+  - source: cgr.dev/chainguard/nginx:latest@sha256:8c05680b8a70b49013f9011cba5b50b26683e3360280a6065d30ef0cd8a50524
+    sourceSignature:
+      issuerRegExp: https://token.actions.githubusercontent.com
+      subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
     destination: ghcr.io/geonet/base-images/nginx:latest
   - source: cgr.dev/chainguard/node:20@sha256:38dc35af8d4bd8f59c1d8b88999e7dee9746dcee0f375848fb9701f3b61564e5 # latest node
+    sourceSignature:
+      issuerRegExp: https://token.actions.githubusercontent.com
+      subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
     destination: ghcr.io/geonet/base-images/node:20
   - source: ghcr.io/geonet/base-images/mkdocs_plus:latest@sha256:d54c497b4ec5cce0c41b84e6afe5e4250c0b6ba499832ee977137f0f5e9c8a77
+    sourceSignature:
+      issuerRegExp: https://token.actions.githubusercontent.com
+      # match signature before and after adopting reusable workflow
+      # as the identity of the subject changes depending on which workflow it's signed with
+      subjectRegExp: https://github.com/GeoNet/(base-images/.github/workflows/build.yml@refs/heads/main|Actions/.github/workflows/reusable-docker-build.yml@refs/heads/main)
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
   - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
@@ -58,6 +79,9 @@ sync:
     destination: ghcr.io/geonet/base-images/centos:stream9
     auto-update-mutable-tag-digest: true
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
+    sourceSignature:
+      issuerRegExp: https://token.actions.githubusercontent.com
+      subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
     destination: ghcr.io/geonet/base-images/curl:8.1.2
   - source: docker.io/owasp/zap2docker-stable:2.11.1@sha256:47ba18f36de06f253e655d26ad78945c6dc24404e58f1c0758293a583bb99ce5
     destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1

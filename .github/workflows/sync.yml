@@ -61,6 +61,14 @@ jobs:
           ) | column -t
           echo "source=${SOURCE_DIGEST}" >> $GITHUB_OUTPUT
           echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
+      - name: verify-signature
+        if: ${{ (steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true) && fromJSON(toJSON(matrix)).sourceSignature != null }}
+        env:
+          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
+          SUBJECT: ${{ fromJSON(toJSON(matrix)).sourceSignature.subjectRegExp }}
+          ISSUER: ${{ fromJSON(toJSON(matrix)).sourceSignature.issuerRegExp }}
+        run: |
+          cosign verify -o text --certificate-identity-regexp "$SUBJECT" --certificate-oidc-issuer-regexp "$ISSUER" "$SOURCE"
       - name: copy
         if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true }}
         env:
