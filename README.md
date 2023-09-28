@@ -73,6 +73,8 @@ list of vendored base images
 | ghcr.io/geonet/base-images/rpmbuild-centos7        | image for building RPMs with, based on CentOS 7                                |
 | ghcr.io/geonet/base-images/rpmbuild-centos-stream8 | image for building RPMs with, based on CentOS Stream 8                         |
 | ghcr.io/geonet/base-images/rpmbuild-centos-stream9 | image for building RPMs with, based on CentOS Stream 9                         |
+| ghcr.io/geonet/base-images/yq                      | yq for GitHub actions                                                          |
+| ghcr.io/geonet/base-images/binfmt                  | Cross-platform emulator collection distributed with Docker images              |
 
 for tags, check [config.yaml](./config.yaml).
 
