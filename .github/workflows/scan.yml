@@ -32,38 +32,9 @@ jobs:
   scan:
     if: ${{ fromJSON(needs.prepare.outputs.matrix) != null }}
     needs: prepare
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
-    steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-      - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
-      - name: get-digests
-        id: get-digests
-        env:
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
-        run: |
-          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
-          (
-            echo "DESTINATION-DIGEST"
-            echo "$DESTINATION_DIGEST"
-          ) | column -t
-          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
-      - name: Run Trivy vulnerability scanner
-        if: ${{ steps.get-digests.outputs.destination != null }}
-        uses: aquasecurity/trivy-action@fbd16365eb88e12433951383f5e99bd901fc618f # 0.12.0
-        with:
-          image-ref: '${{ fromJSON(toJSON(matrix)).destination }}'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          # format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
-      - name: Upload Trivy scan results to GitHub Security tab
-        if: ${{ steps.get-digests.outputs.destination != null }}
-        uses: github/codeql-action/upload-sarif@f31a31c052207cc13b328d6295c5b728bb49568c # codeql-bundle-20230428
-        with:
-          sarif_file: 'trivy-results.sarif'
+    uses: GeoNet/Actions/.github/workflows/reusable-container-image-scan.yml@main
+    with:
+      imageRefs: ${{ fromJSON(toJSON(matrix)).destination }}
