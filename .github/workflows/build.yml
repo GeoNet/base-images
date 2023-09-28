@@ -27,7 +27,6 @@ jobs:
       matrix-apko: ${{ steps.set.outputs.matrix-apko }}
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-      - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - id: set
         env:
           REF: ${{ github.ref }}
@@ -61,7 +60,6 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix-apko) }}
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
-      - uses: GeoNet/yq@bbe305500687a5fe8498d74883c17f0f06431ac4 # master
       - uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4.1.0
       - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
