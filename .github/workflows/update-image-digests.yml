@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: 0 1 * * *
   workflow_dispatch: {}
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
 jobs:
   update-image-digests:
     runs-on: ubuntu-latest
@@ -49,8 +53,11 @@ jobs:
           git commit -s -m "chore: update sync config.yaml images for ${TIMESTAMP}"
           git push -f origin "${NEW_BRANCH}"
 
+          if ! gh label list --json name --jq .[].name | grep -Eq '^image-digest-update$'; then
+            gh label create image-digest-update || true
+          fi
           ACTION=create
           if [ "$HAS_EXISTING" = true ]; then
             ACTION=edit
           fi
-          gh pr "$ACTION" --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}"
+          gh pr --label image-digest-update "$ACTION" --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}"
