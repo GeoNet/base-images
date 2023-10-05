@@ -3,6 +3,8 @@ sync:
   # - use an image with digest for the source (use `crane digest IMAGE_REF` to find it); ensuring the exact image is used and the tag can't be swapped underneath
   # NOTE use the following command to check if each image resolves
   #      yq e .sync[].source ./config.yaml | xargs -n 1 -I{} sh -c 'printf "{} => "; crane digest {}'
+  # NOTE find architectures of destination images
+  #      < config.yaml yq e '.sync[].destination' | xargs -I{} sh -c 'printf "{} " && crane manifest {} | jq -e ".manifests | length | . > 1" && crane manifest {} | jq .manifests[].platform.architecture | xargs'
   - source: docker.io/library/alpine:3.18@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
     destination: ghcr.io/geonet/base-images/alpine:3.18 # latest alpine
   - source: docker.io/redhat/ubi8:8.8@sha256:a7143118671dfc61aca46e8ab9e488500495a3c4c73a69577ca9386564614c13
@@ -29,7 +31,7 @@ sync:
     destination: ghcr.io/geonet/base-images/go:1.16 # until ko has been fully adopted and Go 1.16 => 1.20/1.21
   - source: docker.io/golang:1.20.8-alpine3.18@sha256:c63dbdb3cca37abbee4c50f61e34b1d043c2669d03f34485f9ee6fe5feed4e48
     destination: ghcr.io/geonet/base-images/go:1.20 # until ko has been fully adopted
-  - source: docker.io/golang:1.21.1-alpine3.18@sha256:96634e55b363cb93d39f78fb18aa64abc7f96d372c176660d7b8b6118939d97b
+  - source: docker.io/golang:1.21.1-alpine3.18@sha256:1c9cc949513477766da12bfa80541c4f24957323b0ee00630a6ff4ccf334b75b
     destination: ghcr.io/geonet/base-images/go:1.21 # until ko has been fully adopted
   - source: cgr.dev/chainguard/static:latest@sha256:da9822ad6f973e40e24e75133b08ae874900766873ecd03e58f7f630ccea898c
     destination: ghcr.io/geonet/base-images/static:latest
