@@ -43,7 +43,7 @@ sync:
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
   - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013
     destination: ghcr.io/geonet/base-images/fedora:38
-  - source: quay.io/fedora/fedora-coreos:stable@sha256:022deff7c7249e75604396e507ba823d61dd3b7e94ad7fb3d8682c0cee1619ae # stable for 2023-09-21
+  - source: quay.io/fedora/fedora-coreos:stable@sha256:dd761341e1a97542467d8ec43e2b096271ca5a409d420d3e79ddba07940ea1b0 # stable for 2023-10-05
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
   - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
