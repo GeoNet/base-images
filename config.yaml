@@ -64,8 +64,9 @@ sync:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
   - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
-  - source: quay.io/fedora/fedora@sha256:1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013
+  - source: quay.io/fedora/fedora:38@sha256:d643707ffb780448c26dd5164edba3291aa39dbd790d06fbf779511bbe32cba9
     destination: ghcr.io/geonet/base-images/fedora:38
+    auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora-coreos:stable@sha256:dd761341e1a97542467d8ec43e2b096271ca5a409d420d3e79ddba07940ea1b0 # stable for 2023-10-05
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
