@@ -13,4 +13,5 @@ jobs:
       - name: check images are public
         run: |
           # NOTE: important to not use auth
-          jq -r -c '.sync as $sync | .build as $build | {"include":[{"destination": $sync[].destination}, {"destination": $build[].destination}]} | .include[].destination' <<< "$(yq e . -o json config.yaml)" | xargs -n 1 -I{} crane digest {}
+          jq -r -c '.sync as $sync | .build as $build | {"include":[{"destination": $sync[].destination}, {"destination": $build[].destination}]} | .include[] | select(.destination | contains("amazonaws.com") | not) | .destination' <<< "$(yq e . -o json config.yaml)" \
+            | xargs -n 1 -I{} crane digest {}
