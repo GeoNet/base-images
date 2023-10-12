@@ -15,9 +15,9 @@ jobs:
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       - name: configure system
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          gh auth login --with-token < <(echo ${{ secrets.GITHUB_TOKEN }})
+          git config user.name 'geonetci'
+          git config user.email 'geonetci@gns.cri.nz'
+          gh auth login --with-token < <(echo ${{ secrets.GH_CI_USER_TOKEN }})
           gh auth status
       - name: update select images
         run: ./hack/update-sync-image-digests.sh
@@ -46,6 +46,7 @@ jobs:
           TIMESTAMP: ${{ steps.branch.outputs.timestamp }}
           NEW_BRANCH: ${{ steps.branch.outputs.new-branch-name }}
           HAS_EXISTING: ${{ steps.branch.outputs.has-existing }}
+          GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
           git add ./config.yaml
           git branch "${NEW_BRANCH}"
