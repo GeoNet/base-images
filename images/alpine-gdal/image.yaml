@@ -1,9 +1,8 @@
 contents:
   repositories:
-    - https://dl-cdn.alpinelinux.org/alpine/v3.18/main
-    - https://dl-cdn.alpinelinux.org/alpine/v3.18/community
+    - https://dl-cdn.alpinelinux.org/alpine/v3.15/main
+    - https://dl-cdn.alpinelinux.org/alpine/v3.15/community
   packages:
-    - alpine-baselayout-data
     - ca-certificates-bundle
     - tzdata
     - gdal

@@ -111,7 +111,7 @@ build:
   - source: ./images/alpine-xslt/image.yaml
     destination: ghcr.io/geonet/base-images/alpine-xslt:3.18
   - source: ./images/alpine-gdal/image.yaml
-    destination: ghcr.io/geonet/base-images/alpine-gdal:3.18
+    destination: ghcr.io/geonet/base-images/alpine-gdal:3.15
   - source: ./images/texlive/image.yaml
     destination: ghcr.io/geonet/base-images/texlive:latest
   - source: ./images/chart-centos7/Dockerfile
