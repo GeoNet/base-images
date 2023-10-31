@@ -51,7 +51,7 @@ jobs:
           git add ./config.yaml
           git branch "${NEW_BRANCH}"
           git checkout "${NEW_BRANCH}"
-          git commit -s -m "chore: update sync config.yaml images for ${TIMESTAMP}"
+          git commit -s -m "chore: update sync config.yaml images for ${TIMESTAMP}" -m "updates sync config.yaml images for ${TIMESTAMP}"
           git push -f origin "${NEW_BRANCH}"
 
           if ! gh label list --json name --jq .[].name | grep -Eq '^image-digest-update$'; then
