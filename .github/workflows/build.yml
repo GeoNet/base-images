@@ -25,6 +25,7 @@ jobs:
     outputs:
       matrix-docker: ${{ steps.set.outputs.matrix-docker }}
       matrix-apko: ${{ steps.set.outputs.matrix-apko }}
+      matrix-arm: ${{ steps.set.outputs.matrix-arm }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - id: set
@@ -33,10 +34,12 @@ jobs:
         run: |
           echo "matrix-docker=$(jq --arg REF "$REF" -rMc '.build[] | select(.source | contains("Dockerfile")) | select(.buildOnMainOnly == null or $REF == "refs/heads/main") | . as $config | .destination | capture("(?<registry>.*)/(?<imageName>.*):(?<tag>.*)") | . as $imgSplit | $config | .source | capture("(?<context>.*)/Dockerfile") | . as $context | $config + $imgSplit + $context' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
           echo "matrix-apko=$(jq -rMc '.build[] | select(.source | contains("image.yaml"))' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
+          echo "matrix-arm=$(jq --arg REF "$REF" -rMc '.build[] | select(.source | contains("Dockerfile")) | select(.buildOnArm == true) | . as $config | .destination | capture("(?<registry>.*)/(?<imageName>.*):(?<tag>.*)") | . as $imgSplit | $config | .source | capture("(?<context>.*)/Dockerfile") | . as $context | $config + $imgSplit + $context' -r -c <<< "$(yq e . -o json config.yaml)" | jq -rcsM '{"include":.}')" >> $GITHUB_OUTPUT
       - name: check output
         run: |
           jq . <<< '${{ steps.set.outputs.matrix-docker }}'
           jq . <<< '${{ steps.set.outputs.matrix-apko }}'
+          jq . <<< '${{ steps.set.outputs.matrix-arm }}'
   build-docker:
     needs: prepare
     if: fromJSON(needs.prepare.outputs.matrix-docker) != null
@@ -50,6 +53,20 @@ jobs:
       imageName: ${{ fromJSON(toJSON(matrix)).imageName }}
       tags: ${{ fromJSON(toJSON(matrix)).tag }}
       platforms: linux/amd64
+      push: ${{ github.ref == 'refs/heads/main' }}
+  build-arm64:
+    needs: prepare
+    if: fromJSON(needs.prepare.outputs.matrix-arm) != null
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix-arm) }}
+    uses: GeoNet/Actions/.github/workflows/reusable-docker-build.yml@main
+    with:
+      context: ${{ fromJSON(toJSON(matrix)).context }}
+      dockerfile: ${{ fromJSON(toJSON(matrix)).source }}
+      imageName: ${{ fromJSON(toJSON(matrix)).imageName }}
+      tags: ${{ fromJSON(toJSON(matrix)).tag }}
+      platforms: linux/arm64
       push: ${{ github.ref == 'refs/heads/main' }}
   build-apko:
     needs: prepare

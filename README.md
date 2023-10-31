@@ -42,7 +42,7 @@ The repo is mostly concerned with base images or images used in build processes.
 list of vendored base images
 
 | Image                                                           | Description                                                                    |
-|-----------------------------------------------------------------|--------------------------------------------------------------------------------|
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | ghcr.io/geonet/base-images/alpine                               | standard Alpine base image                                                     |
 | ghcr.io/geonet/base-images/datadog/agent                        | datadog agent                                                                  |
 | ghcr.io/geonet/base-images/debian                               | standard Debian slim image                                                     |
@@ -73,6 +73,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/rpmbuild-centos7                     | image for building RPMs with, based on CentOS 7                                |
 | ghcr.io/geonet/base-images/rpmbuild-centos-stream8              | image for building RPMs with, based on CentOS Stream 8                         |
 | ghcr.io/geonet/base-images/rpmbuild-centos-stream9              | image for building RPMs with, based on CentOS Stream 9                         |
+| ghcr.io/geonet/base-images/rpmbuild-fedora                      | image for building RPMs with, based on fedora38                                |
 | ghcr.io/geonet/base-images/yq                                   | yq for GitHub actions                                                          |
 | ghcr.io/geonet/base-images/binfmt                               | Cross-platform emulator collection distributed with Docker images              |
 | 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent | datadog agent for use in ECS                                                   |
@@ -331,16 +332,16 @@ PACKAGE:  <nil>
 
 # Tooling
 
-| Name    | Description                                                                   | Links                                                              | Related/Alternatives                     |
-|---------|-------------------------------------------------------------------------------|--------------------------------------------------------------------|------------------------------------------|
-| crane   | an officially supported cli container registry tool from Google               | <https://github.com/google/go-containerregistry/tree/main/cmd/crane> | skopeo                                   |
-| yq      | a cli YAML parser                                                             | <https://github.com/mikefarah/yq>                                    | jq                                       |
-| cosign  | a cli container image artifact signing utility by Sigstore (Linux Foundation) | <https://github.com/sigstore/cosign>                                 | ...                                      |
-| melange | a cli Alpine APK package declarative builder supported by Chainguard          | <https://github.com/chainguard-dev/melange>                          | ...                                      |
+| Name    | Description                                                                   | Links                                                                | Related/Alternatives                       |
+| ------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------ |
+| crane   | an officially supported cli container registry tool from Google               | <https://github.com/google/go-containerregistry/tree/main/cmd/crane> | skopeo                                     |
+| yq      | a cli YAML parser                                                             | <https://github.com/mikefarah/yq>                                    | jq                                         |
+| cosign  | a cli container image artifact signing utility by Sigstore (Linux Foundation) | <https://github.com/sigstore/cosign>                                 | ...                                        |
+| melange | a cli Alpine APK package declarative builder supported by Chainguard          | <https://github.com/chainguard-dev/melange>                          | ...                                        |
 | apko    | a cli tool for declaratively building Alpine based container images           | <https://github.com/chainguard-dev/apko>                             | ko (<https://ko.build> - Linux Foundation) |
-| docker  | a container ecosystem, primarily for development                              | <https://docker.io>                                                  | podman                                   |
-| trivy   | a container image scanner                                                     | <https://github.com/aquasecurity/trivy>                              | clair                                    |
-| syft    | a cli tool to generate sboms based on container images and filesystems        | <https://github.com/anchore/syft>                                    |                                          |
+| docker  | a container ecosystem, primarily for development                              | <https://docker.io>                                                  | podman                                     |
+| trivy   | a container image scanner                                                     | <https://github.com/aquasecurity/trivy>                              | clair                                      |
+| syft    | a cli tool to generate sboms based on container images and filesystems        | <https://github.com/anchore/syft>                                    |                                            |
 
 # Patterns for discussion
 

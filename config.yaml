@@ -125,3 +125,7 @@ build:
   - source: ./images/rpmbuild-centos-stream9/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-centos-stream9:latest
     buildOnMainOnly: true
+  - source: ./images/rpmbuild-fedora/Dockerfile
+    destination: ghcr.io/geonet/base-images/rpmbuild-fedora:latest
+    buildOnMainOnly: true
+    buildOnArm: true
