@@ -98,6 +98,7 @@ jobs:
           tag: ${{ fromJSON(toJSON(matrix)).destination }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
+          apko-image: "ghcr.io/wolfi-dev/apko@sha256:ed7bbf853ec77fa4b5ad4840fd42c1391a0341b86541063217277b678e324686"
       - uses: GeoNet/chainguard-images-actions/apko-build@cfc56ba1a26d410474fe453d9c9a865fdd422fa7 # main
         if: ${{ github.ref != 'refs/heads/main' }}
         id: build-local
@@ -106,6 +107,7 @@ jobs:
           tag: ${{ steps.apko-options.outputs.tag }}
           config: ${{ fromJSON(toJSON(matrix)).source }}
           source-date-epoch: ${{ steps.snapshot-date.outputs.epoch }}
+          apko-image: "ghcr.io/wolfi-dev/apko@sha256:ed7bbf853ec77fa4b5ad4840fd42c1391a0341b86541063217277b678e324686"
       - name: crane get-digests
         id: get-digests
         if: ${{ github.ref == 'refs/heads/main' }}
