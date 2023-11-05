@@ -69,6 +69,9 @@ sync:
   - source: quay.io/fedora/fedora@sha256:d643707ffb780448c26dd5164edba3291aa39dbd790d06fbf779511bbe32cba9 # 1972716109b1c906120061063bd4cb50a46c2138d95002ccb90126928d98e013 for 2023-10-10
     destination: ghcr.io/geonet/base-images/fedora:38
     auto-update-mutable-tag-digest: true
+  - source: quay.io/fedora/fedora@sha256:f9be932e8fb3dc3c1c1bce22e441a504de1371b3cbf43db07489cd46750bb05a # aarch64 for 2023-11-06
+    destination: ghcr.io/geonet/base-images/fedora:38-aarch64
+    auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora-coreos:stable@sha256:df656918b8488d436141aad903d201b13224398b38a35af2ad723c2f076e9d8b # stable for 2023-10-31
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
