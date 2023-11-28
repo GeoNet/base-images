@@ -13,4 +13,7 @@ RUN dnf update -y && \
   kernel-devel libdbi libdbi-devel libgfortran libxml2 \
   libxml2-devel make ncurses ncurses-devel nodejs npm octave \
   openssl pango pango-devel perl-devel python3 qt5-qtwebengine \
-  rpm-build rpmdevtools rpm-sign rpmlint shadow-utils systemd
+  rpm-build rpmdevtools rpm-sign rpmlint shadow-utils systemd unzip
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip
+RUN ./aws/install
