@@ -66,10 +66,10 @@ sync:
     destination: ghcr.io/geonet/base-images/mkdocs_plus:2023-06-14
   - source: ghcr.io/siderolabs/conform:v0.1.0-alpha.27@sha256:60e5c3cac83104077aff44a86518972f92cffb48d06c06486fb1f2711d4eb559
     destination: ghcr.io/geonet/base-images/siderolabs-conform:v0.1.0-alpha.27
-  - source: quay.io/fedora/fedora:38@sha256:242d1f52519f56bb9cee9658c39a8d9978e927260330ce92b830ea2f9460d750 # 242d1f52519f56bb9cee9658c39a8d9978e927260330ce92b830ea2f9460d750 for 2023-11-08
+  - source: quay.io/fedora/fedora:38@sha256:a9c8f0795d5e64ac8e93afa5a1aa2c4e54cfbee6def832f7bf0a85a683dd1097 # 38 for 2023-11-29
     destination: ghcr.io/geonet/base-images/fedora:38
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:38-aarch64@sha256:fefc3cf26a1eae8f33bf6f9ce4e40fbd18b4b1f68348f6627374bc9d57670bde # fefc3cf26a1eae8f33bf6f9ce4e40fbd18b4b1f68348f6627374bc9d57670bde for 2023-11-08
+  - source: quay.io/fedora/fedora:38-aarch64@sha256:861c35b61ff83581b5c810d7b7b17cd48766a7e58412f613d6dfe6b155925253 # 38-aarch64 for 2023-11-29
     destination: ghcr.io/geonet/base-images/fedora:38-aarch64
     auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora-coreos:stable@sha256:edf82907b4dad33a8d94f9bbc883b303d62014df110c1a7df7af5c61514458e1 # stable for 2023-11-24
@@ -78,7 +78,7 @@ sync:
   - source: quay.io/centos/centos:7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:centos7
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:stream8@sha256:56526f21cd244b2324e19559d732413b3c481d9c8d4e5bf86eb42583132aea55 # stream8 for 2023-11-24
+  - source: quay.io/centos/centos:stream8@sha256:5917fa6bdbced823c488264ba03f1cfab852c15b5e47714fc8c9a074adc7cfdd # stream8 for 2023-11-29
     destination: ghcr.io/geonet/base-images/centos:stream8
     auto-update-mutable-tag-digest: true
   - source: quay.io/centos/centos:stream9@sha256:8845d412fc1bfcd06a0f8615dcd53acf8f8895af653e40fd95625be6b24c370b # stream9 for 2023-11-24
