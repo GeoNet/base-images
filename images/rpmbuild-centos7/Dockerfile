@@ -12,7 +12,7 @@ RUN yum update -y && \
   freetype freetype-devel gcc gcc-c++ git libdbi libdbi-devel libgfortran \
   libxml2 libxml2-devel m2crypto make ncurses ncurses-devel numpy octave \
   openssl pango pango-devel perl-devel python3 qtwebkit rpm-build \
-  rpmdevtools rpmlint rpm-sign shadow-utils systemd tar yum-utils unzip
+  rpmdevtools rpmlint rpm-sign shadow-utils systemd tar unzip dnf dnf-plugins-core
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
