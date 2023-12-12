@@ -69,8 +69,14 @@ sync:
   - source: quay.io/fedora/fedora:38@sha256:a9c8f0795d5e64ac8e93afa5a1aa2c4e54cfbee6def832f7bf0a85a683dd1097 # 38 for 2023-11-29
     destination: ghcr.io/geonet/base-images/fedora:38
     auto-update-mutable-tag-digest: true
+  - source: quay.io/fedora/fedora:39@sha256:490a2eb8c9ae75eb4f1cef7cd6bcd73c3fcc00e1a4822d3be592ff917b1353cf # 39
+    destination: ghcr.io/geonet/base-images/fedora:39
+    auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora:38-aarch64@sha256:861c35b61ff83581b5c810d7b7b17cd48766a7e58412f613d6dfe6b155925253 # 38-aarch64 for 2023-11-29
     destination: ghcr.io/geonet/base-images/fedora:38-aarch64
+    auto-update-mutable-tag-digest: true
+  - source: quay.io/fedora/fedora:39-aarch64@sha256:2562f434d7d14c6c9a9e0c0ae3882171c2289aae0c246b9c84afe79804b4fa7a # 38-aarch64
+    destination: ghcr.io/geonet/base-images/fedora:39-aarch64
     auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora-coreos:stable@sha256:31560c0a6191967ff8b601684a2e82a8f9945255d81f7cdf1e6801506909fe34 # stable for 2023-12-12
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
@@ -130,4 +136,7 @@ build:
     buildOnMainOnly: true
   - source: ./images/rpmbuild-fedora/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-fedora:latest
+    buildOnMainOnly: true
+  - source: ./images/rpmbuild-fedora/Dockerfile.39
+    destination: ghcr.io/geonet/base-images/rpmbuild-fedora:39
     buildOnMainOnly: true
