@@ -34,6 +34,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
-    uses: GeoNet/Actions/.github/workflows/reusable-container-image-scan.yml@main
+    uses: GeoNet/Actions/.github/workflows/reusable-container-image-scan.yml@b87a86bf809614870b342d6fe85accf520baa8b8 #pinned to prior version pending fix from worfklow update https://github.com/GeoNet/Actions/pull/232 2023-12-13
     with:
       imageRefs: ${{ fromJSON(toJSON(matrix)).destination }}
