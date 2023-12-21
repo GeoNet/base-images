@@ -1,6 +1,6 @@
 FROM ghcr.io/geonet/base-images/centos:stream8
 # Install prerequisites
-RUN dnf module enable -y nodejs:16 \
+RUN dnf module enable -y nodejs:20 \
   && dnf install -y epel-release epel-next-release \
   'dnf-command(config-manager)' \
   && dnf config-manager --set-enabled powertools
