@@ -78,16 +78,16 @@ sync:
   - source: quay.io/fedora/fedora:39-aarch64@sha256:2562f434d7d14c6c9a9e0c0ae3882171c2289aae0c246b9c84afe79804b4fa7a # 38-aarch64
     destination: ghcr.io/geonet/base-images/fedora:39-aarch64
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora-coreos:stable@sha256:31560c0a6191967ff8b601684a2e82a8f9945255d81f7cdf1e6801506909fe34 # stable for 2023-12-12
+  - source: quay.io/fedora/fedora-coreos:stable@sha256:edf36bacc53a0feb09796e46f1443060155987ef6f9985f40e163ce4222dfbce # stable for 2024-01-10
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
   - source: quay.io/centos/centos:centos7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:centos7
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:stream8@sha256:34aaf8788a2467f602c5772884448236bb41dfe1691a78dee33053bb24474395 # stream8 for 2023-12-12
+  - source: quay.io/centos/centos:stream8@sha256:a8692b39e546eed9177d495db1edfd97bb6de70b9527f58aeb72f90b687c3426 # stream8 for 2024-01-10
     destination: ghcr.io/geonet/base-images/centos:stream8
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:stream9@sha256:1ad5272613140d855a997a0d1b4f489a51cd9320447967feb72305f91fd4dda2 # stream9 for 2023-12-12
+  - source: quay.io/centos/centos:stream9@sha256:3e26f56ecab0f2c62fb60eec5d963a57512aff7f0b687d019af47b4772d1fed8 # stream9 for 2024-01-10
     destination: ghcr.io/geonet/base-images/centos:stream9
     auto-update-mutable-tag-digest: true
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
