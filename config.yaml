@@ -12,16 +12,16 @@ sync:
   # NOTE use the following command to verify all signed images
   #      yq -r e '.sync[] | select(.sourceSignature != null) | .source + " " + .sourceSignature.issuerRegExp + " " + .sourceSignature.subjectRegExp' -o json < ./config.yaml \
   #         | xargs -n 1 -l bash -c 'cosign verify -o text --certificate-identity-regexp "$2" --certificate-oidc-issuer-regexp "$1" "$0"'
+  - source: docker.io/library/alpine:3.19@sha256:6457d53fb065d6f250e1504b9bc42d5b6c65941d57532c072d929dd0628977d0
+    destination: ghcr.io/geonet/base-images/alpine:3.19 # latest alpine
   - source: docker.io/library/alpine:3.18@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
-    destination: ghcr.io/geonet/base-images/alpine:3.18 # latest alpine
-  - source: docker.io/redhat/ubi8:8.8@sha256:a7143118671dfc61aca46e8ab9e488500495a3c4c73a69577ca9386564614c13
-    destination: ghcr.io/geonet/base-images/ubi8:8.8
-  - source: docker.io/redhat/ubi8-minimal:8.8@sha256:621f5245fb3e8597a626163cdf1229e1f8311e07ab71bb1e9332014b51c59f9c
-    destination: ghcr.io/geonet/base-images/ubi8-minimal:8.8
-  - source: docker.io/datadog/agent:7.47.1@sha256:364b90eb9da1925a4b8a1dca501a9a8e8cd5e8455733a16857284c49d4bf8467
-    destination: ghcr.io/geonet/base-images/datadog/agent:7.47.1
-  - source: docker.io/datadog/agent:7.47.1@sha256:364b90eb9da1925a4b8a1dca501a9a8e8cd5e8455733a16857284c49d4bf8467
-    destination: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent:7.47.1
+    destination: ghcr.io/geonet/base-images/alpine:3.18 # prev alpine
+  - source: docker.io/redhat/ubi8:8.9@sha256:registry.redhat.io/ubi8/ubi@sha256:d9938b1c22f8073b970e0726aaa15d22cf53500ff91251beb990401b6caf337d
+    destination: ghcr.io/geonet/base-images/ubi8:8.9
+  - source: docker.io/redhat/ubi8-minimal:8.9@sha256:5358442cd3f4acba48ee177801482980be5de3a174bc6fab4c51871c6cf733d1
+    destination: ghcr.io/geonet/base-images/ubi8-minimal:8.9
+  - source: docker.io/datadog/agent:7.50.3@sha256:7692d6667dfc06882d3529d0d469cfd3682ff64d31fe000cb6501b1d9398e4cb
+    destination: ghcr.io/geonet/base-images/datadog/agent:7.50.3
   - source: docker.io/library/debian:bookworm-slim@sha256:d8f9d38c21495b04d1cca99805fbb383856e19794265684019bf193c3b7d67f9
     destination: ghcr.io/geonet/base-images/debian:bookworm-slim
   - source: docker.io/hadolint/hadolint:v2.12.0-alpine@sha256:3c206a451cec6d486367e758645269fd7d696c5ccb6ff59d8b03b0e45268a199
@@ -90,11 +90,11 @@ sync:
   - source: quay.io/centos/centos:stream9@sha256:6ff48b54ca7a87cd9754f4a6a7658a4929a5159da775f146f1f1f5ea3cc506bd # stream9 for 2024-01-31
     destination: ghcr.io/geonet/base-images/centos:stream9
     auto-update-mutable-tag-digest: true
-  - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
+  - source: cgr.dev/chainguard/curl:8.5.0@sha256:fb8b6ed35a461c3d18f5bd88e1b7d76ec804d157a9f4af0d62529b651894a0d0
     sourceSignature:
       issuerRegExp: https://token.actions.githubusercontent.com
       subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
-    destination: ghcr.io/geonet/base-images/curl:8.1.2
+    destination: ghcr.io/geonet/base-images/curl:8.5.0
   - source: docker.io/owasp/zap2docker-stable:2.11.1@sha256:47ba18f36de06f253e655d26ad78945c6dc24404e58f1c0758293a583bb99ce5
     destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.11.1
   - source: docker.io/koalaman/shellcheck-alpine:v0.9.0@sha256:e19ed93c22423970d56568e171b4512c9244fc75dd9114045016b4a0073ac4b7
