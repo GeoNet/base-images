@@ -110,7 +110,7 @@ jobs:
           COSIGN_YES: "true"
         run: |
           cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-digests.outputs.destination }} -y
-      - uses: anchore/sbom-action@5ecf649a417b8ae17dc8383dc32d46c03f2312df # v0.15.1
+      - uses: anchore/sbom-action@b6a39da80722a2cb0ef5d197531764a89b5d48c3 # v0.15.8
         name: sbom generate
         if: ${{ steps.determine-type.outputs.typeIsDocker == 'true' && github.ref == 'refs/heads/main' }}
         with:
