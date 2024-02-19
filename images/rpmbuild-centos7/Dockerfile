@@ -1,6 +1,6 @@
 FROM ghcr.io/geonet/base-images/centos:centos7
 # Install prerequisites
-RUN curl -O https://nodejs.org/dist/latest-v20.x/node-v20.10.0-linux-arm64.tar.xz \
+RUN curl -O https://nodejs.org/dist/latest-v20.x/node-v20.11.1-linux-arm64.tar.xz \
   && tar --strip-components 1 -xvf node-v* -C /usr/local \
   && yum install -y epel-release
 
