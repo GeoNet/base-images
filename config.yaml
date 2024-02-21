@@ -34,6 +34,10 @@ sync:
     destination: ghcr.io/geonet/base-images/node:20.3-alpine3.18
   - source: docker.io/library/python:3.11.4-bullseye@sha256:e76a365d3f3b37ad4cf4bae474a063883461b01e07e2f51cd7d9597fd455ee38
     destination: ghcr.io/geonet/base-images/python:3.11.4-bullseye
+  - source: docker.io/library/python:3.12.2-bullseye@sha256:632aa502e9478bac490956b49b0184c300b0448f74bd7cb3245467f4af90cdd3
+    destination: ghcr.io/geonet/base-images/python:3.12.2-bullseye
+  - source: docker.io/library/python:3.12.2-alpine3.19@sha256:849ed6079c9f797ca9c1b7d6aea1c00aea3ac35110cbd0d6003f15950017ea8d
+    destination: ghcr.io/geonet/base-images/python:3.12.2-alpine3.19
   - source: docker.io/library/python:3.11.4-alpine3.18@sha256:995c7fcdf9a10e0e1a4555861dac63436b456822a167f07b6599d4f105de6fa0
     destination: ghcr.io/geonet/base-images/python:3.11.4-alpine3.18
   - source: docker.io/library/golang:1.16-alpine3.15@sha256:5616dca835fa90ef13a843824ba58394dad356b7d56198fb7c93cbe76d7d67fe
