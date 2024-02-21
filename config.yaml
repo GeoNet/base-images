@@ -18,10 +18,10 @@ sync:
     destination: ghcr.io/geonet/base-images/ubi8:8.8
   - source: docker.io/redhat/ubi8-minimal:8.8@sha256:621f5245fb3e8597a626163cdf1229e1f8311e07ab71bb1e9332014b51c59f9c
     destination: ghcr.io/geonet/base-images/ubi8-minimal:8.8
-  - source: docker.io/datadog/agent:7.47.1@sha256:364b90eb9da1925a4b8a1dca501a9a8e8cd5e8455733a16857284c49d4bf8467
-    destination: ghcr.io/geonet/base-images/datadog/agent:7.47.1
-  - source: docker.io/datadog/agent:7.47.1@sha256:364b90eb9da1925a4b8a1dca501a9a8e8cd5e8455733a16857284c49d4bf8467
-    destination: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent:7.47.1
+  - source: docker.io/datadog/agent:7.51.0@sha256:fa2e2347bb66513515074e825ff749f950ab6051f61b889ba3734f328bf86ec6
+    destination: ghcr.io/geonet/base-images/datadog/agent:7.51.0
+  - source: docker.io/datadog/agent:7.51.0@sha256:fa2e2347bb66513515074e825ff749f950ab6051f61b889ba3734f328bf86ec6
+    destination: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent:7.51.0
   - source: docker.io/library/debian:bookworm-slim@sha256:d8f9d38c21495b04d1cca99805fbb383856e19794265684019bf193c3b7d67f9
     destination: ghcr.io/geonet/base-images/debian:bookworm-slim
   - source: docker.io/hadolint/hadolint:v2.12.0-alpine@sha256:3c206a451cec6d486367e758645269fd7d696c5ccb6ff59d8b03b0e45268a199
