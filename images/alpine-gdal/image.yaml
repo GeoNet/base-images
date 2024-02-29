@@ -1,11 +1,13 @@
 contents:
   repositories:
-    - https://dl-cdn.alpinelinux.org/alpine/v3.15/main
-    - https://dl-cdn.alpinelinux.org/alpine/v3.15/community
+    - https://dl-cdn.alpinelinux.org/alpine/v3.18/main
+    - https://dl-cdn.alpinelinux.org/alpine/v3.18/community
   packages:
     - ca-certificates-bundle
     - tzdata
     - gdal
+    - gdal-driver-HDF5
+    - gdal-driver-PNG
 
 archs:
   - x86_64
