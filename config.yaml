@@ -85,7 +85,7 @@ sync:
   - source: quay.io/centos/centos:stream8@sha256:35fbcb91cfbaa45eea2497abacbaf67d7df35efa8ff5ccef36e077cf5ac970f7 # stream8 for 2024-03-12
     destination: ghcr.io/geonet/base-images/centos:stream8
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:stream9@sha256:e3a6cc7964a40a8c959f5edf4094e934a1491990c79cc34b0472f8deb4091a28 # stream9 for 2024-03-12
+  - source: quay.io/centos/centos:stream9@sha256:cf7aec056afefff59976960cd9f5ad6ef087f2da1ccccc38140df48a4aa6b5ca # stream9 for 2024-03-13
     destination: ghcr.io/geonet/base-images/centos:stream9
     auto-update-mutable-tag-digest: true
   - source: cgr.dev/chainguard/curl:8.1.2@sha256:73992422b3e634c520483bb0aeda22c405d4701ccf5c2294c71d7f67373301cb
