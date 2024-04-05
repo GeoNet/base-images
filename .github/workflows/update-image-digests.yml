@@ -28,27 +28,13 @@ jobs:
           if git ls-files --others --modified --deleted --exclude-standard | grep -E 'config.yaml'; then
             echo "changes=true" >> $GITHUB_OUTPUT
           fi
-      - name: determine existing branch
-        id: branch
-        if: ${{ steps.determine-changes.outputs.changes == 'true' }}
-        run: |
-          TIMESTAMP="$(git log -n1 --pretty='format:%cd' --date=format:'%Y-%m-%d-%H-%M')"
-          NEW_BRANCH="config-yaml-image-update-for-${TIMESTAMP}"
-          EXISTING_BRANCH="$(gh pr list --label image-digest-update --json author,title,headRefName | jq -r '. | select(.[] | .title | contains("update sync config.yaml")) | select(.[] | .author.login | contains("github-actions[bot]")) | .[0].headRefName')"
-          if [ -n "$EXISTING_BRANCH" ]; then
-            NEW_BRANCH="$EXISTING_BRANCH"
-            echo "has-existing=true" >> $GITHUB_OUTPUT
-          fi
-          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
-          echo "new-branch-name=$NEW_BRANCH" >> $GITHUB_OUTPUT
       - name: commit and push if there are changes
         if: ${{ steps.determine-changes.outputs.changes == 'true' }}
         env:
-          TIMESTAMP: ${{ steps.branch.outputs.timestamp }}
-          NEW_BRANCH: ${{ steps.branch.outputs.new-branch-name }}
-          HAS_EXISTING: ${{ steps.branch.outputs.has-existing }}
           GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
+          TIMESTAMP="$(git log -n1 --pretty='format:%cd' --date=format:'%Y-%m-%d-%H-%M')"
+          NEW_BRANCH="config-yaml-image-update-for-${TIMESTAMP}"
           git add ./config.yaml
           git branch "${NEW_BRANCH}"
           git checkout "${NEW_BRANCH}"
@@ -58,8 +44,4 @@ jobs:
           if ! gh label list --json name --jq .[].name | grep -Eq '^image-digest-update$'; then
             gh label create image-digest-update || true
           fi
-          ACTION=create
-          if [ "$HAS_EXISTING" = true ]; then
-            ACTION=edit
-          fi
-          gh pr --label image-digest-update "$ACTION" --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}"
+          gh pr --label image-digest-update create --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}"
