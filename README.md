@@ -55,6 +55,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/nginx                                | minimal nginx image                                                            |
 | ghcr.io/geonet/base-images/node                                 | Alpine based node image                                                        |
 | ghcr.io/geonet/base-images/python                               | Alpine and Debian base Python images                                           |
+| ghcr.io/geonet/base-images/python-arcgis                        | Alpine Python image with arcgis installed                                      |
 | ghcr.io/geonet/base-images/siderolabs-conform                   | conform policy for pull request commits                                        |
 | ghcr.io/geonet/base-images/static                               | scratch with timezone and ca-certificate data pre-installed. Great for Go apps |
 | ghcr.io/geonet/base-images/texlive                              | a latex image                                                                  |

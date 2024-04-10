@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "arcgis-base-image"
+version = "1.0.0"
+description = "Base image containing Python and arcgis"
+authors = ["GeoNet"]
+
+[tool.poetry.dependencies]
+python = "3.11.9"
+arcgis = "2.2.0"
+numpy = "1.23.2"
+pandas = "2.0.1"
+geopandas = "0.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
