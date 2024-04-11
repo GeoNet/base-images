@@ -9,6 +9,10 @@ updates:
       interval: "weekly"
   - package-ecosystem: "pip"
     directory: "/"
+    groups:
+    python-packages:
+      patterns:
+        - "*"
     commit-message:
       prefix: "chore"
       prefix-development: "chore"
