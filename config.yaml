@@ -44,6 +44,8 @@ sync:
     destination: ghcr.io/geonet/base-images/python:3.11.4-alpine3.18
   - source: docker.io/golang:1.21.8-alpine3.18@sha256:860939eeb59ad790aa592fdd6d09829845b4e04ee5a59e4b77d5bbca41d949c7
     destination: ghcr.io/geonet/base-images/go:1.21 # until ko has been fully adopted
+  - source: docker.io/vmware/govc:v0.37.0@sha256:cb81de51e4255a6fb980c33b7b1e04832f2640b9010d51720e223f580efc4949
+    destination: ghcr.io/geonet/base-images/govc:v0.37.0
   - source: cgr.dev/chainguard/static:latest@sha256:da9822ad6f973e40e24e75133b08ae874900766873ecd03e58f7f630ccea898c
     sourceSignature:
       issuerRegExp: https://token.actions.githubusercontent.com
