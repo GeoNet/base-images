@@ -44,4 +44,3 @@ jobs:
           if ! gh label list --json name --jq .[].name | grep -Eq '^image-digest-update$'; then
             gh label create image-digest-update || true
           fi
-          gh pr --label image-digest-update create --title "Update sync config.yaml images ${TIMESTAMP}" --body "updates sync config.yaml images for ${TIMESTAMP}"
