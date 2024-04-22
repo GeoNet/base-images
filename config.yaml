@@ -99,8 +99,6 @@ sync:
       issuerRegExp: https://token.actions.githubusercontent.com
       subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
     destination: ghcr.io/geonet/base-images/curl:8.1.2
-  - source: docker.io/owasp/zap2docker-stable:2.14.0@sha256:3033e8c6fc598b8144c6daa75b634906d56ffe81d297d294bf2a0ad4c2a18d91
-    destination: ghcr.io/geonet/base-images/owasp/zap2docker-stable:2.14.0
   - source: docker.io/koalaman/shellcheck-alpine:v0.9.0@sha256:e19ed93c22423970d56568e171b4512c9244fc75dd9114045016b4a0073ac4b7
     destination: ghcr.io/geonet/base-images/shellcheck:v0.9.0
   - source: docker.io/tonistiigi/binfmt:latest@sha256:66e11bea77a5ea9d6f0fe79b57cd2b189b5d15b93a2bdb925be22949232e4e55
