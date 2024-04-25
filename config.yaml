@@ -73,16 +73,16 @@ sync:
   - source: quay.io/fedora/fedora:38@sha256:6349d2df6b4322c5690df1bb7743c45c356e20471dda69f27218cd9ba4a6c3c7 # 38 for 2024-01-28
     destination: ghcr.io/geonet/base-images/fedora:38
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:39@sha256:116579ff70e1dc4729e9de65feffe01e45793e847ffbd71d936c8c01ed771992 # 39 for 2024-04-24
+  - source: quay.io/fedora/fedora:39@sha256:ddb2158927aec0a3c56d9dfc2a6b1f9c740dd78b6e3eea658bc239b033215072 # 39 for 2024-04-25
     destination: ghcr.io/geonet/base-images/fedora:39
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:40@sha256:ede1e07259c695856d1fe4ba9978c6a9e26273ae2989968fd0d730d8e91822b5 # 40 for 2024-04-22
+  - source: quay.io/fedora/fedora:40@sha256:9870a116ac770429d424f6e03d44ab9d57062ae6b20b8c1283a19aa2bd985f88 # 40 for 2024-04-25
     destination: ghcr.io/geonet/base-images/fedora:40
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:39-aarch64@sha256:50f4c43ee2e27f573d65750bce17168edf2e8c78de3794468791e8530d23fdc3 # 39-aarch64 for 2024-04-24
+  - source: quay.io/fedora/fedora:39-aarch64@sha256:11ea86f05952b7fae6e6426781bf451b567019142013ec9278ee042b08a24677 # 39-aarch64 for 2024-04-25
     destination: ghcr.io/geonet/base-images/fedora:39-aarch64
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:40-aarch64@sha256:840f79d77eb36cccc63dcea6119a35c189b3cac99ea7447ac3ac6fd7372e73f7 # 40-aarch64 for 2024-04-24
+  - source: quay.io/fedora/fedora:40-aarch64@sha256:cf804b6b308640bf064a5a820ae8d67038aa9126e3ea1e0dd4700f77f34498ad # 40-aarch64 for 2024-04-25
     destination: ghcr.io/geonet/base-images/fedora:40-aarch64
     auto-update-mutable-tag-digest: true
   - source: quay.io/fedora/fedora-coreos:stable@sha256:13e1fa30f97804fec861ff2ff3d91fdb38c0837805f7034ee135cec19d4e6c91 # stable for 2024-04-24
@@ -91,7 +91,7 @@ sync:
   - source: quay.io/centos/centos:centos7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
     destination: ghcr.io/geonet/base-images/centos:centos7
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:stream8@sha256:f61b2ab26101acac38e744a81fd42d9ec4cb89cb97dc886d684bcb25bdbae3bd # stream8 for 2024-04-22
+  - source: quay.io/centos/centos:stream8@sha256:4f3138f56a39ecc9289457931cd10b5f696639c7e1b060d88865c3002169abad # stream8 for 2024-04-25
     destination: ghcr.io/geonet/base-images/centos:stream8
     auto-update-mutable-tag-digest: true
   - source: quay.io/centos/centos:stream9@sha256:9aff9c6de7b4eb3618a73f7b4fc203318d512538d7b7f25966c855d46225bd23 # stream9 for 2024-04-24
