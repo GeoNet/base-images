@@ -51,7 +51,7 @@ sync:
       issuerRegExp: https://token.actions.githubusercontent.com
       subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
     destination: ghcr.io/geonet/base-images/static:latest
-  - source: cgr.dev/chainguard/nginx:latest@sha256:8c05680b8a70b49013f9011cba5b50b26683e3360280a6065d30ef0cd8a50524
+  - source: cgr.dev/chainguard/nginx:latest@sha256:f705448eb5a9939454a5bfe1a2b6a8afe4da18d8f7191ef62b883200baa46054
     sourceSignature:
       issuerRegExp: https://token.actions.githubusercontent.com
       subjectRegExp: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
