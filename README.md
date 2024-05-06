@@ -53,6 +53,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/hadolint/hadolint                    | a Dockerfile linter                                                            |
 | ghcr.io/geonet/base-images/hashicorp/terraform                  | Terraform image                                                                |
 | ghcr.io/geonet/base-images/mkdocs_plus                          | a custom build image for docs                                                  |
+| ghcr.io/geonet/base-images/mkdocs                               | a build of mkdocs material for docs                                            |
 | ghcr.io/geonet/base-images/nginx                                | minimal nginx image                                                            |
 | ghcr.io/geonet/base-images/node                                 | Alpine based node image                                                        |
 | ghcr.io/geonet/base-images/python                               | Alpine and Debian base Python images                                           |

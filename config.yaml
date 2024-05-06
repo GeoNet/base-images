@@ -116,6 +116,8 @@ build:
   # - images are pushed to ghcr.io/geonet/base-images/IMAGE_NAME
   - source: ./images/mkdocs_plus/Dockerfile
     destination: ghcr.io/geonet/base-images/mkdocs_plus:latest
+  - source: ./images/mkdocs_material/Dockerfile
+    destination: ghcr.io/geonet/base-images/mkdocs:v1.6.0
   - source: ./images/git/image.yaml
     destination: ghcr.io/geonet/base-images/git:latest
   - source: ./images/git-ssh/image.yaml

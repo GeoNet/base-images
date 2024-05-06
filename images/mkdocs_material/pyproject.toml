@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta:__legacy__"
+
+[project]
+name = "platform-docs"
+dynamic = ["version"]
+dependencies = [
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.19",
+    "mkdocs-awesome-pages-plugin>=2.9.2",
+]
