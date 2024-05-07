@@ -67,7 +67,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/centos                               | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
 | ghcr.io/geonet/base-images/chart-centos7                        | Centos 7 base image updated to add extract packages needed for the chart app   |
 | ghcr.io/geonet/base-images/curl                                 | A minimal image only containing curl                                           |
-| ghcr.io/geonet/base-images/owasp/zap2docker-stable              | An image to run OWASP's Zed Attack Proxy security web scanner                  |
+| ghcr.io/geonet/base-images/zaproxy/zaproxy                      | An image to run OWASP's Zed Attack Proxy security web scanner                  |
 | ghcr.io/geonet/base-images/alpine-xslt                          | Alpine with libxslt for XML parsing                                            |
 | ghcr.io/geonet/base-images/alpine-gdal                          | Alpine with gdal for raster and vector geospatial data formats                 |
 | ghcr.io/geonet/base-images/fedora                               | fedora for build tasks                                                         |
