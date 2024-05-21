@@ -137,6 +137,9 @@ build:
   - source: ./images/python-arcgis/Dockerfile
     destination: ghcr.io/geonet/base-images/python-arcgis:latest
     buildOnMainOnly: true
+  - source: ./images/rpmbuild-almalinux8/Dockerfile
+    destination: ghcr.io/geonet/base-images/rpmbuild-almalinux8:latest
+    buildOnMainOnly: true
   - source: ./images/rpmbuild-centos7/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-centos7:latest
     buildOnMainOnly: true
