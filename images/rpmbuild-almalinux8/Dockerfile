@@ -11,7 +11,7 @@ RUN dnf update -y && \
   fontconfig-devel freetype freetype-devel gcc gcc-c++ git glibc \
   kernel-devel libdbi libdbi-devel libgfortran libxml2 \
   libxml2-devel make ncurses ncurses-devel nodejs npm octave \
-  openssl pango pango-devel perl-devel python3.6 python3.11 qt5-qtwebengine \
+  openssl pango pango-devel perl-devel python3.11 qt5-qtwebengine \
   rpm-build rpmdevtools rpm-sign rpmlint shadow-utils systemd unzip
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip
