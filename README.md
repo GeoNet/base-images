@@ -55,6 +55,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/mkdocs_plus                          | a custom build image for docs                                                  |
 | ghcr.io/geonet/base-images/mkdocs                               | a build of mkdocs material for docs                                            |
 | ghcr.io/geonet/base-images/nginx                                | minimal nginx image                                                            |
+| ghcr.io/geonet/base-images/nginx-rtmp                           | alpine base image with nginx and rtmp
 | ghcr.io/geonet/base-images/node                                 | Alpine based node image                                                        |
 | ghcr.io/geonet/base-images/python                               | Alpine and Debian base Python images                                           |
 | ghcr.io/geonet/base-images/python-arcgis                        | Alpine Python image with arcgis installed (includes Rust as a dependency)      |

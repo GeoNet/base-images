@@ -155,3 +155,5 @@ build:
   - source: ./images/rpmbuild-fedora/Dockerfile.39
     destination: ghcr.io/geonet/base-images/rpmbuild-fedora:39
     buildOnMainOnly: true
+  - source: ./images/alpine-nginx-rtmp-stream/Dockerfile
+    destination: ghcr.io/geonet/base-images/nginx-rtmp:v1.2.2
