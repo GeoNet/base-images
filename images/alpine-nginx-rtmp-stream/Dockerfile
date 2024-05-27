@@ -1,6 +1,6 @@
 FROM alpine:latest as builder
 
-ARG NGINX_VERSION=1.25.5
+ARG NGINX_VERSION=1.23.2
 ARG NGINX_RTMP_VERSION=1.2.2
 
 
@@ -41,8 +41,16 @@ RUN	cd /tmp										&&	\
     tar xzf nginx-${NGINX_VERSION}.tar.gz						&&	\
     cd nginx-${NGINX_VERSION}							&&	\
     ./configure										\
-    --prefix=/opt/nginx								\
-    --with-http_ssl_module								\
+    --sbin-path=/usr/local/sbin/nginx \
+    --conf-path=/etc/nginx/nginx.conf \
+    --error-log-path=/var/log/nginx/error.log \
+    --pid-path=/var/run/nginx/nginx.pid \
+    --lock-path=/var/lock/nginx/nginx.lock \
+    --http-log-path=/var/log/nginx/access.log \
+    --http-client-body-temp-path=/tmp/nginx-client-body \
+    --with-http_ssl_module \
+    --with-threads \
+    --with-ipv6 \
     --add-module=../nginx-rtmp-module					&&	\
     make										&&	\
     make install
@@ -56,12 +64,12 @@ RUN apk update		&& \
     ca-certificates	   \
     pcre
 
-COPY --from=0 /opt/nginx /opt/nginx
-COPY --from=0 /tmp/nginx-rtmp-module/stat.xsl /opt/nginx/conf/stat.xsl
-RUN rm /opt/nginx/conf/nginx.conf
+COPY --from=0 /usr/local/sbin/nginx /usr/local/sbin/nginx
+COPY --from=0 /tmp/nginx-rtmp-module/stat.xsl /etc/nginx/conf/stat.xsl
+
 ADD run.sh /
 
 EXPOSE 1935
-EXPOSE 8080
+EXPOSE 80
 
 CMD /run.sh
