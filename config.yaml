@@ -157,3 +157,5 @@ build:
     buildOnMainOnly: true
   - source: ./images/alpine-nginx-rtmp-stream/Dockerfile
     destination: ghcr.io/geonet/base-images/nginx-rtmp:v1.2.2
+  - source: ./images/alpine-ffmpeg/Dockerfile
+    destination: ghcr.io/geonet/base-images/alpine-ffmpeg:latest

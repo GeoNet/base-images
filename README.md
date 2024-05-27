@@ -70,6 +70,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/curl                                 | A minimal image only containing curl                                           |
 | ghcr.io/geonet/base-images/zaproxy/zaproxy                      | An image to run OWASP's Zed Attack Proxy security web scanner                  |
 | ghcr.io/geonet/base-images/alpine-xslt                          | Alpine with libxslt for XML parsing                                            |
+| ghcr.io/geonet/base-images/alpine-ffmpeg                        | Alpine with ffmpeg for video streaming and processing                          |
 | ghcr.io/geonet/base-images/alpine-gdal                          | Alpine with gdal for raster and vector geospatial data formats                 |
 | ghcr.io/geonet/base-images/fedora                               | fedora for build tasks                                                         |
 | ghcr.io/geonet/base-images/fedora-coreos                        | fedora coreos for edge devices                                                 |
