@@ -73,19 +73,19 @@ sync:
   - source: quay.io/fedora/fedora:38@sha256:6349d2df6b4322c5690df1bb7743c45c356e20471dda69f27218cd9ba4a6c3c7 # 38 for 2024-01-28
     destination: ghcr.io/geonet/base-images/fedora:38
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:39@sha256:be40fdf22fb4cc024ea7f75a11714b4dc3219415a085ba06162f83ed627494de # 39 for 2024-06-05
+  - source: quay.io/fedora/fedora:39@sha256:bdb2fd6e9750e6e81d339b3113b5cdbe9ce0836696fa837c0d1e3e7480ecfc7d # 39 for 2024-06-06
     destination: ghcr.io/geonet/base-images/fedora:39
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:40@sha256:388f12f841ad81b6dc861ffc24fbc3ec052f1b8fbc551d7e077d47ad41ca86cc # 40 for 2024-06-05
+  - source: quay.io/fedora/fedora:40@sha256:63dab23a12716de49b855c2f8fff6d80831a133801ef3acdf2e19d9f91a04803 # 40 for 2024-06-06
     destination: ghcr.io/geonet/base-images/fedora:40
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:39-aarch64@sha256:f5a240ef47e5020720eb9338aad93bf73230af2083a399d3c5f7488fe2eec1bb # 39-aarch64 for 2024-06-05
+  - source: quay.io/fedora/fedora:39-aarch64@sha256:0e5ca49cbf8a204d9a4cced289608a0e9a3b0c49ad6ac7daf7bedcbe6d48a027 # 39-aarch64 for 2024-06-06
     destination: ghcr.io/geonet/base-images/fedora:39-aarch64
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora:40-aarch64@sha256:7f97564b6ef17a7f4b22402f73367cf46e705f48d2db94fe4d36a5e3d66a661d # 40-aarch64 for 2024-06-05
+  - source: quay.io/fedora/fedora:40-aarch64@sha256:95bc17b0c49dc8f454fa5dbded9ab1c20bbf8177ddf46fac314601715c60c324 # 40-aarch64 for 2024-06-06
     destination: ghcr.io/geonet/base-images/fedora:40-aarch64
     auto-update-mutable-tag-digest: true
-  - source: quay.io/fedora/fedora-coreos:stable@sha256:c5a72a740938213f3ff7b3d66ee79d48e0e9244469138c4b8eb0c8d1915d1f3d # stable for 2024-05-21
+  - source: quay.io/fedora/fedora-coreos:stable@sha256:c1f37a7777e4760ad590f2871ba1802f9058ef7068162822e09e05fa22fc8ca6 # stable for 2024-06-06
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
   - source: quay.io/centos/centos:centos7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
