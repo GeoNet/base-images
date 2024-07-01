@@ -132,8 +132,6 @@ build:
     destination: ghcr.io/geonet/base-images/alpine-gdal:3.18
   - source: ./images/texlive/image.yaml
     destination: ghcr.io/geonet/base-images/texlive:latest
-  - source: ./images/chart-centos7/Dockerfile
-    destination: ghcr.io/geonet/base-images/chart-centos7:latest
   - source: ./images/python-arcgis/Dockerfile
     destination: ghcr.io/geonet/base-images/python-arcgis:latest
     buildOnMainOnly: true
