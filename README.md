@@ -84,6 +84,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/yq                                   | yq for GitHub actions                                                          |
 | ghcr.io/geonet/base-images/binfmt                               | Cross-platform emulator collection distributed with Docker images              |
 | 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent | datadog agent for use in ECS                                                   |
+| ghcr.io/geonet/base-images/prometheus                           | Prometheus time series database                                                |
 
 for tags, check [config.yaml](./config.yaml).
 

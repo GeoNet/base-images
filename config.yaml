@@ -109,6 +109,8 @@ sync:
   - source: docker.io/tonistiigi/binfmt:latest@sha256:66e11bea77a5ea9d6f0fe79b57cd2b189b5d15b93a2bdb925be22949232e4e55
     destination: ghcr.io/geonet/base-images/binfmt:latest
     auto-update-mutable-tag-digest: true
+  - source: quay.io/prometheus/prometheus:v2.53.0@sha256:075b1ba2c4ebb04bc3a6ab86c06ec8d8099f8fda1c96ef6d104d9bb1def1d8bc
+    destination: ghcr.io/geonet/base-images/prometheus:v2.53.0
 build:
   # NOTES
   # - uses dirname of source as context for build
