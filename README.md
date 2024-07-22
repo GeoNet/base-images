@@ -85,6 +85,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/binfmt                               | Cross-platform emulator collection distributed with Docker images              |
 | 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent | datadog agent for use in ECS                                                   |
 | ghcr.io/geonet/base-images/prometheus                           | Prometheus time series database                                                |
+| ghcr.io/geonet/base-images/grafana/grafana-oss                  | Grafana image for building and displaying dashboards                           |
 
 for tags, check [config.yaml](./config.yaml).
 

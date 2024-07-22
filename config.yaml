@@ -111,6 +111,8 @@ sync:
     auto-update-mutable-tag-digest: true
   - source: quay.io/prometheus/prometheus:v2.53.0@sha256:075b1ba2c4ebb04bc3a6ab86c06ec8d8099f8fda1c96ef6d104d9bb1def1d8bc
     destination: ghcr.io/geonet/base-images/prometheus:v2.53.0
+  - source: docker.io/grafana/grafana-oss:11.1.0@sha256:079600c9517b678c10cda6006b4487d3174512fd4c6cface37df7822756ed7a5
+    destination: ghcr.io/geonet/base-images/grafana/grafana-oss:11.1.0
 build:
   # NOTES
   # - uses dirname of source as context for build
