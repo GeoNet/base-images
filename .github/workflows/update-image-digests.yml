@@ -38,10 +38,6 @@ jobs:
           git add ./config.yaml
           git branch "${NEW_BRANCH}"
           git checkout "${NEW_BRANCH}"
-          git commit -s -m "chore: update sync config.yaml images for ${TIMESTAMP}" -m "updates sync config.yaml images for ${TIMESTAMP}"
+          git commit -s -m "fix: update sync config.yaml images for ${TIMESTAMP}" -m "updates sync config.yaml images for ${TIMESTAMP} from fedora"
           git push origin "${NEW_BRANCH}"
 
-          if ! gh label list --json name --jq .[].name | grep -Eq '^image-digest-update$'; then
-            gh label create image-digest-update || true
-          fi
-          gh pr --label image-digest-update create --title "Update sync config.yaml images ${TIMESTAMP}" --reviewer GeoNet/platform-team --body "updates sync config.yaml images for ${TIMESTAMP}"
