@@ -132,7 +132,7 @@ jobs:
           COSIGN_YES: "true"
         run: |
           cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }} -y
-      - uses: anchore/sbom-action@b6a39da80722a2cb0ef5d197531764a89b5d48c3 # v0.15.8
+      - uses: anchore/sbom-action@ab9d16d4b419c9d1a02df5213fa0ebe965ca5a57 # v0.17.1
         if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
         with:
           image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }}
