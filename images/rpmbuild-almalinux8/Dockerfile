@@ -15,5 +15,6 @@ RUN dnf update -y && \
   rpm-build rpmdevtools rpm-sign rpmlint shadow-utils systemd unzip \
   python3.11-devel python3.11
 
+COPY rpmlintrc.toml /etc/xdg/rpmlint/rpmlintrc.toml
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip
 RUN ./aws/install
