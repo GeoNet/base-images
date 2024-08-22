@@ -88,8 +88,6 @@ sync:
   - source: quay.io/fedora/fedora-coreos:stable@sha256:5240392ed4ffa33f4a0dbfb94ea9409583d42eaa5981403236ebeddd987f7cea # stable for 2024-08-22
     destination: ghcr.io/geonet/base-images/fedora-coreos:stable
     auto-update-mutable-tag-digest: true
-  - source: quay.io/centos/centos:centos7@sha256:e4ca2ed0202e76be184e75fb26d14bf974193579039d5573fb2348664deef76e # 7 for 2023-09-21
-    destination: ghcr.io/geonet/base-images/centos:centos7
     auto-update-mutable-tag-digest: true
   - source: quay.io/centos/centos:stream8@sha256:20da069d4f8126c4517ee563e6e723d4cbe79ff62f6c4597f753478af91a09a3 # stream8 for 2024-06-05
     destination: ghcr.io/geonet/base-images/centos:stream8
@@ -138,9 +136,6 @@ build:
     destination: ghcr.io/geonet/base-images/texlive:latest
   - source: ./images/python-arcgis/Dockerfile
     destination: ghcr.io/geonet/base-images/python-arcgis:latest
-    buildOnMainOnly: true
-  - source: ./images/rpmbuild-centos7/Dockerfile
-    destination: ghcr.io/geonet/base-images/rpmbuild-centos7:latest
     buildOnMainOnly: true
   - source: ./images/rpmbuild-almalinux8/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-almalinux8:latest
