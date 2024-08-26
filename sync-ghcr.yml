@@ -1,0 +1,67 @@
+docker.io:
+  tls-verify: true
+  images-by-semver:
+    alpine: ">= 3.18.0"
+    vmware/govc: ">= v0.37.0"
+    grafana/grafana-oss: ">= 11.1.0"
+  images:
+    almalinux:
+      - '8.9'
+      - '8.10'
+      - '8.10-minimal'
+    redhat/ubi8:
+      - '8.9'
+      - '8.10'
+    redhat/ubi8-minimal:
+      - '8.9'
+      - '8.10'
+    debian:
+      - 'bookworm-slim'
+    hadolint/hadolint:
+      - 'v2.12.0-alpine'
+    python:
+      - 3.11.4-bullseye
+      - 3.12.2-bullseye
+      - 3.12.2-alpine3.19
+      - 3.11.9-alpine3.19
+      - 3.11.4-alpine3.18
+    golang:
+      - 1.21.12-alpine3.20
+    koalaman/shellcheck-alpine:
+      - v0.9.0
+    tonistiigi/binfmt:
+      - latest
+quay.io:
+  tls-verify: true
+  images:
+    fedora/fedora-coreos:
+      - stable
+    fedora/fedora:
+      - '39'
+      - '40'
+      - '40-aarch64'
+    centos/centos:
+      - stream8
+      - stream9
+  images-by-semver:
+    prometheus/prometheus: ">= v2.53.0"
+
+cgr.dev:
+  tls-verify: true
+  images-by-semver:
+    chainguard/curl: ">= 8.1.2"
+  images:
+    chainguard/node:
+      - '20'
+    chainguard/static:
+      - 'latest'
+    chainguard/nginx:
+      - 'latest'
+
+ghcr.io:
+  tls-verify: true
+  images-by-semver:
+    siderolabs/conform: ">= v0.1.0"
+  images:
+    zaproxy/zaproxy:
+     - '20240402-stable'

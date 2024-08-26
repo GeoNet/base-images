@@ -4,6 +4,7 @@
 
 name: sync
 on:
+  pull_request: {}
   push:
     branches:
       - main
@@ -19,128 +20,39 @@ concurrency:
   group: ${{ github.run_id }}
   cancel-in-progress: false
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
-      - id: set
-        run: |
-          echo "matrix=$(jq '.sync | {"include":.}' -r -c <<< "$(yq e . -o json config.yaml)")" >> $GITHUB_OUTPUT
-      - name: check output
-        run: |
-          jq . <<< '${{ steps.set.outputs.matrix }}'
   sync:
-    if: ${{ fromJSON(needs.prepare.outputs.matrix) != null }}
-    needs: prepare
-    runs-on: ubuntu-latest
-    outputs:
-      source: ${{ steps.get-digests.outputs.source }}
-      destination: ${{ steps.get-digests.outputs.destination }}
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    env:
+      ECR: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
-      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       - uses: sigstore/cosign-installer@e1523de7571e31dbe865fd2e80c5c7c23ae71eb4 # v3.4.0
-      - id: determine-uses-ecr
-        env:
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
-        run: |
-          if echo "$DESTINATION" | grep -q -E '[0-9]{12}.dkr.ecr.ap-southeast-2.amazonaws.com/.*'; then
-            echo "ecr="$(echo "$DESTINATION" | cut -d'/' -f1)"" >> $GITHUB_OUTPUT
-          fi
       - name: Configure AWS Credentials
-        if: ${{ steps.determine-uses-ecr.outputs.ecr != '' }}
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v2.0.0
         with:
           aws-region: ap-southeast-2
           role-to-assume: arn:aws:iam::862640294325:role/github-actions-geonet-ecr-push
           role-duration-seconds: 3600
           role-session-name: github-actions-GeoNet--base-images
+        if: github.ref_name == 'main'
       - name: login to ECR
-        if: ${{ steps.determine-uses-ecr.outputs.ecr != '' }}
+        run: |
+          aws ecr get-login-password --region ap-southeast-2 | skopeo login "$ECR" -u AWS --password-stdin
+        if: github.ref_name == 'main'
+      - name: dry run copy to ghcr.io
         env:
-          ECR: ${{ steps.determine-uses-ecr.outputs.ecr }}
+          GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
+
         run: |
-          aws ecr get-login-password --region ap-southeast-2 | crane auth login "$ECR" -u AWS --password-stdin
-      - name: get-digests
-        if: ${{ fromJSON(toJSON(matrix)).always != true }}
-        id: get-digests
+          skopeo sync --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+      - name: copy to ghcr.io
         env:
-          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
+          GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
-          SOURCE_DIGEST="$(crane digest "${SOURCE}" || true)"
-          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
-          (
-            echo "SOURCE-DIGEST DESTINATION-DIGEST"
-            echo "${SOURCE_DIGEST} ${DESTINATION_DIGEST}"
-          ) | column -t
-          echo "source=${SOURCE_DIGEST}" >> $GITHUB_OUTPUT
-          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
-      - name: verify-signature
-        if: ${{ (steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true) && fromJSON(toJSON(matrix)).sourceSignature != null }}
-        env:
-          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
-          SUBJECT: ${{ fromJSON(toJSON(matrix)).sourceSignature.subjectRegExp }}
-          ISSUER: ${{ fromJSON(toJSON(matrix)).sourceSignature.issuerRegExp }}
+          skopeo sync --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+        if: github.ref_name == 'main'
+      - name: copy to ecr
         run: |
-          cosign verify -o text --certificate-identity-regexp "$SUBJECT" --certificate-oidc-issuer-regexp "$ISSUER" "$SOURCE"
-      - name: copy
-        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true }}
-        env:
-          SOURCE: ${{ fromJSON(toJSON(matrix)).source }}
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
-        run: |
-          crane cp $SOURCE $DESTINATION
-      - name: add source labels
-        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true }}
-        env:
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
-        run: |
-          LABELS=(
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.source=${{ github.repositoryUrl }}
-          )
-          for LABEL in "${LABELS[@]}"; do
-            crane mutate $DESTINATION --label "${LABEL}"
-          done
-      - name: get-synced-digests
-        id: get-synced-digests
-        env:
-          DESTINATION: ${{ fromJSON(toJSON(matrix)).destination }}
-        run: |
-          DESTINATION_DIGEST="$(crane digest "${DESTINATION}" || true)"
-          (
-            echo "${SOURCE_DIGEST} ${DESTINATION_DIGEST}"
-          ) | column -t
-          HAS_SIGNATURES="$(cosign tree ${DESTINATION}@${DESTINATION_DIGEST} 2>&1 | grep -q 'Signatures for an image tag' && echo true || echo false)"
-          echo "destination=${DESTINATION_DIGEST}" >> $GITHUB_OUTPUT
-          echo "has-signatures=${HAS_SIGNATURES}" >> $GITHUB_OUTPUT
-      - name: Clean signatures
-        if: ${{ fromJSON(toJSON(matrix)).always == true }}
-        run: |
-          cosign clean -f ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }}
-      - name: Sign image with a key
-        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
-        env:
-          COSIGN_EXPERIMENTAL: "true"
-          COSIGN_YES: "true"
-        run: |
-          cosign sign ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }} -y
-      - uses: anchore/sbom-action@b6a39da80722a2cb0ef5d197531764a89b5d48c3 # v0.15.8
-        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
-        with:
-          image: ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }}
-          artifact-name: sbom-spdx.json
-          output-file: /tmp/sbom-spdx.json
-      - name: publish sbom blob as blob
-        if: ${{ steps.get-digests.outputs.source != steps.get-digests.outputs.destination || steps.get-digests.outputs.destination == null || fromJSON(toJSON(matrix)).always == true || steps.get-synced-digests.outputs.has-signatures != 'true' }}
-        env:
-          COSIGN_YES: "true"
-        run: |
-          cosign attest --predicate /tmp/sbom-spdx.json ${{ fromJSON(toJSON(matrix)).destination }}@${{ steps.get-synced-digests.outputs.destination }} -y
+          skopeo sync --all --src yaml --dest docker sync-ecr.yml ${{ env.ecr }}
+        if: github.ref_name == 'main'

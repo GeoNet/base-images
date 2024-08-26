@@ -1,0 +1,4 @@
+docker.io:
+  tls-verify: true
+  images-by-semver:
+    datadog/agent: ">=7.51.0"

@@ -7,7 +7,6 @@
 - [Layout](#layout)
 - [Usage](#usage)
   - [Sync an image](#sync-an-image)
-    - [Mutably tagged images and auto-updating](#mutably-tagged-images-and-auto-updating)
   - [Build with apko](#build-with-apko)
   - [Build with apko and Melange](#build-with-apko-and-melange)
   - [Build with Docker](#build-with-docker)
@@ -115,24 +114,21 @@ the structure of the repo is as follows:
 
 ## Sync an image
 
-Images are synced by specifying source and destinations like this
+Images are synced by specifying source repositories in [sync-ghcr.yml](./sync-ghcr.yml) for github and [sync-ecr.yml](./sync-ecr.yml) for ecs/ecr
+
+check skopeo documentation for more details <https://github.com/containers/skopeo/blob/main/docs/skopeo-sync.1.md>
 
 ```yaml
-sync:
-  - source: docker.io/alpine:latest
-    destination: ghcr.io/somecoolorg/images/alpine:latest
+quay.io:
+  tls-verify: true
+  images:
+    fedora/fedora-coreos:
+      - stable
 ```
 
-Images will only be synced if the digest of the source and destination don't match or if the `sync[].always` key is set to `true`
+on pull requests `skopeo sync` runs with `--dry-run`
 
-### Mutably tagged images and auto-updating
-
-Some upstream images have mutable tags which eventually cause some images to become unresolveable.
-To mitigate this, a scheduled workflow is created run to automatically produce a PR to fix the resolution.
-
-The workflow also updates an existing branch and PR if one already exists and hasn't been merged.
-
-see: [.github/workflows/update-image-digests.yml](./.github/workflows/update-image-digests.yml)
+full sync runs when merged to main
 
 ## Build with apko
 
