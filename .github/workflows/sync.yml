@@ -50,7 +50,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
-          skopeo sync --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          skopeo sync --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
         if: github.ref_name == 'main'
       - name: copy to ecr
         run: |
