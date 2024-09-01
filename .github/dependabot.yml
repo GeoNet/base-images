@@ -1,34 +1,20 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    commit-message:
-      prefix: "chore"
-      prefix-development: "chore"
-    schedule:
-      interval: "weekly"
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "images/python-arcgis"
     groups:
       python-packages:
         patterns:
           - "*"
     commit-message:
-      prefix: "chore"
-      prefix-development: "chore"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/"
-    commit-message:
-      prefix: "chore"
-      prefix-development: "chore"
+      prefix: "fix"
+      prefix-development: "fix"
     schedule:
       interval: "weekly"
   - package-ecosystem: "docker"
     directory: "/"
     commit-message:
-      prefix: "chore"
-      prefix-development: "chore"
+      prefix: "fix"
+      prefix-development: "fix"
     schedule:
       interval: "weekly"
