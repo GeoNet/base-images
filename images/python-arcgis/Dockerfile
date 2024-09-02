@@ -17,8 +17,8 @@ ENV POETRY_REQUESTS_TIMEOUT=30
 
 # Install Poetry via pipx.
 RUN pip install pipx
-RUN pipx install poetry==1.7.1
-RUN pipx inject poetry poetry-plugin-bundle==1.3.0
+RUN pipx install poetry==1.8.3
+RUN pipx inject poetry poetry-plugin-bundle==1.4.1
 
 # Install arcgis with Poetry.
 COPY pyproject.toml .
