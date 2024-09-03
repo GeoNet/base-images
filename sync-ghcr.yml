@@ -44,7 +44,7 @@ quay.io:
       - stream8
       - stream9
     skopeo/stable:
-      - '1.16'
+      - 'v1.16'
   images-by-semver:
     prometheus/prometheus: ">= v2.53.0"
     prometheus/snmp-exporter: ">= v0.26.0"
