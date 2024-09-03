@@ -44,14 +44,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
-          podman run --env-host -v '${PWD}/src' -w /src quay.io/skopeo/stable:latest sync --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --env-host -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
       - name: copy to ghcr.io
         env:
           GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
-          podman run --env-host -v '${PWD}/src' -w /src quay.io/skopeo/stable:latest sync --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --env-host -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
         if: github.ref_name == 'main'
       - name: copy to ecr
         run: |
-          podman run --env-host -v '${PWD}/src' -w /src quay.io/skopeo/stable:latest sync --all --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
+          podman run --env-host -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --all --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
         if: github.ref_name == 'main'
