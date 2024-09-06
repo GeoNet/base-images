@@ -42,13 +42,13 @@ jobs:
           GHCR_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
           DOCKER_USER: geonetci
-          ECR: ${{ github.ref_name == 'main' || 'FALSE' }}
+          RUN_ECR: ${{ github.ref_name == 'main' || 'FALSE' }}
         run: |
           auth_tmp=$(mktemp)
           echo '{}' > $auth_tmp  # JSON formating is required
           echo -n $GHCR_TOKEN | podman login --authfile=$auth_tmp -u $GHCR_USER --password-stdin ghcr.io
           echo -n $DOCKER_TOKEN | podman login --authfile=$auth_tmp -u $DOCKER_USER --password-stdin docker.io
-          if [ "$ECR" != "FALSE" ]; then
+          if [ "$RUN_ECR" != "FALSE" ]; then
             aws ecr get-login-password --region ap-southeast-2 | podman login "$ECR" -u AWS --password-stdin
           fi
           podman secret create skopeo-auth $auth_tmp
