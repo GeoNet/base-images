@@ -9,7 +9,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 0 * * MON"
+    - cron: "0 8 * * *"
   workflow_dispatch: {}
 permissions:
   contents: read
@@ -23,7 +23,7 @@ jobs:
   sync:
     env:
       ECR: 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - uses: GeoNet/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
@@ -36,22 +36,31 @@ jobs:
           role-duration-seconds: 3600
           role-session-name: github-actions-GeoNet--base-images
         if: github.ref_name == 'main'
-      - name: login to ECR
+      - name: prepare auth podman
+        env:
+          GHCR_USER: geonetci
+          GHCR_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_USER: geonetci
+          ECR: ${{ github.ref_name == 'main' || 'FALSE' }}
         run: |
-          aws ecr get-login-password --region ap-southeast-2 | skopeo login "$ECR" -u AWS --password-stdin
-        if: github.ref_name == 'main'
+          auth_tmp=$(mktemp)
+          echo '{}' > $auth_tmp  # JSON formating is required
+          echo -n $GHCR_TOKEN | podman login --authfile=$auth_tmp -u $GHCR_USER --password-stdin ghcr.io
+          echo -n $DOCKER_TOKEN | podman login --authfile=$auth_tmp -u $DOCKER_USER --password-stdin docker.io
+          if [ "$ECR" != "FALSE" ]; then
+            aws ecr get-login-password --region ap-southeast-2 | podman login "$ECR" -u AWS --password-stdin
+          fi
+          podman secret create skopeo-auth $auth_tmp
+          rm $auth_tmp
       - name: dry run copy to ghcr.io
-        env:
-          GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
-          podman run --env-host -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/mountainmoss/base-images
       - name: copy to ghcr.io
-        env:
-          GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
-          podman run --env-host -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/mountainmoss/base-images
         if: github.ref_name == 'main'
       - name: copy to ecr
         run: |
-          podman run --env-host -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --all --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --all --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
         if: github.ref_name == 'main'
