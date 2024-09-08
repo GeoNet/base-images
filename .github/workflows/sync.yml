@@ -55,10 +55,10 @@ jobs:
           rm $auth_tmp
       - name: dry run copy to ghcr.io
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/mountainmoss/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --dry-run --all --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
       - name: copy to ghcr.io
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/mountainmoss/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --debug --authfile /run/secrets/skopeo-auth --all --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
         if: github.ref_name == 'main'
       - name: copy to ecr
         run: |
