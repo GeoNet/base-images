@@ -6,7 +6,7 @@ authors = ["GeoNet"]
 
 [tool.poetry.dependencies]
 python = "3.11.9"
-arcgis = "2.2.0"
+arcgis = "2.3.1"
 numpy = "1.26.4"
 pandas = "2.1.4"
 geopandas = "1.0.1"
