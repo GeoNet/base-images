@@ -33,6 +33,9 @@ docker.io:
       - v0.9.0
     tonistiigi/binfmt:
       - latest
+    node:
+      - 20.3-alpine3.18
+      - 21.6-alpine3.19
 quay.io:
   tls-verify: true
   images:
