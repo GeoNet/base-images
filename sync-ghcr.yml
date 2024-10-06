@@ -28,7 +28,7 @@ docker.io:
       - 3.11.9-alpine3.19
       - 3.11.4-alpine3.18
     golang:
-      - 1.21.12-alpine3.20
+      - 1.22.7-alpine3.20
     koalaman/shellcheck-alpine:
       - v0.9.0
     tonistiigi/binfmt:
