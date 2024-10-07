@@ -1,10 +1,13 @@
 docker.io:
   tls-verify: true
   images-by-semver:
-    alpine: ">= 3.18.0"
     vmware/govc: ">= v0.37.0"
     grafana/grafana-oss: ">= 11.1.0"
   images:
+    alpine:
+      - '3.20'
+      - '3.19'
+      - '3.18'
     almalinux:
       - '8.9'
       - '8.10'
