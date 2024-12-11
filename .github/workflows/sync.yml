@@ -54,12 +54,12 @@ jobs:
           rm $auth_tmp
       - name: dry run copy to ghcr.io
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --dry-run --preserve-digests --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --dry-run --preserve-digests --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
       - name: copy to ghcr.io
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
         if: github.ref_name == 'main'
       - name: copy to ecr
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.16 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
         if: github.ref_name == 'main'
