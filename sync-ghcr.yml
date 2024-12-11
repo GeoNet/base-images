@@ -5,6 +5,7 @@ docker.io:
     grafana/grafana-oss: ">= 11.1.0"
   images:
     alpine:
+      - '3.21'
       - '3.20'
       - '3.19'
       - '3.18'
@@ -12,6 +13,8 @@ docker.io:
       - '8.9'
       - '8.10'
       - '8.10-minimal'
+      - '9-base'
+      - '9-minimal'
     redhat/ubi8:
       - '8.9'
       - '8.10'
@@ -48,12 +51,15 @@ quay.io:
     fedora/fedora:
       - '39'
       - '40'
+      - '41'
       - '40-aarch64'
+      - '41-aarch64'
     centos/centos:
       - stream8
       - stream9
     skopeo/stable:
       - 'v1.16'
+      - 'v1.17'
   images-by-semver:
     prometheus/prometheus: ">= v2.53.0"
     prometheus/snmp-exporter: ">= v0.26.0"
