@@ -13,8 +13,8 @@ docker.io:
       - '8.9'
       - '8.10'
       - '8.10-minimal'
-      - '9-base'
-      - '9-minimal'
+      - '9.5'
+      - '9.5-minimal'
     redhat/ubi8:
       - '8.9'
       - '8.10'
