@@ -1,4 +1,4 @@
-FROM ghcr.io/geonet/base-images/fedora:40
+FROM ghcr.io/geonet/base-images/fedora:41-aarch64
 # Installing tools needed for rpmbuild
 RUN dnf update -y && \
     dnf install -y \
