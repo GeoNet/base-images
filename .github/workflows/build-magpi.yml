@@ -45,13 +45,12 @@ jobs:
               build:
                 on-failure: ABORT
                 commands:
-                  - docker build -t rpmbuild-fedora images/rpmbuild-fedora
-                  - docker tag rpmbuild-fedora:latest ghcr.io/geonet/base-images/rpmbuild-fedora:latest
+                  - docker build -t ghcr.io/geonet/base-images/rpmbuild-fedora:41-aarch64 images/rpmbuild-fedora
               post_build:
                 on-failure: ABORT
                 commands:
                   - |
                     if expr "${CODEBUILD_SOURCE_VERSION}" : "refs/heads/main" >/dev/null; then
                       docker login -u ${GHCR_USER} -p ${GHCR_TOKEN} ghcr.io
-                      docker push ghcr.io/geonet/base-images/rpmbuild-fedora:latest
+                      docker push ghcr.io/geonet/base-images/rpmbuild-fedora:41-aarch64
                     fi
