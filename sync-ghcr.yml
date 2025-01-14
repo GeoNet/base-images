@@ -46,7 +46,7 @@ docker.io:
     node:
       - 20.3-alpine3.18
       - 21.6-alpine3.19
-    earthscope/ringsever:
+    earthscope/ringserver:
       - 'v4.0.1'
 quay.io:
   tls-verify: true
