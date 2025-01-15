@@ -46,6 +46,7 @@ docker.io:
     node:
       - 20.3-alpine3.18
       - 21.6-alpine3.19
+      - 22.9-alpine3.20
     earthscope/ringserver:
       - 'v4.0.1'
 quay.io:
