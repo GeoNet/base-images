@@ -76,8 +76,6 @@ cgr.dev:
   images-by-semver:
     chainguard/curl: ">= 8.1.2"
   images:
-    chainguard/static:
-      - 'latest'
     chainguard/nginx:
       - 'latest'
 

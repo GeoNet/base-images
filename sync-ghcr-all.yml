@@ -1,0 +1,5 @@
+docker.io:
+  tls-verify: true
+  images:
+    chainguard/static:
+      - 'latest'
