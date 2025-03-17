@@ -1,0 +1,8 @@
+FROM docker.io/almalinux:8.9
+
+COPY UnisphereCLI-Linux-64-x86-en_US-5.4.0.2220877-1.x86_64.rpm /tmp
+RUN dnf install -y /tmp/UnisphereCLI-Linux-64-x86-en_US-5.4.0.2220877-1.x86_64.rpm
+RUN rm /tmp/UnisphereCLI-Linux-64-x86-en_US-5.4.0.2220877-1.x86_64.rpm
+RUN dnf clean all
+
+ENTRYPOINT [ "/opt/dellemc/uemcli/bin/uemcli.sh" ]
