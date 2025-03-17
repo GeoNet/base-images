@@ -1,4 +1,4 @@
-FROM ghcr.io/geonet/base-images/almalinux:8.9
+FROM ghcr.io/geonet/base-images/almalinux:8.10
 # Install prerequisites
 RUN dnf module enable -y nodejs:20 \
   && dnf install -y epel-release 'dnf-command(config-manager)' \
