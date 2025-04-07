@@ -10,16 +10,13 @@ docker.io:
       - '3.19'
       - '3.18'
     almalinux:
-      - '8.9'
       - '8.10'
       - '8.10-minimal'
       - '9.5'
       - '9.5-minimal'
     redhat/ubi8:
-      - '8.9'
       - '8.10'
     redhat/ubi8-minimal:
-      - '8.9'
       - '8.10'
     debian:
       - 'bookworm-slim'
