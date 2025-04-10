@@ -66,7 +66,3 @@ jobs:
         run: |
           podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --all --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr-all.yml ghcr.io/geonet/base-images
         if: github.ref_name == 'main'
-      - name: copy to ecr
-        run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --src yaml --dest docker sync-ecr.yml 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com
-        if: github.ref_name == 'main'
