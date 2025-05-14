@@ -64,8 +64,8 @@ quay.io:
       - '40-aarch64'
       - '41-aarch64'
     centos/centos:
-      - stream8
       - stream9
+      - stream10
     skopeo/stable:
       - 'v1.16'
       - 'v1.17'
