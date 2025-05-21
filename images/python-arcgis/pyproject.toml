@@ -8,7 +8,7 @@ authors = ["GeoNet"]
 python = "3.11.9"
 arcgis = "2.4.1"
 numpy = "1.26.4"
-pandas = "2.1.4"
+pandas = "2.2.3"
 geopandas = "1.0.1"
 
 [build-system]
