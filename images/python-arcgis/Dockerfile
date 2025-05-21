@@ -1,12 +1,13 @@
-FROM ghcr.io/geonet/base-images/python:3.11.9-alpine3.19
+FROM ghcr.io/geonet/base-images/python:3.11.9-bullseye
 
-RUN apk add --update \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates tzdata \
-    build-base \
-    python3-dev libffi-dev openssl-dev gdal-dev \
-    proj-util proj-dev krb5-dev geos-dev \
-    py3-pip curl cmake autoconf automake libtool elfutils-dev \
-    rust cargo
+    build-essential \
+    python3-dev libffi-dev libssl-dev libgdal-dev \
+    proj-bin libproj-dev libkrb5-dev libgeos-dev \
+    python3-pip curl cmake autoconf automake libtool libdw-dev \
+    rustc cargo \
+ && rm -rf /var/lib/apt/lists/*
 
 # Installed Cargo (and Rust) is required by one of the indirect dependencies of Poetry.
 # Need to add it to PATH.
