@@ -2,7 +2,7 @@ FROM ghcr.io/geonet/base-images/python:3.11.9-alpine3.19
 
 RUN apk add --update \
     ca-certificates tzdata \
-    gcc libc-dev g++ make \
+    build-base \
     python3-dev libffi-dev openssl-dev gdal-dev \
     proj-util proj-dev krb5-dev geos-dev \
     py3-pip curl cmake autoconf automake libtool elfutils-dev \
@@ -17,8 +17,8 @@ ENV POETRY_REQUESTS_TIMEOUT=30
 
 # Install Poetry via pipx.
 RUN pip install pipx
-RUN pipx install poetry==1.8.3
-RUN pipx inject poetry poetry-plugin-bundle==1.4.1
+RUN pipx install poetry==2.1.3
+RUN pipx inject poetry poetry-plugin-bundle==1.7.0
 
 # Install arcgis with Poetry.
 COPY pyproject.toml .
