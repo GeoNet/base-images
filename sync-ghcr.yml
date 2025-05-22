@@ -28,6 +28,7 @@ docker.io:
       - '1.17.3'
     python:
       - 3.11.4-bullseye
+      - 3.11.9-bullseye
       - 3.12.2-bullseye
       - 3.12.2-alpine3.19
       - 3.11.9-alpine3.19
