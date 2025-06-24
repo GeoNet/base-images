@@ -39,7 +39,7 @@ jobs:
       - name: prepare auth podman
         env:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-          DOCKER_USER: geonetci
+          DOCKER_USER: gnsmossc
           RUN_ECR: ${{ github.ref_name == 'main' || 'FALSE' }}
           GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
