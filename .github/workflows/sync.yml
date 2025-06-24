@@ -28,14 +28,14 @@ jobs:
       - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
       - uses: mountainmoss/setup-crane@00c9e93efa4e1138c9a7a5c594acd6c75a2fbf0c # main
       - uses: sigstore/cosign-installer@e1523de7571e31dbe865fd2e80c5c7c23ae71eb4 # v3.4.0
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v2.0.0
-        with:
-          aws-region: ap-southeast-2
-          role-to-assume: arn:aws:iam::862640294325:role/github-actions-geonet-ecr-push
-          role-duration-seconds: 3600
-          role-session-name: github-actions-GeoNet--base-images
-        if: github.ref_name == 'main'
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v2.0.0
+      #   with:
+      #     aws-region: ap-southeast-2
+      #     role-to-assume: arn:aws:iam::862640294325:role/github-actions-geonet-ecr-push
+      #     role-duration-seconds: 3600
+      #     role-session-name: github-actions-GeoNet--base-images
+      #   if: github.ref_name == 'main'
       - name: prepare auth podman
         env:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
@@ -54,15 +54,15 @@ jobs:
           rm $auth_tmp
       - name: dry run copy to ghcr.io
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --dry-run --preserve-digests --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/mountainmoss/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --dry-run --preserve-digests --src yaml --dest docker sync-ghcr.yml ghcr.io/mountainmoss/base-images
       - name: copy to ghcr.io
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/mountainmoss/base-images/stable:v1.17 sync --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr.yml ghcr.io/mountainmoss/base-images
         if: github.ref_name == 'main'
       - name: dry run copy to ghcr.io aarch64
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --all --retry-times 1 --authfile /run/secrets/skopeo-auth --dry-run --preserve-digests --src yaml --dest docker sync-ghcr-all.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/mountainmoss/base-images/stable:v1.17 sync --all --retry-times 1 --authfile /run/secrets/skopeo-auth --dry-run --preserve-digests --src yaml --dest docker sync-ghcr-all.yml ghcr.io/mountainmoss/base-images
       - name: copy to ghcr.io aarch64
         run: |
-          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/geonet/base-images/stable:v1.17 sync --all --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr-all.yml ghcr.io/geonet/base-images
+          podman run --secret=skopeo-auth -v "${PWD}:/src" -w /src ghcr.io/mountainmoss/base-images/stable:v1.17 sync --all --retry-times 1 --authfile /run/secrets/skopeo-auth --preserve-digests --keep-going --src yaml --dest docker sync-ghcr-all.yml ghcr.io/mountainmoss/base-images
         if: github.ref_name == 'main'
