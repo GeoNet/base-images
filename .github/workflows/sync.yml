@@ -40,16 +40,15 @@ jobs:
         env:
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
           DOCKER_USER: gnsmossc
-          RUN_ECR: ${{ github.ref_name == 'main' || 'FALSE' }}
           GH_TOKEN: ${{ secrets.GH_CI_USER_TOKEN }}
         run: |
           auth_tmp=$(mktemp)
           echo '{}' > $auth_tmp  # JSON formating is required
           podman login --authfile=$auth_tmp -u ${{ github.actor }} --password $GH_TOKEN ghcr.io
           echo -n $DOCKER_TOKEN | podman login --authfile=$auth_tmp -u $DOCKER_USER --password-stdin docker.io
-          if [ "$RUN_ECR" != "FALSE" ]; then
-            aws ecr get-login-password --region ap-southeast-2 | podman login "$ECR" -u AWS --password-stdin
-          fi
+          # if [ "$RUN_ECR" != "FALSE" ]; then
+          #   aws ecr get-login-password --region ap-southeast-2 | podman login "$ECR" -u AWS --password-stdin
+          # fi
           podman secret create skopeo-auth $auth_tmp
           rm $auth_tmp
       - name: dry run copy to ghcr.io
