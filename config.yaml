@@ -23,6 +23,12 @@ build:
   - source: ./images/rpmbuild-almalinux8/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-almalinux8:latest
     buildOnMainOnly: true
+  - source: ./images/rpmbuild-almalinux9/Dockerfile
+    destination: ghcr.io/geonet/base-images/rpmbuild-almalinux9:latest
+    buildOnMainOnly: true
+  - source: ./images/rpmbuild-almalinux10/Dockerfile
+    destination: ghcr.io/geonet/base-images/rpmbuild-almalinux10:latest
+    buildOnMainOnly: true
   - source: ./images/rpmbuild-centos-stream9/Dockerfile
     destination: ghcr.io/geonet/base-images/rpmbuild-centos-stream9:latest
     buildOnMainOnly: true
