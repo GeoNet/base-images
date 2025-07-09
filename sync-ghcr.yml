@@ -52,6 +52,7 @@ docker.io:
       - 20.3-alpine3.18
       - 21.6-alpine3.19
       - 22.9-alpine3.20
+      - 23.9-alpine3.21
     earthscope/ringserver:
       - 'v4.0.1'
     victoriametrics/victoria-metrics:
