@@ -49,6 +49,8 @@ docker.io:
       - 'v4.0.1'
     victoriametrics/victoria-metrics:
       - 'v1.117.1'
+    victoriametrics/victoria-logs:
+      - 'v1.28.0'
 quay.io:
   tls-verify: true
   images:
