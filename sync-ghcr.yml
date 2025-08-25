@@ -88,3 +88,4 @@ ghcr.io:
   images:
     zaproxy/zaproxy:
      - '20240402-stable'
+     - '20250804-stable'
