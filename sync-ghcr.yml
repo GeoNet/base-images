@@ -51,6 +51,8 @@ docker.io:
       - 'v1.117.1'
     victoriametrics/victoria-logs:
       - 'v1.28.0'
+    victoriametrics/vmalert:
+      - 'v1.125.1'
 quay.io:
   tls-verify: true
   images:
@@ -72,6 +74,7 @@ quay.io:
     prometheus/prometheus: ">= v2.53.0"
     prometheus/snmp-exporter: ">= v0.26.0"
     prometheus/blackbox-exporter: ">= v0.25.0"
+    prometheus/alertmanager: ">= v0.28.1"
 
 cgr.dev:
   tls-verify: true

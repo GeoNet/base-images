@@ -84,9 +84,13 @@ list of vendored base images
 | ghcr.io/geonet/base-images/binfmt                               | Cross-platform emulator collection distributed with Docker images              |
 | 862640294325.dkr.ecr.ap-southeast-2.amazonaws.com/datadog-agent | datadog agent for use in ECS                                                   |
 | ghcr.io/geonet/base-images/prometheus                           | Prometheus time series database                                                |
+| ghcr.io/geonet/base-images/alertmanager                         | Prometheus alerting manager                                                    |
 | ghcr.io/geonet/base-images/snmp-exporter                        | Prometheus snmp exporter                                                       |
 | ghcr.io/geonet/base-images/blackbox-exporter                    | Prometheus blackbox exporter                                                   |
-| ghcr.io/geonet/base-images/grafana/grafana-oss                  | Grafana image for building and displaying dashboards                           |
+| ghcr.io/geonet/base-images/grafana-oss                          | Grafana image for building and displaying dashboards                           |
+| ghcr.io/geonet/base-images/victoria-metrics                     | Victoria metrics time series database and storage engine                       |
+| ghcr.io/geonet/base-images/victoria-logs                        | Victoria logs storage and analysis of log messages                             |
+| ghcr.io/geonet/base-images/vmalert                              | Victoria metrics alerting agent                                                |
 
 for tags, check [config.yaml](./config.yaml).
 
