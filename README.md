@@ -91,6 +91,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/victoria-metrics                     | Victoria metrics time series database and storage engine                       |
 | ghcr.io/geonet/base-images/victoria-logs                        | Victoria logs storage and analysis of log messages                             |
 | ghcr.io/geonet/base-images/vmalert                              | Victoria metrics alerting agent                                                |
+| ghcr.io/geonet/base-images/vmagent                              | Victoria metrics agent for collecting metrics                                  |
 
 for tags, check [config.yaml](./config.yaml).
 
