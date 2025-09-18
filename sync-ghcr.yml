@@ -4,9 +4,10 @@ docker.io:
     vmware/govc: ">= v0.37.0"
     grafana/grafana-oss: ">= 11.1.0"
   images-by-tag-regex:
-    golang: ^1\.23(\.[0-9]+)?-alpine3\.21$
+    golang: ^1\.24(\.[0-9]+)?-alpine3\.22$
   images:
     alpine:
+      - '3.22'
       - '3.21'
       - '3.20'
       - '3.19'
