@@ -22,6 +22,7 @@ docker.io:
     redhat/ubi8-minimal:
       - '8.10'
     debian:
+      - 'trixie-slim'
       - 'bookworm-slim'
     hadolint/hadolint:
       - 'v2.12.0-alpine'
