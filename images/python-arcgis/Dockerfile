@@ -17,7 +17,7 @@ ENV PROJ_DIR=/usr
 ENV POETRY_REQUESTS_TIMEOUT=30
 
 # Install Poetry via pipx.
-RUN pip install pipx
+RUN pip install pipx==1.7.1
 RUN pipx install poetry==2.1.3
 RUN pipx inject poetry poetry-plugin-bundle==1.7.0
 
