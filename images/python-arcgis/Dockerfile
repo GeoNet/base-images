@@ -23,6 +23,7 @@ RUN pipx inject poetry poetry-plugin-bundle==1.7.0
 
 # Install arcgis with Poetry.
 COPY pyproject.toml .
+COPY poetry.lock .
 ENV PATH="${PATH}:/root/.local/bin"
 RUN poetry install --no-root --only main --no-directory
 
