@@ -21,6 +21,10 @@ docker.io:
       - '8.10'
     redhat/ubi8-minimal:
       - '8.10'
+    redhat/ubi10:
+      - '10.0'
+    redhat/ubi10-minimal:
+      - '10.0'   
     debian:
       - 'trixie-slim'
       - 'bookworm-slim'

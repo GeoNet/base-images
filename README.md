@@ -63,6 +63,8 @@ list of vendored base images
 | ghcr.io/geonet/base-images/texlive                              | a latex image                                                                  |
 | ghcr.io/geonet/base-images/ubi8                                 | Red Hat Universal Base Image 8                                                 |
 | ghcr.io/geonet/base-images/ubi8-minimal                         | Red Hat Universal Base Image 8 minimal                                         |
+| ghcr.io/geonet/base-images/ubi10                                | Red Hat Universal Base Image 10                                                 |
+| ghcr.io/geonet/base-images/ubi10-minimal                        | Red Hat Universal Base Image 10 minimal                                         |
 | ghcr.io/geonet/base-images/almalinux                            | Almalinux 8 for testing RHEL apps                                              |
 | ghcr.io/geonet/base-images/centos                               | Centos 7 and stream variants available as tags eg :centos7 :stream8            |
 | ghcr.io/geonet/base-images/chart-centos7                        | Centos 7 base image updated to add extract packages needed for the chart app   |
