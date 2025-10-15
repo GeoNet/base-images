@@ -97,9 +97,9 @@ func check(e error) {
 }
 
 var (
-	builderYamlPath     string = "config.yaml"
-	syncYamlPath        string = "sync-ghcr.yml"
-	scanYamlPath        string = "base-image-usage-report.yaml"
+	builderYamlPath     string = "../config.yaml"
+	syncYamlPath        string = "../sync-ghcr.yml"
+	scanYamlPath        string = "../base-image-usage-report.yaml"
 	org                        = "geonet"
 	repository                 = "base-images"
 	registryPrefix             = "ghcr.io/geonet"
