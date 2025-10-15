@@ -1,4 +1,4 @@
-FROM ghcr.io/geonet/base-images/python:3.11-bookworm
+FROM ghcr.io/geonet/base-images/python:3.12.9-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates tzdata \
@@ -17,8 +17,8 @@ ENV PROJ_DIR=/usr
 ENV POETRY_REQUESTS_TIMEOUT=30
 
 # Install Poetry via pipx.
-RUN pip install pipx==1.7.1
-RUN pipx install poetry==2.1.3
+RUN pip install pipx==1.8.0
+RUN pipx install poetry==2.2.1
 RUN pipx inject poetry poetry-plugin-bundle==1.7.0
 
 # Install arcgis with Poetry.
