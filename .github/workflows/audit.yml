@@ -24,6 +24,5 @@ jobs:
           cache-dependency-path: container-audit/go.sum
           check-latest: true
       - run: |
-          cd container-audit/
-          go run cmd/container-audit.go
+          go run container-audit/cmd/container-audit.go
       
