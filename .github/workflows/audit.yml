@@ -1,0 +1,29 @@
+on:
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+
+permissions:
+  actions: read
+  contents: read
+  packages: read
+  id-token: write
+
+jobs:
+  go-build:
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ startsWith(github.repository, 'GeoNet/') == false }}
+        name: require GeoNet org
+        run: |
+          exit 1
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5.0.0
+        with:
+          go-version-file: container-audit/go.mod
+          cache-dependency-path: container-audit/go.sum
+          check-latest: true
+      - run: |
+          cd container-audit/
+          go run cmd/container-audit.go
+      

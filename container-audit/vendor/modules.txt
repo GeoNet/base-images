@@ -1,0 +1,45 @@
+# github.com/containerd/stargz-snapshotter/estargz v0.16.3
+## explicit; go 1.22.0
+# github.com/docker/cli v28.1.1+incompatible
+## explicit
+# github.com/docker/distribution v2.8.3+incompatible
+## explicit
+# github.com/docker/docker-credential-helpers v0.9.3
+## explicit; go 1.21
+# github.com/goccy/go-yaml v1.17.1
+## explicit; go 1.21.0
+github.com/goccy/go-yaml
+github.com/goccy/go-yaml/ast
+github.com/goccy/go-yaml/internal/errors
+github.com/goccy/go-yaml/internal/format
+github.com/goccy/go-yaml/lexer
+github.com/goccy/go-yaml/parser
+github.com/goccy/go-yaml/printer
+github.com/goccy/go-yaml/scanner
+github.com/goccy/go-yaml/token
+# github.com/google/go-containerregistry v0.20.5
+## explicit; go 1.24.0
+# github.com/google/go-github/v72 v72.0.0
+## explicit; go 1.23.0
+# github.com/google/go-querystring v1.1.0
+## explicit; go 1.10
+# github.com/klauspost/compress v1.18.0
+## explicit; go 1.22
+# github.com/mitchellh/go-homedir v1.1.0
+## explicit
+# github.com/opencontainers/go-digest v1.0.0
+## explicit; go 1.13
+# github.com/opencontainers/image-spec v1.1.1
+## explicit; go 1.18
+# github.com/pkg/errors v0.9.1
+## explicit
+# github.com/sirupsen/logrus v1.9.3
+## explicit; go 1.13
+# github.com/stretchr/testify v1.10.0
+## explicit; go 1.17
+# github.com/vbatts/tar-split v0.12.1
+## explicit; go 1.17
+# golang.org/x/sync v0.14.0
+## explicit; go 1.23.0
+# golang.org/x/sys v0.33.0
+## explicit; go 1.23.0
