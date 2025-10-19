@@ -264,14 +264,14 @@ tracing = ["opentelemetry-api (>=1.26,<2.0)"]
 
 [[package]]
 name = "azure-storage-blob"
-version = "12.26.0"
+version = "12.27.0"
 description = "Microsoft Azure Blob Storage Client Library for Python"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "azure_storage_blob-12.26.0-py3-none-any.whl", hash = "sha256:8c5631b8b22b4f53ec5fff2f3bededf34cfef111e2af613ad42c9e6de00a77fe"},
-    {file = "azure_storage_blob-12.26.0.tar.gz", hash = "sha256:5dd7d7824224f7de00bfeb032753601c982655173061e242f13be6e26d78d71f"},
+    {file = "azure_storage_blob-12.27.0-py3-none-any.whl", hash = "sha256:b7bef8acb79825f96f2fa24c7535e2924fb3dbc4840a2eebb5f117175bde3657"},
+    {file = "azure_storage_blob-12.27.0.tar.gz", hash = "sha256:99e8e2cd2a6a723930c364ea0a0539d28e465bc77cf94ef12813c465dc09cb9a"},
 ]
 
 [package.dependencies]
@@ -342,34 +342,34 @@ css = ["tinycss2 (>=1.1.0,<1.5)"]
 
 [[package]]
 name = "boto3"
-version = "1.34.52"
+version = "1.40.55"
 description = "The AWS SDK for Python"
 optional = false
-python-versions = ">= 3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "boto3-1.34.52-py3-none-any.whl", hash = "sha256:898ad2123b18cae8efd85adc56ac2d1925be54592aebc237020d4f16e9a9e7a9"},
-    {file = "boto3-1.34.52.tar.gz", hash = "sha256:66303b5f26d92afb72656ff490b22ea72dfff8bf1a29e4a0c5d5f11ec56245dd"},
+    {file = "boto3-1.40.55-py3-none-any.whl", hash = "sha256:2e30f5a0d49e107b8a5c0c487891afd300bfa410e1d918bf187ae45ac3839332"},
+    {file = "boto3-1.40.55.tar.gz", hash = "sha256:27e35b4fa9edd414ce06c1a748bf57cacd8203271847d93fc1053e4a4ec6e1a9"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.52,<1.35.0"
+botocore = ">=1.40.55,<1.41.0"
 jmespath = ">=0.7.1,<2.0.0"
-s3transfer = ">=0.10.0,<0.11.0"
+s3transfer = ">=0.14.0,<0.15.0"
 
 [package.extras]
 crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.162"
+version = "1.40.55"
 description = "Low-level, data-driven core of boto 3."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "botocore-1.34.162-py3-none-any.whl", hash = "sha256:2d918b02db88d27a75b48275e6fb2506e9adaaddbec1ffa6a8a0898b34e769be"},
-    {file = "botocore-1.34.162.tar.gz", hash = "sha256:adc23be4fb99ad31961236342b7cbf3c0bfc62532cd02852196032e8c0d682f3"},
+    {file = "botocore-1.40.55-py3-none-any.whl", hash = "sha256:cdc38f7a4ddb30a2cd1cdd4fabde2a5a16e41b5a642292e1c30de5c4e46f5d44"},
+    {file = "botocore-1.40.55.tar.gz", hash = "sha256:79b6472e2de92b3519d44fc1eec8c5feced7f99a0d10fdea6dc93133426057c1"},
 ]
 
 [package.dependencies]
@@ -378,7 +378,7 @@ python-dateutil = ">=2.1,<3.0.0"
 urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.21.2)"]
+crt = ["awscrt (==0.27.6)"]
 
 [[package]]
 name = "cachetools"
@@ -1169,13 +1169,13 @@ tqdm = ["tqdm"]
 
 [[package]]
 name = "gdal"
-version = "3.6.4"
+version = "3.11.4"
 description = "GDAL: Geospatial Data Abstraction Library"
 optional = false
-python-versions = ">=3.6.0"
+python-versions = ">=3.8.0"
 groups = ["main"]
 files = [
-    {file = "GDAL-3.6.4.tar.gz", hash = "sha256:c07d548cbd6544e8a51651fc1e487ca4b39e8fe6b5b3c886082d87f0e49e8313"},
+    {file = "gdal-3.11.4.tar.gz", hash = "sha256:c28cd5ffda3df98555e21083d922762b0a095d8f10292e2ec60ee0d55651d74a"},
 ]
 
 [package.extras]
@@ -3401,15 +3401,19 @@ certifi = "*"
 
 [[package]]
 name = "pyshp"
-version = "2.3.1"
+version = "3.0.2.post1"
 description = "Pure Python read/write support for ESRI Shapefile format"
 optional = false
-python-versions = ">=2.7"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "pyshp-2.3.1-py2.py3-none-any.whl", hash = "sha256:67024c0ccdc352ba5db777c4e968483782dfa78f8e200672a90d2d30fd8b7b49"},
-    {file = "pyshp-2.3.1.tar.gz", hash = "sha256:4caec82fd8dd096feba8217858068bacb2a3b5950f43c048c6dc32a3489d5af1"},
+    {file = "pyshp-3.0.2.post1-py3-none-any.whl", hash = "sha256:b0aec66bc55f7cd3a846f6b02c5a9eec1fc1d2cff16ccfcf6493a6773c7eb602"},
+    {file = "pyshp-3.0.2.post1.tar.gz", hash = "sha256:18e34a66759b6d34a6f535978c76dad518200f23a727d9e22af8e8535c0245b9"},
 ]
+
+[package.extras]
+dev = ["pre-commit", "pytest", "ruff"]
+test = ["pytest"]
 
 [[package]]
 name = "pyspnego"
@@ -4025,21 +4029,21 @@ files = [
 
 [[package]]
 name = "s3transfer"
-version = "0.10.4"
+version = "0.14.0"
 description = "An Amazon S3 Transfer Manager"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "s3transfer-0.10.4-py3-none-any.whl", hash = "sha256:244a76a24355363a68164241438de1b72f8781664920260c48465896b712a41e"},
-    {file = "s3transfer-0.10.4.tar.gz", hash = "sha256:29edc09801743c21eb5ecbc617a152df41d3c287f67b615f73e5f750583666a7"},
+    {file = "s3transfer-0.14.0-py3-none-any.whl", hash = "sha256:ea3b790c7077558ed1f02a3072fb3cb992bbbd253392f4b6e9e8976941c7d456"},
+    {file = "s3transfer-0.14.0.tar.gz", hash = "sha256:eff12264e7c8b4985074ccce27a3b38a485bb7f7422cc8046fee9be4983e4125"},
 ]
 
 [package.dependencies]
-botocore = ">=1.33.2,<2.0a.0"
+botocore = ">=1.37.4,<2.0a.0"
 
 [package.extras]
-crt = ["botocore[crt] (>=1.33.2,<2.0a.0)"]
+crt = ["botocore[crt] (>=1.37.4,<2.0a.0)"]
 
 [[package]]
 name = "secretstorage"
@@ -4635,4 +4639,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "3.12.9"
-content-hash = "4ce0d21405d7038a4019d2320ce218d33024ee75c00874463ea2411fd4b5016f"
+content-hash = "800d56289f853afcc00871110b1c2e8b1d26689d9f38c9c8d9c9413535de8c38"
