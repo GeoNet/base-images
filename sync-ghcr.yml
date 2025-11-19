@@ -23,8 +23,10 @@ docker.io:
       - '8.10'
     redhat/ubi10:
       - '10.0'
+      - '10.1'
     redhat/ubi10-minimal:
-      - '10.0'   
+      - '10.0'
+      - '10.1'
     debian:
       - 'trixie-slim'
       - 'bookworm-slim'
@@ -72,11 +74,11 @@ quay.io:
     fedora/fedora-coreos:
       - stable
     fedora/fedora:
-      - '39'
-      - '40'
       - '41'
-      - '40-aarch64'
+      - '42'
+      - '43'
       - '41-aarch64'
+      - '42-aarch64'
     centos/centos:
       - stream9
       - stream10
