@@ -3,6 +3,7 @@ docker.io:
   images-by-semver:
     vmware/govc: ">= v0.37.0"
     grafana/grafana-oss: ">= 11.1.0"
+    grafana/grafana: ">= 12.4.0"
   images-by-tag-regex:
     golang: ^1\.24(\.[0-9]+)?-alpine3\.22$
   images:
