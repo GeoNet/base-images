@@ -38,6 +38,7 @@ docker.io:
     hashicorp/tfc-agent:
       - '1.17.3'
     python:
+      - 3.11-trixie
       - 3.11-bookworm
       - 3.12.9-bookworm
       - 3.11.4-bullseye
