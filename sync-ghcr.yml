@@ -5,19 +5,18 @@ docker.io:
     grafana/grafana-oss: ">= 11.1.0"
     grafana/grafana: ">= 12.4.0"
   images-by-tag-regex:
-    golang: ^1\.24(\.[0-9]+)?-alpine3\.22$
+    golang: ^1\.2[4|5](\.[0-9]+)?-alpine3\.2[2|3]$
   images:
     alpine:
+      - '3.23'
       - '3.22'
       - '3.21'
       - '3.20'
-      - '3.19'
-      - '3.18'
     almalinux:
       - '8.10'
       - '8.10-minimal'
-      - '9.5'
-      - '9.5-minimal'
+      - '9.7'
+      - '9.7-minimal'
     redhat/ubi8:
       - '8.10'
     redhat/ubi8-minimal:
@@ -76,11 +75,10 @@ quay.io:
     fedora/fedora-coreos:
       - stable
     fedora/fedora:
-      - '41'
       - '42'
       - '43'
-      - '41-aarch64'
       - '42-aarch64'
+      - '43-aarch64'
     centos/centos:
       - stream9
       - stream10
