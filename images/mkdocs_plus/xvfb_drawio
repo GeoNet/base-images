@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Wrapper around draw.io in docker
-
-BIN="/usr/bin/drawiobin"
-
-echo "$@"
-
-xvfb-run --auto-servernum ${BIN} "$@" --no-sandbox
