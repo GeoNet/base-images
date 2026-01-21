@@ -93,10 +93,10 @@ quay.io:
 
 cgr.dev:
   tls-verify: true
-  images-by-semver:
-    chainguard/curl: ">= 8.1.2"
   images:
     chainguard/nginx:
+      - 'latest'
+    chainguard/curl:
       - 'latest'
 
 ghcr.io:
