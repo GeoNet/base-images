@@ -32,6 +32,8 @@ docker.io:
     debian:
       - 'trixie-slim'
       - 'bookworm-slim'
+    grafana/grafana: 
+     - latest
     hadolint/hadolint:
       - 'v2.12.0-alpine'
     hashicorp/packer:
@@ -59,16 +61,21 @@ docker.io:
       - 'v4.0.1'
     victoriametrics/victoria-metrics:
       - 'v1.117.1'
+      - 'latest'
     victoriametrics/victoria-logs:
       - 'v1.28.0'
+      - 'latest'
     victoriametrics/vmalert:
       - 'v1.125.1'
+      - 'latest'
     victoriametrics/vmagent:
       - 'v1.126.0'
+      - 'latest'
     risingwavelabs/risingwave:
       - 'v2.6.0'
     eclipse-mosquitto:
       - '2.0.22'
+      - 'latest'
 quay.io:
   tls-verify: true
   images:
@@ -85,6 +92,17 @@ quay.io:
     skopeo/stable:
       - 'v1.16'
       - 'v1.17'
+    prometheus/prometheus:  
+     - latest
+    prometheus/snmp-exporter: 
+     - latest
+    prometheus/blackbox-exporter: 
+     - latest
+    prometheus/alertmanager:  
+     - latest
+    prometheus/node-exporter: 
+     - latest
+      
   images-by-semver:
     prometheus/prometheus: ">= v2.53.0"
     prometheus/snmp-exporter: ">= v0.26.0"
