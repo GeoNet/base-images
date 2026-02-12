@@ -92,6 +92,7 @@ quay.io:
     skopeo/stable:
       - 'v1.16'
       - 'v1.17'
+      - 'v1.22'
     prometheus/prometheus:  
      - latest
     prometheus/snmp-exporter: 
@@ -102,14 +103,14 @@ quay.io:
      - latest
     prometheus/node-exporter: 
      - latest
-      
+
   images-by-semver:
     prometheus/prometheus: ">= v2.53.0"
     prometheus/snmp-exporter: ">= v0.26.0"
     prometheus/blackbox-exporter: ">= v0.25.0"
     prometheus/alertmanager: ">= v0.28.1"
     prometheus/node-exporter: ">= v1.10.2"
-    
+
 cgr.dev:
   tls-verify: true
   images:
