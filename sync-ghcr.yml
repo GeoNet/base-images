@@ -77,6 +77,9 @@ docker.io:
     eclipse-mosquitto:
       - '2.0.22'
       - 'latest'
+    postgres:
+      - '16.13-alpine'
+
 quay.io:
   tls-verify: true
   images:

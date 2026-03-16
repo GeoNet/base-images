@@ -94,6 +94,7 @@ list of vendored base images
 | ghcr.io/geonet/base-images/victoria-logs                        | Victoria logs storage and analysis of log messages                             |
 | ghcr.io/geonet/base-images/vmalert                              | Victoria metrics alerting agent                                                |
 | ghcr.io/geonet/base-images/vmagent                              | Victoria metrics agent for collecting metrics                                  |
+| ghcr.io/geonet/base-images/postgres                             | Postgres database as used for example in seiscomp                              |
 
 for tags, check [config.yaml](./config.yaml).
 
