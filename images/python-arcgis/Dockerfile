@@ -1,4 +1,4 @@
-FROM ghcr.io/geonet/base-images/python:3.12.9-bookworm
+FROM ghcr.io/geonet/base-images/python:3.12.13-trixie
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates tzdata \
