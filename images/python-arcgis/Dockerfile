@@ -25,7 +25,10 @@ RUN pipx inject poetry poetry-plugin-bundle==1.7.0
 COPY pyproject.toml .
 COPY poetry.lock .
 ENV PATH="${PATH}:/root/.local/bin"
-RUN poetry install --no-root --only main --no-directory
+RUN poetry install --no-root --only main --no-directory \
+ && rm -rf /root/.cache/pip \
+ && rm -rf /root/.cache/pypoetry/artifacts \
+ && rm -rf /root/.cache/pypoetry/cache
 
 # Delete Poetry files from image.
 RUN rm pyproject.toml
